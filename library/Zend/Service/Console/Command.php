@@ -176,7 +176,7 @@ class Zend_Service_Console_Command
 		}
 
 		// Mising parameters?
-		if (count($missingParameterValues) > 0) {
+		if (count(\Zend_Tool_Migration::forCount($missingParameterValues)) > 0) {
 			self::stderr("Some parameters are missing:\r\n" . implode("\r\n", $missingParameterValues));
 			die();
 		}
@@ -209,7 +209,7 @@ class Zend_Service_Console_Command
 			$type = new ReflectionClass($class);
 
 			$handlers = self::_findValueForDocComment('@command-handler', $type->getDocComment());
-			if (count($handlers) == 0 && $type->isSubclassOf('Zend_Service_Console_Command')) {
+			if (count(\Zend_Tool_Migration::forCount($handlers)) == 0 && $type->isSubclassOf('Zend_Service_Console_Command')) {
 				// Fallback: if the class extends Zend_Service_Console_Command, register it as
 				// a command handler.
 				$handlers[] = $class;
@@ -218,7 +218,7 @@ class Zend_Service_Console_Command
 			$handlerHeaders = self::_findValueForDocComment('@command-handler-header', $type->getDocComment());
 			$handlerFooters = self::_findValueForDocComment('@command-handler-footer', $type->getDocComment());
 
-			for ($hi = 0; $hi < count($handlers); $hi++) {
+			for ($hi = 0; $hi < count(\Zend_Tool_Migration::forCount($handlers)); $hi++) {
 				$handler = $handlers[$hi];
 				$handlerDescription = isset($handlerDescriptions[$hi]) ? $handlerDescriptions[$hi] : isset($handlerDescriptions[0]) ? $handlerDescriptions[0] : '';
 				$handlerDescription = str_replace('\r\n', "\r\n", $handlerDescription);
@@ -241,14 +241,14 @@ class Zend_Service_Console_Command
 						// register it as a command.
 						$commands[] = substr($method->getName(), 0, -7);
 					}
-			       	for ($x = 0; $x < count($commands); $x++) {
+			       	for ($x = 0; $x < count(\Zend_Tool_Migration::forCount($commands)); $x++) {
 			       		$commands[$x] = strtolower($commands[$x]);
 			       	}
 			       	$commands = array_unique($commands);
 			       	$commandDescriptions = self::_findValueForDocComment('@command-description', $method->getDocComment());
 			       	$commandExamples = self::_findValueForDocComment('@command-example', $method->getDocComment());
 
-			       	if (count($commands) > 0) {
+			       	if (count(\Zend_Tool_Migration::forCount($commands)) > 0) {
 						$command = $commands[0];
 						$commandDescription = isset($commandDescriptions[0]) ? $commandDescriptions[0] : '';
 
@@ -264,7 +264,7 @@ class Zend_Service_Console_Command
 
 						$parameters = $method->getParameters();
 						$parametersFor = self::_findValueForDocComment('@command-parameter-for', $method->getDocComment());
-						for ($pi = 0; $pi < count($parameters); $pi++) {
+						for ($pi = 0; $pi < count(\Zend_Tool_Migration::forCount($parameters)); $pi++) {
 							// Initialize
 							$parameter = $parameters[$pi];
 							$parameterFor = null;
@@ -364,7 +364,7 @@ class Zend_Service_Console_Command
 		$handler = $this->getHandler();
 		$newline = "\r\n";
 
-		if (count($handler->headers) > 0) {
+		if (count(\Zend_Tool_Migration::forCount($handler->headers)) > 0) {
 			foreach ($handler->headers as $header) {
 				printf('%s%s', $header, $newline);
 			}
@@ -376,16 +376,16 @@ class Zend_Service_Console_Command
 		foreach ($handler->commands as $command) {
 			$description = str_split($command->description, 50);
 			printf('  %-25s %s%s', implode(', ', $command->aliases), $description[0], $newline);
-			for ($di = 1; $di < count($description); $di++) {
+			for ($di = 1; $di < count(\Zend_Tool_Migration::forCount($description)); $di++) {
 				printf('  %-25s %s%s', '', $description[$di], $newline);
 			}
 			printf($newline);
 
-			if (count($command->parameters) > 0) {
+			if (count(\Zend_Tool_Migration::forCount($command->parameters)) > 0) {
 				foreach ($command->parameters as $parameter) {
 					$description = str_split($parameter->description, 50);
 					printf('    %-23s %s%s', implode(', ', $parameter->aliases), $description[0], $newline);
-					for ($di = 1; $di < count($description); $di++) {
+					for ($di = 1; $di < count(\Zend_Tool_Migration::forCount($description)); $di++) {
 						printf('    %-23s %s%s', '', $description[$di], $newline);
 					}
 					printf($newline);
@@ -393,7 +393,7 @@ class Zend_Service_Console_Command
 			}
 			printf($newline);
 
-			if (count($command->examples) > 0) {
+			if (count(\Zend_Tool_Migration::forCount($command->examples)) > 0) {
 				printf('    Example usage:%s', $newline);
 				foreach ($command->examples as $example) {
 					printf('      %s%s', $example, $newline);
@@ -402,7 +402,7 @@ class Zend_Service_Console_Command
 			}
 		}
 
-		if (count($handler->footers) > 0) {
+		if (count(\Zend_Tool_Migration::forCount($handler->footers)) > 0) {
 			printf($newline);
 			foreach ($handler->footers as $footer) {
 				printf('%s%s', $footer, $newline);

@@ -89,7 +89,7 @@ class Zend_Cloud_Infrastructure_ImageList implements Countable, Iterator, ArrayA
      */
     public function count()
     {
-        return count($this->images);
+        return count(\Zend_Tool_Migration::forCount($this->images));
     }
 
     /**

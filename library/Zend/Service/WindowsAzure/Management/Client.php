@@ -357,7 +357,7 @@ class Zend_Service_WindowsAzure_Management_Client
      */
     public static function createQueryStringFromArray($queryString)
     {
-    	return count($queryString) > 0 ? '?' . implode('&', $queryString) : '';
+    	return count(\Zend_Tool_Migration::forCount($queryString)) > 0 ? '?' . implode('&', $queryString) : '';
     }
     
 	/**
@@ -625,7 +625,7 @@ class Zend_Service_WindowsAzure_Management_Client
     		if (!$result->StorageService) {
 				return array();
 			}
-		    if (count($result->StorageService) > 1) {
+		    if (count(\Zend_Tool_Migration::forCount($result->StorageService)) > 1) {
     		    $xmlServices = $result->StorageService;
     		} else {
     		    $xmlServices = array($result->StorageService);
@@ -633,7 +633,7 @@ class Zend_Service_WindowsAzure_Management_Client
     		
 			$services = array();
 			if (!is_null($xmlServices)) {				
-				for ($i = 0; $i < count($xmlServices); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlServices)); $i++) {
 					$services[] = new Zend_Service_WindowsAzure_Management_StorageServiceInstance(
 					    (string)$xmlServices[$i]->Url,
 					    (string)$xmlServices[$i]->ServiceName
@@ -782,7 +782,7 @@ class Zend_Service_WindowsAzure_Management_Client
     		if (!$result->HostedService) {
 				return array();
 			}
-		    if (count($result->HostedService) > 1) {
+		    if (count(\Zend_Tool_Migration::forCount($result->HostedService)) > 1) {
     		    $xmlServices = $result->HostedService;
     		} else {
     		    $xmlServices = array($result->HostedService);
@@ -791,7 +791,7 @@ class Zend_Service_WindowsAzure_Management_Client
 			$services = array();
 			if (!is_null($xmlServices)) {	
 				
-				for ($i = 0; $i < count($xmlServices); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlServices)); $i++) {
 					$services[] = new Zend_Service_WindowsAzure_Management_HostedServiceInstance(
 					    (string)$xmlServices[$i]->Url,
 					    (string)$xmlServices[$i]->ServiceName
@@ -940,7 +940,7 @@ class Zend_Service_WindowsAzure_Management_Client
 				);
 				
 				// Deployments
-		    	if (count($xmlService->Deployments->Deployment) > 1) {
+		    	if (count(\Zend_Tool_Migration::forCount($xmlService->Deployments->Deployment)) > 1) {
     		    	$xmlServices = $xmlService->Deployments->Deployment;
     			} else {
     		    	$xmlServices = array($xmlService->Deployments->Deployment);
@@ -1303,13 +1303,13 @@ class Zend_Service_WindowsAzure_Management_Client
 			// Append role instances
 			if ($xmlService->RoleInstanceList && $xmlService->RoleInstanceList->RoleInstance) {
 				$xmlRoleInstances = $xmlService->RoleInstanceList->RoleInstance;
-				if (count($xmlService->RoleInstanceList->RoleInstance) == 1) {
+				if (count(\Zend_Tool_Migration::forCount($xmlService->RoleInstanceList->RoleInstance)) == 1) {
 		    	    $xmlRoleInstances = array($xmlService->RoleInstanceList->RoleInstance);
 		    	}
 		    		
 				$roleInstances = array();
 				if (!is_null($xmlRoleInstances)) {				
-					for ($i = 0; $i < count($xmlRoleInstances); $i++) {
+					for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlRoleInstances)); $i++) {
 						$roleInstances[] = array(
 						    'rolename' => (string)$xmlRoleInstances[$i]->RoleName,
 						    'instancename' => (string)$xmlRoleInstances[$i]->InstanceName,
@@ -1324,13 +1324,13 @@ class Zend_Service_WindowsAzure_Management_Client
 			// Append roles
 			if ($xmlService->RoleList && $xmlService->RoleList->Role) {
 				$xmlRoles = $xmlService->RoleList->Role;
-				if (count($xmlService->RoleList->Role) == 1) {
+				if (count(\Zend_Tool_Migration::forCount($xmlService->RoleList->Role)) == 1) {
 		    	    $xmlRoles = array($xmlService->RoleList->Role);
 		    	}
 	    		
 				$roles = array();
 				if (!is_null($xmlRoles)) {				
-					for ($i = 0; $i < count($xmlRoles); $i++) {
+					for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlRoles)); $i++) {
 						$roles[] = array(
 						    'rolename' => (string)$xmlRoles[$i]->RoleName,
 						    'osversion' => (!is_null($xmlRoles[$i]->OsVersion) ? (string)$xmlRoles[$i]->OsVersion : (string)$xmlRoles[$i]->OperatingSystemVersion)					
@@ -1437,10 +1437,10 @@ class Zend_Service_WindowsAzure_Management_Client
 		$namespaces = $xml->getDocNamespaces();
 	    $xml->registerXPathNamespace('__empty_ns', $namespaces['']); 
 	
-		for ($i = 0; $i < count($roleName); $i++) {
+		for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($roleName)); $i++) {
 			$elements = $xml->xpath('//__empty_ns:Role[@name="' . $roleName[$i] . '"]/__empty_ns:Instances');
 	
-			if (count($elements) == 1) {
+			if (count(\Zend_Tool_Migration::forCount($elements)) == 1) {
 				$element = $elements[0];
 				$element['count'] = $instanceCount[$i];
 			} 
@@ -1900,7 +1900,7 @@ class Zend_Service_WindowsAzure_Management_Client
 			if (!$result->Certificate) {
 				return array();
 			}
-		    if (count($result->Certificate) > 1) {
+		    if (count(\Zend_Tool_Migration::forCount($result->Certificate)) > 1) {
     		    $xmlServices = $result->Certificate;
     		} else {
     		    $xmlServices = array($result->Certificate);
@@ -1909,7 +1909,7 @@ class Zend_Service_WindowsAzure_Management_Client
 			$services = array();
 			if (!is_null($xmlServices)) {				
 				
-				for ($i = 0; $i < count($xmlServices); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlServices)); $i++) {
 					$services[] = new Zend_Service_WindowsAzure_Management_CertificateInstance(
 					    (string)$xmlServices[$i]->CertificateUrl,
 					    (string)$xmlServices[$i]->Thumbprint,
@@ -2060,7 +2060,7 @@ class Zend_Service_WindowsAzure_Management_Client
     		if (!$result->AffinityGroup) {
 				return array();
 			}
-		    if (count($result->AffinityGroup) > 1) {
+		    if (count(\Zend_Tool_Migration::forCount($result->AffinityGroup)) > 1) {
     		    $xmlServices = $result->AffinityGroup;
     		} else {
     		    $xmlServices = array($result->AffinityGroup);
@@ -2069,7 +2069,7 @@ class Zend_Service_WindowsAzure_Management_Client
 			$services = array();
 			if (!is_null($xmlServices)) {				
 				
-				for ($i = 0; $i < count($xmlServices); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlServices)); $i++) {
 					$services[] = new Zend_Service_WindowsAzure_Management_AffinityGroupInstance(
 					    (string)$xmlServices[$i]->Name,
 					    (string)$xmlServices[$i]->Label,
@@ -2213,7 +2213,7 @@ class Zend_Service_WindowsAzure_Management_Client
 			);
 
 			// Hosted services
-			if (count($result->HostedServices->HostedService) > 1) {
+			if (count(\Zend_Tool_Migration::forCount($result->HostedServices->HostedService)) > 1) {
 		    	$xmlService = $result->HostedServices->HostedService;
 		    } else {
 		    	$xmlService = array($result->HostedServices->HostedService);
@@ -2221,7 +2221,7 @@ class Zend_Service_WindowsAzure_Management_Client
 		    		
 			$services = array();
 			if (!is_null($xmlService)) {				
-				for ($i = 0; $i < count($xmlService); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlService)); $i++) {
 					$services[] = array(
 						'url' => (string)$xmlService[$i]->Url,
 						'name' => (string)$xmlService[$i]->ServiceName
@@ -2231,7 +2231,7 @@ class Zend_Service_WindowsAzure_Management_Client
 			$affinityGroup->HostedServices = $services;
 			
 			// Storage services
-			if (count($result->StorageServices->StorageService) > 1) {
+			if (count(\Zend_Tool_Migration::forCount($result->StorageServices->StorageService)) > 1) {
 		    	$xmlService = $result->StorageServices->StorageService;
 		    } else {
 		    	$xmlService = array($result->StorageServices->StorageService);
@@ -2239,7 +2239,7 @@ class Zend_Service_WindowsAzure_Management_Client
 		    		
 			$services = array();
 			if (!is_null($xmlService)) {				
-				for ($i = 0; $i < count($xmlService); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlService)); $i++) {
 					$services[] = array(
 						'url' => (string)$xmlService[$i]->Url,
 						'name' => (string)$xmlService[$i]->ServiceName
@@ -2272,7 +2272,7 @@ class Zend_Service_WindowsAzure_Management_Client
     		if (!$result->Location) {
 				return array();
 			}
-		    if (count($result->Location) > 1) {
+		    if (count(\Zend_Tool_Migration::forCount($result->Location)) > 1) {
     		    $xmlServices = $result->Location;
     		} else {
     		    $xmlServices = array($result->Location);
@@ -2281,7 +2281,7 @@ class Zend_Service_WindowsAzure_Management_Client
 			$services = array();
 			if (!is_null($xmlServices)) {				
 				
-				for ($i = 0; $i < count($xmlServices); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlServices)); $i++) {
 					$services[] = new Zend_Service_WindowsAzure_Management_LocationInstance(
 					    (string)$xmlServices[$i]->Name
 					);
@@ -2316,7 +2316,7 @@ class Zend_Service_WindowsAzure_Management_Client
     		if (!$result->OperatingSystem) {
 				return array();
 			}
-		    if (count($result->OperatingSystem) > 1) {
+		    if (count(\Zend_Tool_Migration::forCount($result->OperatingSystem)) > 1) {
     		    $xmlServices = $result->OperatingSystem;
     		} else {
     		    $xmlServices = array($result->OperatingSystem);
@@ -2325,7 +2325,7 @@ class Zend_Service_WindowsAzure_Management_Client
 			$services = array();
 			if (!is_null($xmlServices)) {				
 				
-				for ($i = 0; $i < count($xmlServices); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlServices)); $i++) {
 					$services[] = new Zend_Service_WindowsAzure_Management_OperatingSystemInstance(
 					    (string)$xmlServices[$i]->Version,
 					    (string)$xmlServices[$i]->Label,
@@ -2365,7 +2365,7 @@ class Zend_Service_WindowsAzure_Management_Client
     		if (!$result->OperatingSystemFamily) {
 				return array();
 			}
-		    if (count($result->OperatingSystemFamily) > 1) {
+		    if (count(\Zend_Tool_Migration::forCount($result->OperatingSystemFamily)) > 1) {
     		    $xmlServices = $result->OperatingSystemFamily;
     		} else {
     		    $xmlServices = array($result->OperatingSystemFamily);
@@ -2374,13 +2374,13 @@ class Zend_Service_WindowsAzure_Management_Client
 			$services = array();
 			if (!is_null($xmlServices)) {				
 				
-				for ($i = 0; $i < count($xmlServices); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlServices)); $i++) {
 					$services[] = new Zend_Service_WindowsAzure_Management_OperatingSystemFamilyInstance(
 					    (string)$xmlServices[$i]->Name,
 					    (string)$xmlServices[$i]->Label
 					);
 								
-					if (count($xmlServices[$i]->OperatingSystems->OperatingSystem) > 1) {
+					if (count(\Zend_Tool_Migration::forCount($xmlServices[$i]->OperatingSystems->OperatingSystem)) > 1) {
 		    		    $xmlOperatingSystems = $xmlServices[$i]->OperatingSystems->OperatingSystem;
 		    		} else {
 		    		    $xmlOperatingSystems = array($xmlServices[$i]->OperatingSystems->OperatingSystem);
@@ -2389,7 +2389,7 @@ class Zend_Service_WindowsAzure_Management_Client
 					$operatingSystems = array();
 					if (!is_null($xmlOperatingSystems)) {				
 						require_once 'Zend/Service/WindowsAzure/Management/OperatingSystemInstance.php';
-						for ($i = 0; $i < count($xmlOperatingSystems); $i++) {
+						for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlOperatingSystems)); $i++) {
 							$operatingSystems[] = new Zend_Service_WindowsAzure_Management_OperatingSystemInstance(
 							    (string)$xmlOperatingSystems[$i]->Version,
 							    (string)$xmlOperatingSystems[$i]->Label,
@@ -2400,7 +2400,7 @@ class Zend_Service_WindowsAzure_Management_Client
 							);
 						}
 					}
-					$services[ count($services) - 1 ]->OperatingSystems = $operatingSystems;
+					$services[ count(\Zend_Tool_Migration::forCount($services)) - 1 ]->OperatingSystems = $operatingSystems;
 				}
 			}
 			return $services;

@@ -189,15 +189,15 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
                 $this->_moduleValid        = true;
             }
 
-            if (count($path) && !empty($path[0])) {
+            if (count(\Zend_Tool_Migration::forCount($path)) && !empty($path[0])) {
                 $values[$this->_controllerKey] = array_shift($path);
             }
 
-            if (count($path) && !empty($path[0])) {
+            if (count(\Zend_Tool_Migration::forCount($path)) && !empty($path[0])) {
                 $values[$this->_actionKey] = array_shift($path);
             }
 
-            if ($numSegs = count($path)) {
+            if ($numSegs = count(\Zend_Tool_Migration::forCount($path))) {
                 for ($i = 0; $i < $numSegs; $i = $i + 2) {
                     $key          = urldecode($path[$i]);
                     $val          = isset($path[$i + 1]) ? urldecode($path[$i + 1]) : null;

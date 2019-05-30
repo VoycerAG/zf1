@@ -309,7 +309,7 @@ class Zend_View_Helper_Navigation_Links
                     }
                 }
 
-                return count($result) == 1 ? $result[0] : $result;
+                return count(\Zend_Tool_Migration::forCount($result)) == 1 ? $result[0] : $result;
             }
         }
 
@@ -465,7 +465,7 @@ class Zend_View_Helper_Navigation_Links
             }
         }
 
-        switch (count($found)) {
+        switch (count(\Zend_Tool_Migration::forCount($found))) {
             case 0:
                 return null;
             case 1:
@@ -498,7 +498,7 @@ class Zend_View_Helper_Navigation_Links
             }
         }
 
-        switch (count($found)) {
+        switch (count(\Zend_Tool_Migration::forCount($found))) {
             case 0:
                 return null;
             case 1:
@@ -537,7 +537,7 @@ class Zend_View_Helper_Navigation_Links
             }
         }
 
-        switch (count($found)) {
+        switch (count(\Zend_Tool_Migration::forCount($found))) {
             case 0:
                 return null;
             case 1:

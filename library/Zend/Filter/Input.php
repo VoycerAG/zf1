@@ -936,7 +936,7 @@ class Zend_Filter_Input
 
                     $validatorRule[self::VALIDATOR_CHAIN]->addValidator($validator, $validatorRule[self::BREAK_CHAIN]);
                 }
-                $validatorRule[self::VALIDATOR_CHAIN_COUNT] = count($validatorList);
+                $validatorRule[self::VALIDATOR_CHAIN_COUNT] = count(\Zend_Tool_Migration::forCount($validatorList));
             }
 
             /**
@@ -1017,7 +1017,7 @@ class Zend_Filter_Input
         /**
          * If any required fields are missing, break the loop.
          */
-        if (isset($this->_missingFields[$validatorRule[self::RULE]]) && count($this->_missingFields[$validatorRule[self::RULE]]) > 0) {
+        if (isset($this->_missingFields[$validatorRule[self::RULE]]) && count(\Zend_Tool_Migration::forCount($this->_missingFields[$validatorRule[self::RULE]])) > 0) {
             return;
         }
 
@@ -1062,7 +1062,7 @@ class Zend_Filter_Input
                 $this->_invalidErrors[$validatorRule[self::RULE]] = $validatorRule[self::VALIDATOR_CHAIN]->getErrors();
                 return;
             }
-        } else if (count($data) > 0) {
+        } else if (count(\Zend_Tool_Migration::forCount($data)) > 0) {
             // $data is actually a one element array
             $fieldNames = array_keys($data);
             $fieldName = reset($fieldNames);

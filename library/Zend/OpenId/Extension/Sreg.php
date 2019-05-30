@@ -120,7 +120,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
      */
     public function prepareRequest(&$params)
     {
-        if (is_array($this->_props) && count($this->_props) > 0) {
+        if (is_array($this->_props) && count(\Zend_Tool_Migration::forCount($this->_props)) > 0) {
             foreach ($this->_props as $prop => $req) {
                 if ($req) {
                     if (isset($required)) {
@@ -193,7 +193,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
             }
         }
 
-        $this->_props = (count($props2) > 0) ? $props2 : null;
+        $this->_props = (count(\Zend_Tool_Migration::forCount($props2)) > 0) ? $props2 : null;
         return true;
     }
 
@@ -205,7 +205,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
      */
     public function prepareResponse(&$params)
     {
-        if (is_array($this->_props) && count($this->_props) > 0) {
+        if (is_array($this->_props) && count(\Zend_Tool_Migration::forCount($this->_props)) > 0) {
             if ($this->_version >= 1.1) {
                 $params['openid.ns.sreg'] = Zend_OpenId_Extension_Sreg::NAMESPACE_1_1;
             }
@@ -248,7 +248,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
                 }
             }
         }
-        $this->_props = (count($props) > 0) ? $props : null;
+        $this->_props = (count(\Zend_Tool_Migration::forCount($props)) > 0) ? $props : null;
         return true;
     }
 
@@ -275,7 +275,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
      */
     public function checkTrustData($data)
     {
-        if (is_array($this->_props) && count($this->_props) > 0) {
+        if (is_array($this->_props) && count(\Zend_Tool_Migration::forCount($this->_props)) > 0) {
             $props = array();
             $name = get_class();
             if (isset($data[$name])) {
@@ -293,7 +293,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
                     $props2[$prop] = $props[$prop];
                 }
             }
-            $this->_props = (count($props2) > 0) ? $props2 : null;
+            $this->_props = (count(\Zend_Tool_Migration::forCount($props2)) > 0) ? $props2 : null;
         }
         return true;
     }

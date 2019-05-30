@@ -102,7 +102,7 @@ class Zend_Tool_Project_Profile_Resource_Container implements RecursiveIterator,
                 $paramsMatch = true;
 
                 // @todo check to ensure params match (perhaps)
-                if (count($currentConstraint->params) > 0) {
+                if (count(\Zend_Tool_Migration::forCount($currentConstraint->params)) > 0) {
                     $currentResourceAttributes = $currentResource->getAttributes();
                     if (!is_array($currentConstraint->params)) {
                         require_once 'Zend/Tool/Project/Profile/Exception.php';
@@ -383,7 +383,7 @@ class Zend_Tool_Project_Profile_Resource_Container implements RecursiveIterator,
      */
     public function hasChildren()
     {
-        return (count($this->_subResources > 0)) ? true : false;
+        return (count(\Zend_Tool_Migration::forCount($this->_subResources > 0))) ? true : false;
     }
 
     /**
@@ -403,7 +403,7 @@ class Zend_Tool_Project_Profile_Resource_Container implements RecursiveIterator,
      */
     public function count()
     {
-        return count($this->_subResources);
+        return count(\Zend_Tool_Migration::forCount($this->_subResources));
     }
 
     /**

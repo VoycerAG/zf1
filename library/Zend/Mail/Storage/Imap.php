@@ -123,7 +123,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
         }
 
         if ($flags === null) {
-            return count($this->_protocol->search(array('ALL')));
+            return count(\Zend_Tool_Migration::forCount($this->_protocol->search(array('ALL'))));
         }
 
         $params = array();
@@ -135,7 +135,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
                 $params[] = $this->_protocol->escapeString($flag);
             }
         }
-        return count($this->_protocol->search($params));
+        return count(\Zend_Tool_Migration::forCount($this->_protocol->search($params)));
     }
 
     /**

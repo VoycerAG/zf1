@@ -228,7 +228,7 @@ class Zend_Tool_Project_Profile extends Zend_Tool_Project_Profile_Resource_Conta
             $rii = new RecursiveIteratorIterator($resource, RecursiveIteratorIterator::SELF_FIRST);
             foreach ($rii as $item) {
                 $string .= str_repeat('  ', $rii->getDepth()+1) . $item->getName()
-                        . ((count($attributes = $item->getAttributes()) > 0) ? ' [' . http_build_query($attributes) . ']' : '')
+                        . ((count(\Zend_Tool_Migration::forCount($attributes = $item->getAttributes())) > 0) ? ' [' . http_build_query($attributes) . ']' : '')
                         . PHP_EOL;
             }
         }

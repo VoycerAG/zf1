@@ -465,7 +465,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
             $this->_newDn = null;
             $this->_postRename();
         }
-        if (count($changedData) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($changedData)) > 0) {
             $this->_preUpdate();
             $ldap->update($this->_getDn(), $changedData);
             $this->_postUpdate();
@@ -633,7 +633,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
         foreach ($this->_currentData as $key => $value) {
             if (!array_key_exists($key, $this->_originalData) && !empty($value)) {
                 $changes['add'][$key] = $value;
-            } else if (count($this->_originalData[$key]) === 0 && !empty($value)) {
+            } else if (count(\Zend_Tool_Migration::forCount($this->_originalData[$key])) === 0 && !empty($value)) {
                 $changes['add'][$key] = $value;
             } else if ($this->_originalData[$key] !== $this->_currentData[$key]) {
                 if (empty($value)) {
@@ -1015,7 +1015,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
                 return false;
             }
         } else {
-            return (count($this->_children) > 0);
+            return (count(\Zend_Tool_Migration::forCount($this->_children)) > 0);
         }
     }
 

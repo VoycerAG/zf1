@@ -234,7 +234,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      */
     public static function getDefaultSearchField()
     {
-        if (count($this->_indices) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_indices)) == 0) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Indices list is empty');
         }
@@ -275,7 +275,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      */
     public static function getResultSetLimit()
     {
-        if (count($this->_indices) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_indices)) == 0) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Indices list is empty');
         }
@@ -305,7 +305,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      */
     public function getMaxBufferedDocs()
     {
-        if (count($this->_indices) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_indices)) == 0) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Indices list is empty');
         }
@@ -354,7 +354,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      */
     public function getMaxMergeDocs()
     {
-        if (count($this->_indices) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_indices)) == 0) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Indices list is empty');
         }
@@ -410,7 +410,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      */
     public function getMergeFactor()
     {
-        if (count($this->_indices) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_indices)) == 0) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Indices list is empty');
         }
@@ -462,7 +462,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      */
     public function find($query)
     {
-        if (count($this->_indices) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_indices)) == 0) {
             return array();
         }
 
@@ -704,7 +704,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
      */
     public function getSimilarity()
     {
-        if (count($this->_indices) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_indices)) == 0) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Indices list is empty');
         }

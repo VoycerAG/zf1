@@ -165,7 +165,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
     public function addField(Zend_Search_Lucene_Field $field)
     {
         if (!isset($this->_fields[$field->name])) {
-            $fieldNumber = count($this->_fields);
+            $fieldNumber = count(\Zend_Tool_Migration::forCount($this->_fields));
             $this->_fields[$field->name] =
                                 new Zend_Search_Lucene_Index_FieldInfo($field->name,
                                                                        $field->isIndexed,
@@ -192,7 +192,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
     public function addFieldInfo(Zend_Search_Lucene_Index_FieldInfo $fieldInfo)
     {
         if (!isset($this->_fields[$fieldInfo->name])) {
-            $fieldNumber = count($this->_fields);
+            $fieldNumber = count(\Zend_Tool_Migration::forCount($this->_fields));
             $this->_fields[$fieldInfo->name] =
                                 new Zend_Search_Lucene_Index_FieldInfo($fieldInfo->name,
                                                                        $fieldInfo->isIndexed,
@@ -234,7 +234,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
         }
 
         $this->_fdxFile->writeLong($this->_fdtFile->tell());
-        $this->_fdtFile->writeVInt(count($storedFields));
+        $this->_fdtFile->writeVInt(count(\Zend_Tool_Migration::forCount($storedFields)));
         foreach ($storedFields as $field) {
             $this->_fdtFile->writeVInt($this->_fields[$field->name]->number);
             $fieldBits = ($field->isTokenized ? 0x01 : 0x00) |
@@ -278,7 +278,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
     protected function _dumpFNM()
     {
         $fnmFile = $this->_directory->createFile($this->_name . '.fnm');
-        $fnmFile->writeVInt(count($this->_fields));
+        $fnmFile->writeVInt(count(\Zend_Tool_Migration::forCount($this->_fields)));
 
         $nrmFile = $this->_directory->createFile($this->_name . '.nrm');
         // Write header
@@ -445,9 +445,9 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
         foreach ($termDocs as $docId => $termPositions) {
             $docDelta = ($docId - $prevDoc)*2;
             $prevDoc = $docId;
-            if (count($termPositions) > 1) {
+            if (count(\Zend_Tool_Migration::forCount($termPositions)) > 1) {
                 $this->_frqFile->writeVInt($docDelta);
-                $this->_frqFile->writeVInt(count($termPositions));
+                $this->_frqFile->writeVInt(count(\Zend_Tool_Migration::forCount($termPositions)));
             } else {
                 $this->_frqFile->writeVInt($docDelta + 1);
             }
@@ -459,7 +459,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
             }
         }
 
-        if (count($termDocs) >= self::$skipInterval) {
+        if (count(\Zend_Tool_Migration::forCount($termDocs)) >= self::$skipInterval) {
             /**
              * @todo Write Skip Data to a freq file.
              * It's not used now, but make index more optimal
@@ -471,7 +471,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
 
         $term = new Zend_Search_Lucene_Index_Term($termEntry->text,
                                                   $this->_fields[$termEntry->field]->number);
-        $termInfo = new Zend_Search_Lucene_Index_TermInfo(count($termDocs),
+        $termInfo = new Zend_Search_Lucene_Index_TermInfo(count(\Zend_Tool_Migration::forCount($termDocs)),
                                                           $freqPointer, $proxPointer, $skipOffset);
 
         $this->_dumpTermDictEntry($this->_tisFile, $this->_prevTerm, $term, $this->_prevTermInfo, $termInfo);
@@ -591,7 +591,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
     protected function _generateCFS()
     {
         $cfsFile = $this->_directory->createFile($this->_name . '.cfs');
-        $cfsFile->writeVInt(count($this->_files));
+        $cfsFile->writeVInt(count(\Zend_Tool_Migration::forCount($this->_files)));
 
         $dataOffsetPointers = array();
         foreach ($this->_files as $fileName) {

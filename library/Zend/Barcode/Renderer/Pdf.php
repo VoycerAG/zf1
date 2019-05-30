@@ -80,7 +80,7 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
         $this->_resource = $pdf;
         $this->_page     = intval($page);
 
-        if (!count($this->_resource->pages)) {
+        if (!count(\Zend_Tool_Migration::forCount($this->_resource->pages))) {
             $this->_page = 0;
             $this->_resource->pages[] = new Zend_Pdf_Page(
                 Zend_Pdf_Page::SIZE_A4
@@ -139,7 +139,7 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
             $x[] = $point[0] * $this->_moduleSize + $this->_leftOffset;
             $y[] = $page->getHeight() - $point[1] * $this->_moduleSize - $this->_topOffset;
         }
-        if (count($y) == 4) {
+        if (count(\Zend_Tool_Migration::forCount($y)) == 4) {
             if ($x[0] != $x[3] && $y[0] == $y[3]) {
                 $y[0] -= ($this->_moduleSize / 2);
                 $y[3] -= ($this->_moduleSize / 2);

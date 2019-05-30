@@ -389,7 +389,7 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
         }
 
         $updateChildNavigation = false;
-        if (count($this->_originalChildOutlines) != count($this->childOutlines)) {
+        if (count(\Zend_Tool_Migration::forCount($this->_originalChildOutlines)) != count(\Zend_Tool_Migration::forCount($this->childOutlines))) {
             // If original and current children arrays have different size then children list was updated
             $updateChildNavigation = true;
         } else if ( !(array_keys($this->_originalChildOutlines) === array_keys($this->childOutlines)) ) {
@@ -429,8 +429,8 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
 
             $this->_outlineDictionary->Last  = $lastChild;
 
-            if (count($this->childOutlines) != 0) {
-                $this->_outlineDictionary->Count = new Zend_Pdf_Element_Numeric(($this->isOpen()? 1 : -1)*count($this->childOutlines));
+            if (count(\Zend_Tool_Migration::forCount($this->childOutlines)) != 0) {
+                $this->_outlineDictionary->Count = new Zend_Pdf_Element_Numeric(($this->isOpen()? 1 : -1)*count(\Zend_Tool_Migration::forCount($this->childOutlines)));
             } else {
                 $this->_outlineDictionary->Count = null;
             }
@@ -449,7 +449,7 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
 
     public function dump($level = 0)
     {
-        printf(":%3d:%s:%s:%s%s  :\n", count($this->childOutlines),$this->isItalic()? 'i':' ', $this->isBold()? 'b':' ', str_pad('', 4*$level), $this->getTitle());
+        printf(":%3d:%s:%s:%s%s  :\n", count(\Zend_Tool_Migration::forCount($this->childOutlines)),$this->isItalic()? 'i':' ', $this->isBold()? 'b':' ', str_pad('', 4*$level), $this->getTitle());
 
         if ($this->isOpen()  ||  true) {
             foreach ($this->childOutlines as $child) {

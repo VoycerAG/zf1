@@ -115,7 +115,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
         }
 
         if (is_array($offsets)) {
-            if (count($this->_terms) != count($offsets)) {
+            if (count(\Zend_Tool_Migration::forCount($this->_terms)) != count(\Zend_Tool_Migration::forCount($offsets))) {
                 require_once 'Zend/Search/Lucene/Exception.php';
                 throw new Zend_Search_Lucene_Exception('terms and offsets arguments must have the same size.');
             }
@@ -123,7 +123,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
         } else if ($offsets === null) {
             $this->_offsets = array();
             foreach ($this->_terms as $termId => $term) {
-                $position = count($this->_offsets);
+                $position = count(\Zend_Tool_Migration::forCount($this->_offsets));
                 $this->_offsets[$termId] = $position;
             }
         } else {
@@ -163,7 +163,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
      * @param integer $position
      */
     public function addTerm(Zend_Search_Lucene_Index_Term $term, $position = null) {
-        if ((count($this->_terms) != 0)&&(end($this->_terms)->field != $term->field)) {
+        if ((count(\Zend_Tool_Migration::forCount($this->_terms)) != 0)&&(end($this->_terms)->field != $term->field)) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('All phrase terms must be in the same field: ' .
                                                    $term->field . ':' . $term->text);
@@ -172,7 +172,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
         $this->_terms[] = $term;
         if ($position !== null) {
             $this->_offsets[] = $position;
-        } else if (count($this->_offsets) != 0) {
+        } else if (count(\Zend_Tool_Migration::forCount($this->_offsets)) != 0) {
             $this->_offsets[] = end($this->_offsets) + 1;
         } else {
             $this->_offsets[] = 0;
@@ -188,7 +188,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
      */
     public function rewrite(Zend_Search_Lucene_Interface $index)
     {
-        if (count($this->_terms) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_terms)) == 0) {
             require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
             return new Zend_Search_Lucene_Search_Query_Empty();
         } else if ($this->_terms[0]->field !== null) {
@@ -232,7 +232,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
             }
         }
 
-        if (count($this->_terms) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($this->_terms)) == 1) {
             // It's one term query
             require_once 'Zend/Search/Lucene/Search/Query/Term.php';
             $optimizedQuery = new Zend_Search_Lucene_Search_Query_Term(reset($this->_terms));
@@ -241,7 +241,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
             return $optimizedQuery;
         }
 
-        if (count($this->_terms) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_terms)) == 0) {
             require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
             return new Zend_Search_Lucene_Search_Query_Empty();
         }
@@ -303,8 +303,8 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
         // Calculate $lowCardTermId
         foreach ($this->_terms as $termId => $term) {
             if ($lowCardTermId === null ||
-                count($this->_termsPositions[$termId][$docId]) <
-                count($this->_termsPositions[$lowCardTermId][$docId]) ) {
+                count(\Zend_Tool_Migration::forCount($this->_termsPositions[$termId][$docId])) <
+                count(\Zend_Tool_Migration::forCount($this->_termsPositions[$lowCardTermId][$docId])) ) {
                     $lowCardTermId = $termId;
                 }
         }
@@ -349,7 +349,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
 
         // Walk through the terms to create phrases.
         foreach ($this->_terms as $termId => $term) {
-            $queueSize = count($phraseQueue);
+            $queueSize = count(\Zend_Tool_Migration::forCount($phraseQueue));
             $firstPass = true;
 
             // Walk through the term positions.
@@ -367,7 +367,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
                             continue;
                         }
 
-                        $newPhraseId = count($phraseQueue);
+                        $newPhraseId = count(\Zend_Tool_Migration::forCount($phraseQueue));
                         $phraseQueue[$newPhraseId]          = $phraseQueue[$count];
                         $phraseQueue[$newPhraseId][$termId] = $termPosition;
                     }
@@ -419,7 +419,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
     {
         $this->_resVector = null;
 
-        if (count($this->_terms) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_terms)) == 0) {
             $this->_resVector = array();
         }
 
@@ -428,7 +428,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
         $resVectorsIds   = array(); // is used to prevent arrays comparison
         foreach ($this->_terms as $termId => $term) {
             $resVectors[]      = array_flip($reader->termDocs($term));
-            $resVectorsSizes[] = count(end($resVectors));
+            $resVectorsSizes[] = count(\Zend_Tool_Migration::forCount(end($resVectors)));
             $resVectorsIds[]   = $termId;
 
             $this->_termsPositions[$termId] = $reader->termPositions($term);
@@ -456,7 +456,7 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
                 $this->_resVector = $updatedVector;
             }
 
-            if (count($this->_resVector) == 0) {
+            if (count(\Zend_Tool_Migration::forCount($this->_resVector)) == 0) {
                 // Empty result set, we don't need to check other terms
                 break;
             }

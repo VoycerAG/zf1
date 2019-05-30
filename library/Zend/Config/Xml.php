@@ -210,7 +210,7 @@ class Zend_Config_Xml extends Zend_Config
         $nsAttributes = $xmlObject->attributes(self::XML_NAMESPACE);
 
         // Search for parent node values
-        if (count($xmlObject->attributes()) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($xmlObject->attributes())) > 0) {
             foreach ($xmlObject->attributes() as $key => $value) {
                 if ($key === 'extends') {
                     continue;
@@ -231,8 +231,8 @@ class Zend_Config_Xml extends Zend_Config
         }
 
         // Search for local 'const' nodes and replace them
-        if (count($xmlObject->children(self::XML_NAMESPACE)) > 0) {
-            if (count($xmlObject->children()) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($xmlObject->children(self::XML_NAMESPACE))) > 0) {
+            if (count(\Zend_Tool_Migration::forCount($xmlObject->children())) > 0) {
                 require_once 'Zend/Config/Exception.php';
                 throw new Zend_Config_Exception("A node with a 'const' childnode may not have any other children");
             }
@@ -278,11 +278,11 @@ class Zend_Config_Xml extends Zend_Config
         }
 
         // Search for children
-        if (count($xmlObject->children()) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($xmlObject->children())) > 0) {
             foreach ($xmlObject->children() as $key => $value) {
-                if (count($value->children()) > 0 || count($value->children(self::XML_NAMESPACE)) > 0) {
+                if (count(\Zend_Tool_Migration::forCount($value->children())) > 0 || count(\Zend_Tool_Migration::forCount($value->children(self::XML_NAMESPACE))) > 0) {
                     $value = $this->_toArray($value);
-                } else if (count($value->attributes()) > 0) {
+                } else if (count(\Zend_Tool_Migration::forCount($value->attributes())) > 0) {
                     $attributes = $value->attributes();
                     if (isset($attributes['value'])) {
                         $value = (string) $attributes['value'];
@@ -303,7 +303,7 @@ class Zend_Config_Xml extends Zend_Config
                     $config[$key] = $value;
                 }
             }
-        } else if (!isset($xmlObject['extends']) && !isset($nsAttributes['extends']) && (count($config) === 0)) {
+        } else if (!isset($xmlObject['extends']) && !isset($nsAttributes['extends']) && (count(\Zend_Tool_Migration::forCount($config)) === 0)) {
             // Object has no children nor attributes and doesn't use the extends
             // attribute: it's a string
             $config = (string) $xmlObject;

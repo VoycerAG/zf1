@@ -129,7 +129,7 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
         $tree = "";
         foreach($configArray AS $k => $v) {
             $i++;
-            $tree .= $this->_printTree($k, $v, 1, count($configArray)==$i);
+            $tree .= $this->_printTree($k, $v, 1, count(\Zend_Tool_Migration::forCount($configArray))==$i);
         }
         $resp->appendContent("User Configuration: ".$userConfig->getConfigFilepath(), array("color" => "green"));
         $resp->appendContent($tree, array("indention" => 2));
@@ -171,7 +171,7 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
             $i = 0;
             foreach ($value as $k => $v) {
                 $i++;
-                $tree .= $this->_printTree($k, $v, $level+1, (count($value)==$i));
+                $tree .= $this->_printTree($k, $v, $level+1, (count(\Zend_Tool_Migration::forCount($value))==$i));
             }
         } else {
             $tree .= $prefix.$pointer.$key.": ".trim($value).PHP_EOL;
@@ -220,7 +220,7 @@ class Zend_Tool_Framework_System_Provider_Config extends Zend_Tool_Framework_Pro
 
         $providerClasses = $userConfig->basicloader->classes->toArray();
         if (!in_array($className, $providerClasses)) {
-            if (count($providerClasses)) {
+            if (count(\Zend_Tool_Migration::forCount($providerClasses))) {
                 $pos = max(array_keys($providerClasses))+1;
             } else {
                 $pos = 0;

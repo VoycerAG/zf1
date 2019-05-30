@@ -140,7 +140,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
      */
     public function append($row)
     {
-        $this->_columnCount = count($row);
+        $this->_columnCount = count(\Zend_Tool_Migration::forCount($row));
         $this->_fetchStack[] = $row;
     }
 
@@ -266,7 +266,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
      */
     public function fetch($style = null, $cursor = null, $offset = null)
     {
-        if(count($this->_fetchStack)) {
+        if(count(\Zend_Tool_Migration::forCount($this->_fetchStack))) {
             $row = array_shift($this->_fetchStack);
             return $row;
         } else {
@@ -304,7 +304,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
         if($row == false) {
             return false;
         } else {
-            if(count($row) < $col) {
+            if(count(\Zend_Tool_Migration::forCount($row)) < $col) {
                 require_once "Zend/Db/Statement/Exception.php";
                 throw new Zend_Db_Statement_Exception(
                     "Column Position '".$col."' is out of bounds."

@@ -159,7 +159,7 @@ abstract class Zend_Service_Ebay_Finding_Abstract
         }
 
         // single value
-        if (count($values)) {
+        if (count(\Zend_Tool_Migration::forCount($values))) {
             return reset($values);
         }
 

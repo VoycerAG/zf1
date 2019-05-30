@@ -193,17 +193,17 @@ class Zend_Wildfire_Protocol_JsonStream
 
                     $parts = explode("\n",chunk_split($message, 5000, "\n"));
 
-                    for ($i=0 ; $i<count($parts) ; $i++) {
+                    for ($i=0 ; $i<count(\Zend_Tool_Migration::forCount($parts)) ; $i++) {
 
                         $part = $parts[$i];
                         if ($part) {
 
                             $msg = '';
 
-                            if (count($parts)>2) {
+                            if (count(\Zend_Tool_Migration::forCount($parts))>2) {
                                 $msg = (($i==0)?strlen($message):'')
                                        . '|' . $part . '|'
-                                       . (($i<count($parts)-2)?'\\':'');
+                                       . (($i<count(\Zend_Tool_Migration::forCount($parts))-2)?'\\':'');
                             } else {
                                 $msg = strlen($part) . '|' . $part . '|';
                             }

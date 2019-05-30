@@ -1103,7 +1103,7 @@ class Zend_Gdata_App
      *          passed in, containing all relevent entries.
      */
     public function retrieveAllEntriesForFeed($feed) {
-        $feedClass = get_class($feed);
+        $feedClass = $feed !== null ? get_class($feed) : get_class();
         $reflectionObj = new ReflectionClass($feedClass);
         $result = $reflectionObj->newInstance();
         do {

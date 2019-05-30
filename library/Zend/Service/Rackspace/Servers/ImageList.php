@@ -110,7 +110,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      */
     public function count()
     {
-        return count($this->images);
+        return count(\Zend_Tool_Migration::forCount($this->images));
     }
     /**
      * Return the current element

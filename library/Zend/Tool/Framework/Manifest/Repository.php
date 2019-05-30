@@ -72,7 +72,7 @@ class Zend_Tool_Framework_Manifest_Repository
     {
         // we need to get an index number so that manifests with
         // higher indexes have priority over others
-        $index = count($this->_manifests);
+        $index = count(\Zend_Tool_Migration::forCount($this->_manifests));
 
         if ($manifest instanceof Zend_Tool_Framework_Registry_EnabledInterface) {
             $manifest->setRegistry($this->_registry);
@@ -297,7 +297,7 @@ class Zend_Tool_Framework_Manifest_Repository
      */
     public function count()
     {
-        return count($this->_metadatas);
+        return count(\Zend_Tool_Migration::forCount($this->_metadatas));
     }
 
     /**

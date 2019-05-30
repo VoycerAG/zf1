@@ -394,7 +394,7 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface
         $prototype = null;
         $maxNumArgumentsOfPrototype = -1;
         foreach ($function->getPrototypes() as $tmpPrototype) {
-            $numParams = count($tmpPrototype->getParameters());
+            $numParams = count(\Zend_Tool_Migration::forCount($tmpPrototype->getParameters()));
             if ($numParams > $maxNumArgumentsOfPrototype) {
                 $maxNumArgumentsOfPrototype = $numParams;
                 $prototype = $tmpPrototype;

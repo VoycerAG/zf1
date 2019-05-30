@@ -211,7 +211,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
     public function __call($method, $args)
     {
         if (preg_match('/^(?P<action>set|(ap|pre)pend|offsetSet)(?P<mode>File|Script)$/', $method, $matches)) {
-            if (1 > count($args)) {
+            if (1 > count(\Zend_Tool_Migration::forCount($args))) {
                 require_once 'Zend/View/Exception.php';
                 $e = new Zend_View_Exception(sprintf('Method "%s" requires at least one argument', $method));
                 $e->setView($this->view);
@@ -225,7 +225,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
 
             if ('offsetSet' == $action) {
                 $index = array_shift($args);
-                if (1 > count($args)) {
+                if (1 > count(\Zend_Tool_Migration::forCount($args))) {
                     require_once 'Zend/View/Exception.php';
                     $e = new Zend_View_Exception(sprintf('Method "%s" requires at least two arguments, an index and source', $method));
                     $e->setView($this->view);

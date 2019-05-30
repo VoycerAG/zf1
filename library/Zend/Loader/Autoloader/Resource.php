@@ -146,7 +146,7 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
 
         if (!empty($namespaceTopLevel)) {
             $namespace = array();
-            $topLevelSegments = count(explode('_', $namespaceTopLevel));
+            $topLevelSegments = count(\Zend_Tool_Migration::forCount(explode('_', $namespaceTopLevel)));
             for ($i = 0; $i < $topLevelSegments; $i++) {
                 $namespace[] = array_shift($segments);
             }
@@ -157,7 +157,7 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
             }
         }
 
-        if (count($segments) < 2) {
+        if (count(\Zend_Tool_Migration::forCount($segments)) < 2) {
             // assumes all resources have a component and class name, minimum
             return false;
         }
@@ -171,7 +171,7 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
             if (isset($this->_components[$component])) {
                 $lastMatch = $component;
             }
-        } while (count($segments));
+        } while (count(\Zend_Tool_Migration::forCount($segments)));
 
         if (!$lastMatch) {
             return false;

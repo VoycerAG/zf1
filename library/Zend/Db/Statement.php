@@ -250,7 +250,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
 
         $position = null;
         if (($intval = (int) $parameter) > 0 && $this->_adapter->supportsParameters('positional')) {
-            if ($intval >= 1 || $intval <= count($this->_sqlParam)) {
+            if ($intval >= 1 || $intval <= count(\Zend_Tool_Migration::forCount($this->_sqlParam))) {
                 $position = $intval;
             }
         } else if ($this->_adapter->supportsParameters('named')) {

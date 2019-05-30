@@ -438,7 +438,7 @@ class Zend_Db_Profiler
     public function getTotalNumQueries($queryType = null)
     {
         if (null === $queryType) {
-            return count($this->_queryProfiles);
+            return count(\Zend_Tool_Migration::forCount($this->_queryProfiles));
         }
 
         $numQueries = 0;

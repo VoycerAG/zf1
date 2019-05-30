@@ -169,14 +169,14 @@ class Zend_Form_Element_Captcha extends Zend_Form_Element_Xhtml
         if (!$this->loadDefaultDecoratorsIsDisabled()) {
             $decorators = $this->getDecorators();
             $decorator  = $captcha->getDecorator();
-            $key        = get_class($this->_getDecorator($decorator, null));
+            $key        = $this->_getDecorator($decorator, null) !== null ? get_class($this->_getDecorator($decorator, null)) : get_class();
 
             if (!empty($decorator) && !array_key_exists($key, $decorators)) {
                 array_unshift($decorators, $decorator);
             }
 
             $decorator = array('Captcha', array('captcha' => $captcha));
-            $key       = get_class($this->_getDecorator($decorator[0], $decorator[1]));
+            $key       = $this->_getDecorator($decorator[0], $decorator[1]) !== null ? get_class($this->_getDecorator($decorator[0], $decorator[1])) : get_class();
 
             if ($captcha instanceof Zend_Captcha_Word && !array_key_exists($key, $decorators)) {
                 array_unshift($decorators, $decorator);

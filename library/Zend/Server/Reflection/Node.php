@@ -129,7 +129,7 @@ class Zend_Server_Reflection_Node
      */
     public function hasChildren()
     {
-        return count($this->_children) > 0;
+        return count(\Zend_Tool_Migration::forCount($this->_children)) > 0;
     }
 
     /**

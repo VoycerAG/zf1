@@ -205,8 +205,8 @@ class Zend_Navigation_Page_Mvc extends Zend_Navigation_Page
                 }
             }
 
-            if (count(array_intersect_assoc($reqParams, $myParams)) ==
-                count($myParams)
+            if (count(\Zend_Tool_Migration::forCount(array_intersect_assoc($reqParams, $myParams))) ==
+                count(\Zend_Tool_Migration::forCount($myParams))
             ) {
                 $this->_active = true;
 

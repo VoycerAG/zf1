@@ -789,7 +789,7 @@ abstract class Zend_Db_Table_Abstract
      */
     protected function _setupMetadata()
     {
-        if ($this->metadataCacheInClass() && (count($this->_metadata) > 0)) {
+        if ($this->metadataCacheInClass() && (count(\Zend_Tool_Migration::forCount($this->_metadata)) > 0)) {
             return true;
         }
 
@@ -1089,7 +1089,7 @@ abstract class Zend_Db_Table_Abstract
          * else return an associative array of the PK column/value pairs.
          */
         $pkData = array_intersect_key($data, array_flip($primary));
-        if (count($primary) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($primary)) == 1) {
             reset($pkData);
             return current($pkData);
         }
@@ -1151,7 +1151,7 @@ abstract class Zend_Db_Table_Abstract
                     case self::CASCADE:
                         $newRefs = array();
                         $where = array();
-                        for ($i = 0; $i < count($map[self::COLUMNS]); ++$i) {
+                        for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($map[self::COLUMNS])); ++$i) {
                             $col = $this->_db->foldCase($map[self::COLUMNS][$i]);
                             $refCol = $this->_db->foldCase($map[self::REF_COLUMNS][$i]);
                             if (array_key_exists($refCol, $newPrimaryKey)) {
@@ -1184,7 +1184,7 @@ abstract class Zend_Db_Table_Abstract
         $depTables = $this->getDependentTables();
         if (!empty($depTables)) {
             $resultSet = $this->fetchAll($where);
-            if (count($resultSet) > 0 ) {
+            if (count(\Zend_Tool_Migration::forCount($resultSet)) > 0 ) {
                 foreach ($resultSet as $row) {
                     /**
                      * Execute cascading deletes against dependent tables
@@ -1230,7 +1230,7 @@ abstract class Zend_Db_Table_Abstract
 
                 // CASCADE or CASCADE_RECURSE
                 if (in_array($map[self::ON_DELETE], array(self::CASCADE, self::CASCADE_RECURSE))) {
-                    for ($i = 0; $i < count($map[self::COLUMNS]); ++$i) {
+                    for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($map[self::COLUMNS])); ++$i) {
                         $col = $this->_db->foldCase($map[self::COLUMNS][$i]);
                         $refCol = $this->_db->foldCase($map[self::REF_COLUMNS][$i]);
                         $type = $this->_metadata[$col]['DATA_TYPE'];
@@ -1291,12 +1291,12 @@ abstract class Zend_Db_Table_Abstract
         $args = func_get_args();
         $keyNames = array_values((array) $this->_primary);
 
-        if (count($args) < count($keyNames)) {
+        if (count(\Zend_Tool_Migration::forCount($args)) < count(\Zend_Tool_Migration::forCount($keyNames))) {
             require_once 'Zend/Db/Table/Exception.php';
             throw new Zend_Db_Table_Exception("Too few columns for the primary key");
         }
 
-        if (count($args) > count($keyNames)) {
+        if (count(\Zend_Tool_Migration::forCount($args)) > count(\Zend_Tool_Migration::forCount($keyNames))) {
             require_once 'Zend/Db/Table/Exception.php';
             throw new Zend_Db_Table_Exception("Too many columns for the primary key");
         }
@@ -1304,7 +1304,7 @@ abstract class Zend_Db_Table_Abstract
         $whereList = array();
         $numberTerms = 0;
         foreach ($args as $keyPosition => $keyValues) {
-            $keyValuesCount = count($keyValues);
+            $keyValuesCount = count(\Zend_Tool_Migration::forCount($keyValues));
             // Coerce the values to an array.
             // Don't simply typecast to array, because the values
             // might be Zend_Db_Expr objects.
@@ -1327,7 +1327,7 @@ abstract class Zend_Db_Table_Abstract
         }
 
         $whereClause = null;
-        if (count($whereList)) {
+        if (count(\Zend_Tool_Migration::forCount($whereList))) {
             $whereOrTerms = array();
             $tableName = $this->_db->quoteTableAs($this->_name, null, true);
             foreach ($whereList as $keyValueSets) {
@@ -1438,7 +1438,7 @@ abstract class Zend_Db_Table_Abstract
 
         $rows = $this->_fetch($select);
 
-        if (count($rows) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($rows)) == 0) {
             return null;
         }
 
@@ -1478,7 +1478,7 @@ abstract class Zend_Db_Table_Abstract
     public function createRow(array $data = array(), $defaultSource = null)
     {
         $cols     = $this->_getCols();
-        $defaults = array_combine($cols, array_fill(0, count($cols), null));
+        $defaults = array_combine($cols, array_fill(0, count(\Zend_Tool_Migration::forCount($cols)), null));
 
         // nothing provided at call-time, take the class value
         if ($defaultSource == null) {

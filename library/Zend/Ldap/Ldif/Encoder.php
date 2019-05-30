@@ -97,7 +97,7 @@ class Zend_Ldap_Ldif_Encoder
                 }
                 if ($name === 'version') {
                     continue;
-                } else if (count($item) > 0 && $name === 'dn') {
+                } else if (count(\Zend_Tool_Migration::forCount($item)) > 0 && $name === 'dn') {
                     $items[] = $item;
                     $item = array();
                     $last = null;
@@ -111,7 +111,7 @@ class Zend_Ldap_Ldif_Encoder
             $this->_pushAttribute($last, $item);
         }
         $items[] = $item;
-        return (count($items)>1) ? $items : $items[0];
+        return (count(\Zend_Tool_Migration::forCount($items))>1) ? $items : $items[0];
     }
 
     /**
@@ -244,7 +244,7 @@ class Zend_Ldap_Ldif_Encoder
 
         $output = '';
 
-        if (count($value) < 1) {
+        if (count(\Zend_Tool_Migration::forCount($value)) < 1) {
             return $name . ': ';
         }
 

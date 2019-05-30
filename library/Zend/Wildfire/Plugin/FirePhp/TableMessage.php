@@ -142,7 +142,7 @@ class Zend_Wildfire_Plugin_FirePhp_TableMessage extends Zend_Wildfire_Plugin_Fir
      */
     public function getRowCount()
     {
-        return count($this->_rows);
+        return count(\Zend_Tool_Migration::forCount($this->_rows));
     }
 
     /**

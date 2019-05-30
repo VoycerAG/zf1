@@ -227,7 +227,7 @@ class Zend_Service_WindowsAzure_Storage_Queue extends Zend_Service_WindowsAzure_
 			require_once 'Zend/Service/WindowsAzure/Exception.php';
 		    throw new Zend_Service_WindowsAzure_Exception('Queue name does not adhere to queue naming conventions. See http://msdn.microsoft.com/en-us/library/dd179349.aspx for more information.');
 		}
-		if (count($metadata) == 0) {
+		if (count(\Zend_Tool_Migration::forCount($metadata)) == 0) {
 		    return;
 		}
 		    
@@ -307,20 +307,20 @@ class Zend_Service_WindowsAzure_Storage_Queue extends Zend_Service_WindowsAzure_
 			$queues = array();
 			if (!is_null($xmlQueues)) {
 				
-				for ($i = 0; $i < count($xmlQueues); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlQueues)); $i++) {
 					$queues[] = new Zend_Service_WindowsAzure_Storage_QueueInstance(
 						(string)$xmlQueues[$i]->Name,
 						$this->_parseMetadataElement($xmlQueues[$i])
 					);
 				}
 			}
-			$currentResultCount = $currentResultCount + count($queues);
+			$currentResultCount = $currentResultCount + count(\Zend_Tool_Migration::forCount($queues));
 			if (!is_null($maxResults) && $currentResultCount < $maxResults) {
     			if (!is_null($xmlMarker) && $xmlMarker != '') {
     			    $queues = array_merge($queues, $this->listQueues($prefix, $maxResults, $xmlMarker, $include, $currentResultCount));
     			}
 			}
-			if (!is_null($maxResults) && count($queues) > $maxResults) {
+			if (!is_null($maxResults) && count(\Zend_Tool_Migration::forCount($queues)) > $maxResults) {
 			    $queues = array_slice($queues, 0, $maxResults);
 			}
 			    
@@ -436,14 +436,14 @@ class Zend_Service_WindowsAzure_Storage_Queue extends Zend_Service_WindowsAzure_
 		    }
 
 		    $xmlMessages = null;
-		    if (count($result->QueueMessage) > 1) {
+		    if (count(\Zend_Tool_Migration::forCount($result->QueueMessage)) > 1) {
     		    $xmlMessages = $result->QueueMessage;
     		} else {
     		    $xmlMessages = array($result->QueueMessage);
     		}
 			
 			$messages = array();
-			for ($i = 0; $i < count($xmlMessages); $i++) {
+			for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlMessages)); $i++) {
 				$messages[] = new Zend_Service_WindowsAzure_Storage_QueueMessage(
 					(string)$xmlMessages[$i]->MessageId,
 					(string)$xmlMessages[$i]->InsertionTime,
@@ -484,7 +484,7 @@ class Zend_Service_WindowsAzure_Storage_Queue extends Zend_Service_WindowsAzure_
 	 */
 	public function hasMessages($queueName = '')
 	{
-		return count($this->peekMessages($queueName)) > 0;
+		return count(\Zend_Tool_Migration::forCount($this->peekMessages($queueName))) > 0;
 	}
 	
 	/**

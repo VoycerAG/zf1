@@ -289,7 +289,7 @@ class Zend_Config_Yaml extends Zend_Config
     {
         $config   = array();
         $inIndent = false;
-        while (list($n, $line) = each($lines)) {
+        foreach ($lines as $n => $line) {
             $lineno = $n + 1;
 
             $line = rtrim(preg_replace("/#.*$/", "", $line));
@@ -325,7 +325,7 @@ class Zend_Config_Yaml extends Zend_Config
                 } else {
                     // key: and then values on new lines
                     $value = self::_decodeYaml($currentIndent + 1, $lines);
-                    if (is_array($value) && !count($value)) {
+                    if (is_array($value) && !count(\Zend_Tool_Migration::forCount($value))) {
                         $value = "";
                     }
                 }
@@ -363,10 +363,10 @@ class Zend_Config_Yaml extends Zend_Config
 
         // remove quotes from string.
         if ('"' == $value['0']) {
-            if ('"' == $value[count($value) -1]) {
+            if ('"' == $value[count(\Zend_Tool_Migration::forCount($value)) -1]) {
                 $value = substr($value, 1, -1);
             }
-        } elseif ('\'' == $value['0'] && '\'' == $value[count($value) -1]) {
+        } elseif ('\'' == $value['0'] && '\'' == $value[count(\Zend_Tool_Migration::forCount($value)) -1]) {
             $value = strtr($value, array("''" => "'", "'" => ''));
         }
 

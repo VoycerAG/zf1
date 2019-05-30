@@ -264,7 +264,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
     public function count()
     {
         $container = $this->getContainer();
-        return count($container);
+        return count(\Zend_Tool_Migration::forCount($container));
     }
 
     /**

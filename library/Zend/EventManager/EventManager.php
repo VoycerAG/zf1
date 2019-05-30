@@ -353,7 +353,7 @@ class Zend_EventManager_EventManager implements Zend_EventManager_EventCollectio
         if (!$return) {
             return false;
         }
-        if (!count($this->events[$event])) {
+        if (!count(\Zend_Tool_Migration::forCount($this->events[$event]))) {
             unset($this->events[$event]);
         }
         return true;
@@ -446,7 +446,7 @@ class Zend_EventManager_EventManager implements Zend_EventManager_EventCollectio
         $sharedListeners         = $this->getSharedListeners($event);
         $sharedWildcardListeners = $this->getSharedListeners('*');
         $wildcardListeners       = $this->getListeners('*');
-        if (count($sharedListeners) || count($sharedWildcardListeners) || count($wildcardListeners)) {
+        if (count(\Zend_Tool_Migration::forCount($sharedListeners)) || count(\Zend_Tool_Migration::forCount($sharedWildcardListeners)) || count(\Zend_Tool_Migration::forCount($wildcardListeners))) {
             $listeners = clone $listeners;
         }
 
@@ -532,7 +532,7 @@ class Zend_EventManager_EventManager implements Zend_EventManager_EventCollectio
      */
     protected function insertListeners($masterListeners, $listeners)
     {
-        if (!count($listeners)) {
+        if (!count(\Zend_Tool_Migration::forCount($listeners))) {
             return;
         }
 

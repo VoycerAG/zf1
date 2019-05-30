@@ -227,7 +227,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
                     ksort($callingArgs);
 
                     $result = false;
-                    if (count($callingArgs) < count($funcArgs)) {
+                    if (count(\Zend_Tool_Migration::forCount($callingArgs)) < count(\Zend_Tool_Migration::forCount($funcArgs))) {
                         require_once 'Zend/Rest/Server/Exception.php';
                         $result = $this->fault(
                             new Zend_Rest_Server_Exception(

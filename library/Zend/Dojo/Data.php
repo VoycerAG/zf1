@@ -516,7 +516,7 @@ class Zend_Dojo_Data implements ArrayAccess,Iterator,Countable
      */
     public function count()
     {
-        return count($this->_items);
+        return count(\Zend_Tool_Migration::forCount($this->_items));
     }
 
     /**

@@ -126,7 +126,7 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
         }
 
         // set the count of rows
-        $this->_count = count($this->_data);
+        $this->_count = count(\Zend_Tool_Migration::forCount($this->_data));
 
         $this->init();
     }

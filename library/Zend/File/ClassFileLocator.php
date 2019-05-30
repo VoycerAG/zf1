@@ -96,7 +96,7 @@ class Zend_File_ClassFileLocator extends FilterIterator
 
         $contents = file_get_contents($file->getRealPath());
         $tokens   = token_get_all($contents);
-        $count    = count($tokens);
+        $count    = count(\Zend_Tool_Migration::forCount($tokens));
         $t_trait  = defined('T_TRAIT') ? T_TRAIT : -1; // For preserve PHP 5.3 compatibility
         for ($i = 0; $i < $count; $i++) {
             $token = $tokens[$i];

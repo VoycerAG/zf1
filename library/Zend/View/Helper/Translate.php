@@ -75,7 +75,7 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
         $options   = func_get_args();
 
         array_shift($options);
-        $count  = count($options);
+        $count  = count(\Zend_Tool_Migration::forCount($options));
         $locale = null;
         if ($count > 0) {
             if (Zend_Locale::isLocale($options[($count - 1)], null, false) !== false) {
@@ -83,7 +83,7 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
             }
         }
 
-        if ((count($options) === 1) and (is_array($options[0]) === true)) {
+        if ((count(\Zend_Tool_Migration::forCount($options)) === 1) and (is_array($options[0]) === true)) {
             $options = $options[0];
         }
 
@@ -91,7 +91,7 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
             $messageid = $translate->translate($messageid, $locale);
         }
 
-        if (count($options) === 0) {
+        if (count(\Zend_Tool_Migration::forCount($options)) === 0) {
             return $messageid;
         }
 

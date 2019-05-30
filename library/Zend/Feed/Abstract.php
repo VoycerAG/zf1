@@ -174,7 +174,7 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
      */
     public function count()
     {
-        return count($this->_entries);
+        return count(\Zend_Tool_Migration::forCount($this->_entries));
     }
 
 

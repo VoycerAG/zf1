@@ -306,8 +306,8 @@ class Zend_Pdf_Outline_Created extends Zend_Pdf_Outline
         }
         $outlineDictionary->Last = $lastChild;
 
-        if (count($this->childOutlines) != 0) {
-            $outlineDictionary->Count = new Zend_Pdf_Element_Numeric(($this->isOpen()? 1 : -1)*count($this->childOutlines));
+        if (count(\Zend_Tool_Migration::forCount($this->childOutlines)) != 0) {
+            $outlineDictionary->Count = new Zend_Pdf_Element_Numeric(($this->isOpen()? 1 : -1)*count(\Zend_Tool_Migration::forCount($this->childOutlines)));
         }
 
         return $outlineDictionary;

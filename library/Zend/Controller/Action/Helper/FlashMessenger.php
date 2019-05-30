@@ -294,7 +294,7 @@ class Zend_Controller_Action_Helper_FlashMessenger extends Zend_Controller_Actio
         }
         
         if ($this->hasMessages($namespace)) {
-            return count($this->getMessages($namespace));
+            return count(\Zend_Tool_Migration::forCount($this->getMessages($namespace)));
         }
 
         return 0;

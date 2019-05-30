@@ -968,7 +968,7 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
             throw $e;
         }
 
-        if (0 == count($this->_path['script'])) {
+        if (0 == count(\Zend_Tool_Migration::forCount($this->_path['script']))) {
             require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception('no view script directory set; unable to determine location for view script');
             $e->setView($this);

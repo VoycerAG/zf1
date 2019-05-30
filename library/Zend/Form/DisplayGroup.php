@@ -754,7 +754,7 @@ class Zend_Form_DisplayGroup implements Iterator,Countable
                     $this->addDecorator($decoratorInfo);
                 }
             } elseif (is_array($decoratorInfo)) {
-                $argc    = count($decoratorInfo);
+                $argc    = count(\Zend_Tool_Migration::forCount($decoratorInfo));
                 $options = array();
                 if (isset($decoratorInfo['decorator'])) {
                     $decorator = $decoratorInfo['decorator'];
@@ -1025,7 +1025,7 @@ class Zend_Form_DisplayGroup implements Iterator,Countable
             if (false !== ($decorator = $this->getDecorator($decoratorName))) {
                 $decorator->setElement($this);
                 $seed = '';
-                if (0 < count($args)) {
+                if (0 < count(\Zend_Tool_Migration::forCount($args))) {
                     $seed = array_shift($args);
                 }
                 return $decorator->render($seed);
@@ -1105,7 +1105,7 @@ class Zend_Form_DisplayGroup implements Iterator,Countable
      */
     public function count()
     {
-        return count($this->_elements);
+        return count(\Zend_Tool_Migration::forCount($this->_elements));
     }
 
     /**
@@ -1158,7 +1158,7 @@ class Zend_Form_DisplayGroup implements Iterator,Countable
 
         $instance = $this->_getDecorator($decorator['decorator'], $decorator['options']);
         if ($sameName) {
-            $newName            = get_class($instance);
+            $newName            = $instance !== null ? get_class($instance) : get_class();
             $decoratorNames     = array_keys($this->_decorators);
             $order              = array_flip($decoratorNames);
             $order[$newName]    = $order[$name];

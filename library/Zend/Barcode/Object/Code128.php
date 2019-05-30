@@ -190,7 +190,7 @@ class Zend_Barcode_Object_Code128 extends Zend_Barcode_Object_ObjectAbstract
         $quietZone = $this->getQuietZone();
         // Each characters contain 11 bars...
         $characterLength = 11 * $this->_barThinWidth * $this->_factor;
-        $convertedChars = count($this->_convertToBarcodeChars($this->getText()));
+        $convertedChars = count(\Zend_Tool_Migration::forCount($this->_convertToBarcodeChars($this->getText())));
         if ($this->_withChecksum) {
             $convertedChars++;
         }

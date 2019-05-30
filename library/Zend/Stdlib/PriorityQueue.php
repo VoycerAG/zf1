@@ -136,7 +136,7 @@ class Zend_Stdlib_PriorityQueue implements Countable, IteratorAggregate, Seriali
      */
     public function count()
     {
-        return count($this->items);
+        return count(\Zend_Tool_Migration::forCount($this->items));
     }
 
     /**
@@ -284,7 +284,7 @@ class Zend_Stdlib_PriorityQueue implements Countable, IteratorAggregate, Seriali
             if (!$this->queue instanceof SplPriorityQueue) {
                 throw new DomainException(sprintf(
                     'Zend_Stdlib_PriorityQueue expects an internal queue of type SplPriorityQueue; received "%s"',
-                    get_class($this->queue)
+                    $this->queue !== null ? get_class($this->queue) : get_class()
                 ));
             }
         }

@@ -156,7 +156,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     public function getParentDn($levelUp = 1)
     {
         $levelUp = (int)$levelUp;
-        if ($levelUp < 1 || $levelUp >= count($this->_dn)) {
+        if ($levelUp < 1 || $levelUp >= count(\Zend_Tool_Migration::forCount($this->_dn))) {
             /**
              * Zend_Ldap_Exception
              */
@@ -287,7 +287,7 @@ class Zend_Ldap_Dn implements ArrayAccess
             require_once 'Zend/Ldap/Exception.php';
             throw new Zend_Ldap_Exception(null, 'Parameter $index must be an integer');
         }
-        if ($index < 0 || $index >= count($this->_dn)) {
+        if ($index < 0 || $index >= count(\Zend_Tool_Migration::forCount($this->_dn))) {
             /**
              * Zend_Ldap_Exception
              */
@@ -306,7 +306,7 @@ class Zend_Ldap_Dn implements ArrayAccess
      */
     protected static function _assertRdn(array $value)
     {
-        if (count($value)<1) {
+        if (count(\Zend_Tool_Migration::forCount($value))<1) {
             /**
              * Zend_Ldap_Exception
              */
@@ -420,7 +420,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     public function offsetExists($offset)
     {
         $offset = (int)$offset;
-        if ($offset < 0 || $offset >= count($this->_dn)) {
+        if ($offset < 0 || $offset >= count(\Zend_Tool_Migration::forCount($this->_dn))) {
             return false;
         } else {
             return true;
@@ -533,7 +533,7 @@ class Zend_Ldap_Dn implements ArrayAccess
             if (null === $val) $val = '\0';  // apply escaped "null" if string is empty
             $values[$key] = $val;
         }
-        return (count($values) == 1) ? $values[0] : $values;
+        return (count(\Zend_Tool_Migration::forCount($values)) == 1) ? $values[0] : $values;
     }
 
     /**
@@ -562,7 +562,7 @@ class Zend_Ldap_Dn implements ArrayAccess
                 array('\\', ',', '+', '"', '<', '>', ';', '#', '=', ), $val);
             $values[$key] = Zend_Ldap_Converter::hex32ToAsc($val);
         }
-        return (count($values) == 1) ? $values[0] : $values;
+        return (count(\Zend_Tool_Migration::forCount($values)) == 1) ? $values[0] : $values;
     }
 
     /**
@@ -597,10 +597,10 @@ class Zend_Ldap_Dn implements ArrayAccess
             throw new Zend_Ldap_Exception(null, 'DN is malformed');
         }
         $ret = array();
-        for ($i = 0; $i < count($k); $i++) {
-            if (is_array($k[$i]) && is_array($v[$i]) && (count($k[$i]) === count($v[$i]))) {
+        for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($k)); $i++) {
+            if (is_array($k[$i]) && is_array($v[$i]) && (count(\Zend_Tool_Migration::forCount($k[$i])) === count(\Zend_Tool_Migration::forCount($v[$i])))) {
                 $multi = array();
-                for ($j = 0; $j < count($k[$i]); $j++) {
+                for ($j = 0; $j < count(\Zend_Tool_Migration::forCount($k[$i])); $j++) {
                     $key=$k[$i][$j];
                     $val=$v[$i][$j];
                     $multi[$key] = $val;
@@ -653,7 +653,7 @@ class Zend_Ldap_Dn implements ArrayAccess
                             if (in_array($keyId, $multi)) {
                                 return false;
                             }
-                            $ka[count($ka)-1][] = $key;
+                            $ka[count(\Zend_Tool_Migration::forCount($ka))-1][] = $key;
                             $multi[] = $keyId;
                         } else {
                             $ka[] = $key;
@@ -670,7 +670,7 @@ class Zend_Ldap_Dn implements ArrayAccess
                     } else if ($ch === ',' || $ch === ';' || $ch === 0 || $ch === '+') {
                         $value = self::unescapeValue(trim(substr($dn, $vo, $di - $vo)));
                         if (is_array($multi)) {
-                            $va[count($va)-1][] = $value;
+                            $va[count(\Zend_Tool_Migration::forCount($va))-1][] = $value;
                         } else {
                             $va[] = $value;
                         }
@@ -784,9 +784,9 @@ class Zend_Ldap_Dn implements ArrayAccess
             return false;
         }
 
-        $startIndex = count($cdn)-count($pdn);
+        $startIndex = count(\Zend_Tool_Migration::forCount($cdn))-count(\Zend_Tool_Migration::forCount($pdn));
         if ($startIndex<0) return false;
-        for ($i = 0; $i<count($pdn); $i++) {
+        for ($i = 0; $i<count(\Zend_Tool_Migration::forCount($pdn)); $i++) {
             if ($cdn[$i+$startIndex] != $pdn[$i]) return false;
         }
         return true;

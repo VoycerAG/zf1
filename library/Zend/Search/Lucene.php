@@ -961,12 +961,12 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
                 }
             }
 
-            if (self::$_resultSetLimit != 0  &&  count($hits) >= self::$_resultSetLimit) {
+            if (self::$_resultSetLimit != 0  &&  count(\Zend_Tool_Migration::forCount($hits)) >= self::$_resultSetLimit) {
                 break;
             }
         }
 
-        if (count($hits) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($hits)) == 0) {
             // skip sorting, which may cause a error on empty index
             return array();
         }
@@ -999,7 +999,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
             $sortFieldValues = array();
 
             require_once 'Zend/Search/Lucene/Exception.php';
-            for ($count = 1; $count < count($argList); $count++) {
+            for ($count = 1; $count < count(\Zend_Tool_Migration::forCount($argList)); $count++) {
                 $fieldName = $argList[$count];
 
                 if (!is_string($fieldName)) {
@@ -1038,11 +1038,11 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
                     $sortArgs[] = &$sortFieldValues[$fieldName];
                 }
 
-                if ($count + 1 < count($argList)  &&  is_integer($argList[$count+1])) {
+                if ($count + 1 < count(\Zend_Tool_Migration::forCount($argList))  &&  is_integer($argList[$count+1])) {
                     $count++;
                     $sortArgs[] = &$argList[$count];
 
-                    if ($count + 1 < count($argList)  &&  is_integer($argList[$count+1])) {
+                    if ($count + 1 < count(\Zend_Tool_Migration::forCount($argList))  &&  is_integer($argList[$count+1])) {
                         $count++;
                         $sortArgs[] = &$argList[$count];
                     } else {
@@ -1195,9 +1195,9 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
             $segmentStartDocId += $segmentInfo->count();
         }
 
-        if (count($subResults) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($subResults)) == 0) {
             return array();
-        } else if (count($subResults) == 1) {
+        } else if (count(\Zend_Tool_Migration::forCount($subResults)) == 1) {
             // Index is optimized (only one segment)
             // Do not perform array reindexing
             return reset($subResults);
@@ -1229,9 +1229,9 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
             $segmentStartDocId += $segmentInfo->count();
         }
 
-        if (count($subResults) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($subResults)) == 0) {
             return array();
-        } else if (count($subResults) == 1) {
+        } else if (count(\Zend_Tool_Migration::forCount($subResults)) == 1) {
             // Index is optimized (only one segment)
             // Do not perform array reindexing
             return reset($subResults);
@@ -1452,7 +1452,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
         // Commit changes if any changes have been made
         $this->commit();
 
-        if (count($this->_segmentInfos) > 1 || $this->hasDeletions()) {
+        if (count(\Zend_Tool_Migration::forCount($this->_segmentInfos)) > 1 || $this->hasDeletions()) {
             $this->_getIndexWriter()->optimize();
             $this->_updateDocCount();
         }

@@ -74,7 +74,7 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
      */
     public function sendHeaders()
     {
-        if (count($this->_headers) || (200 != $this->_httpResponseCode)) {
+        if (count(\Zend_Tool_Migration::forCount($this->_headers)) || (200 != $this->_httpResponseCode)) {
             $this->canSendHeaders(true);
         } elseif (200 == $this->_httpResponseCode) {
             return;

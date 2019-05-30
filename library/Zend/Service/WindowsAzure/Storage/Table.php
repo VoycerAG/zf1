@@ -153,7 +153,7 @@ class Zend_Service_WindowsAzure_Storage_Table
 		    }
 	        
 		    $entries = null;
-		    if (count($result->entry) > 1) {
+		    if (count(\Zend_Tool_Migration::forCount($result->entry)) > 1) {
 		        $entries = $result->entry;
 		    } else {
 		        $entries = array($result->entry);
@@ -462,7 +462,7 @@ class Zend_Service_WindowsAzure_Storage_Table
         );
         
         // Return
-        if (count($result) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($result)) == 1) {
             return $result[0];
         }
         
@@ -529,10 +529,10 @@ class Zend_Service_WindowsAzure_Storage_Table
     		}
     		    
     	    // Build queryString
-    	    if (count($query) > 0)  {
+    	    if (count(\Zend_Tool_Migration::forCount($query)) > 0)  {
     	        $queryString = '?' . implode('&', $query);
     	    }
-		} else if (get_class($tableName) == 'Zend_Service_WindowsAzure_Storage_TableEntityQuery') {
+		} else if (($tableName !== null ? get_class($tableName) : get_class()) == 'Zend_Service_WindowsAzure_Storage_TableEntityQuery') {
 		    // Option 2: $tableName is a Zend_Service_WindowsAzure_Storage_TableEntityQuery instance
 
 		    // Build queryString
@@ -580,7 +580,7 @@ class Zend_Service_WindowsAzure_Storage_Table
 
 		    $entries = null;
 		    if ($result->entry) {
-    		    if (count($result->entry) > 1) {
+    		    if (count(\Zend_Tool_Migration::forCount($result->entry)) > 1) {
     		        $entries = $result->entry;
     		    } else {
     		        $entries = array($result->entry);
@@ -666,7 +666,7 @@ class Zend_Service_WindowsAzure_Storage_Table
 	public function mergeEntity($tableName = '', Zend_Service_WindowsAzure_Storage_TableEntity $entity = null, $verifyEtag = false, $properties = array())
 	{
 		$mergeEntity = null;
-		if (is_array($properties) && count($properties) > 0) {
+		if (is_array($properties) && count(\Zend_Tool_Migration::forCount($properties)) > 0) {
 			
 			// Build a new object
 			$mergeEntity = new Zend_Service_WindowsAzure_Storage_DynamicTableEntity($entity->getPartitionKey(), $entity->getRowKey());

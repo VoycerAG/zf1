@@ -122,7 +122,7 @@ class Zend_Ldap_Node_Schema_AttributeType_OpenLdap extends Zend_Ldap_Node_Schema
      */
     public function getParent()
     {
-        if (count($this->_parents) === 1) {
+        if (count(\Zend_Tool_Migration::forCount($this->_parents)) === 1) {
             return $this->_parents[0];
         }
     }

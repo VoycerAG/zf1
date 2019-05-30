@@ -313,7 +313,7 @@ abstract class Zend_Mail_Transport_Abstract
         $this->_buildBody();
 
         // Determine number of parts and boundary
-        $count    = count($this->_parts);
+        $count    = count(\Zend_Tool_Migration::forCount($this->_parts));
         $boundary = null;
         if ($count < 1) {
             /**

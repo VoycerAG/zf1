@@ -418,7 +418,7 @@ class Zend_XmlRpc_Request
                   ->openElement('methodName', $method)
                   ->closeElement('methodName');
 
-        if (is_array($args) && count($args)) {
+        if (is_array($args) && count(\Zend_Tool_Migration::forCount($args))) {
             $generator->openElement('params');
 
             foreach ($args as $arg) {

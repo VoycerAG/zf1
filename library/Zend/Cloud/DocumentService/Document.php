@@ -233,7 +233,7 @@ class Zend_Cloud_DocumentService_Document
      */
     public function count()
     {
-        return count($this->_fields);
+        return count(\Zend_Tool_Migration::forCount($this->_fields));
     }
 
     /**

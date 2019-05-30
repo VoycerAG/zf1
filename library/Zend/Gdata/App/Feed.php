@@ -131,7 +131,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
      */
     public function count()
     {
-        return count($this->_entry);
+        return count(\Zend_Tool_Migration::forCount($this->_entry));
     }
 
     /**

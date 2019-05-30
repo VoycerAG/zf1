@@ -78,7 +78,7 @@ class Zend_CodeGenerator_Php_Property_DefaultValue extends Zend_CodeGenerator_Ph
      */
     protected function _init()
     {
-        if(count(self::$_constants) == 0) {
+        if(count(\Zend_Tool_Migration::forCount(self::$_constants)) == 0) {
             $reflect = new ReflectionClass(get_class($this));
             self::$_constants = $reflect->getConstants();
             unset($reflect);
@@ -286,7 +286,7 @@ class Zend_CodeGenerator_Php_Property_DefaultValue extends Zend_CodeGenerator_Ph
             case self::TYPE_ARRAY:
                 $output .= 'array(';
                 $curArrayMultiblock = false;
-                if (count($value) > 1) {
+                if (count(\Zend_Tool_Migration::forCount($value)) > 1) {
                     $curArrayMultiblock = true;
                     $output .= PHP_EOL . str_repeat($this->_indentation, $this->_arrayDepth+1);
                 }
@@ -314,7 +314,7 @@ class Zend_CodeGenerator_Php_Property_DefaultValue extends Zend_CodeGenerator_Ph
             default:
                 require_once "Zend/CodeGenerator/Php/Exception.php";
                 throw new Zend_CodeGenerator_Php_Exception(
-                    "Type '".get_class($value)."' is unknown or cannot be used as property default value."
+                    "Type '". ($value !== null ? get_class($value) : get_class()) ."' is unknown or cannot be used as property default value."
                 );
         }
 

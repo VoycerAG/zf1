@@ -90,7 +90,7 @@ class Zend_Cloud_Infrastructure_InstanceList implements Countable, Iterator, Arr
      */
     public function count()
     {
-        return count($this->instances);
+        return count(\Zend_Tool_Migration::forCount($this->instances));
     }
 
     /**

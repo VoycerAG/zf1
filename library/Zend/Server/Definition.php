@@ -212,7 +212,7 @@ class Zend_Server_Definition implements Countable, Iterator
      */
     public function count()
     {
-        return count($this->_methods);
+        return count(\Zend_Tool_Migration::forCount($this->_methods));
     }
 
     /**

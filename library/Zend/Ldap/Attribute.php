@@ -103,7 +103,7 @@ class Zend_Ldap_Attribute
         } else if (is_int($index)) {
             if (!isset($data[$attribName])) {
                 return null;
-            } else if ($index >= 0 && $index<count($data[$attribName])) {
+            } else if ($index >= 0 && $index<count(\Zend_Tool_Migration::forCount($data[$attribName]))) {
                 return self::_valueFromLdap($data[$attribName][$index]);
             } else {
                 return null;
@@ -389,7 +389,7 @@ class Zend_Ldap_Attribute
     {
         $values = self::getAttribute($data, $attribName, $index);
         if (is_array($values)) {
-            for ($i = 0; $i<count($values); $i++) {
+            for ($i = 0; $i<count(\Zend_Tool_Migration::forCount($values)); $i++) {
                 $newVal = self::_valueFromLdapDateTime($values[$i]);
                 if ($newVal !== null) $values[$i] = $newVal;
             }

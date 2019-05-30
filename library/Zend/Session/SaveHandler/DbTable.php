@@ -317,7 +317,7 @@ class Zend_Session_SaveHandler_DbTable
 
         $rows = call_user_func_array(array(&$this, 'find'), $this->_getPrimary($id));
 
-        if (count($rows)) {
+        if (count(\Zend_Tool_Migration::forCount($rows))) {
             if ($this->_getExpirationTime($row = $rows->current()) > time()) {
                 $return = $row->{$this->_dataColumn};
             } else {
@@ -344,7 +344,7 @@ class Zend_Session_SaveHandler_DbTable
 
         $rows = call_user_func_array(array(&$this, 'find'), $this->_getPrimary($id));
 
-        if (count($rows)) {
+        if (count(\Zend_Tool_Migration::forCount($rows))) {
             $data[$this->_lifetimeColumn] = $this->_getLifetime($rows->current());
 
             if ($this->update($data, $this->_getPrimary($id, self::PRIMARY_TYPE_WHERECLAUSE))) {
@@ -448,7 +448,7 @@ class Zend_Session_SaveHandler_DbTable
             unset($this->_primaryAssignment[0]);
         }
 
-        if (count($this->_primaryAssignment) !== count($this->_primary)) {
+        if (count(\Zend_Tool_Migration::forCount($this->_primaryAssignment)) !== count(\Zend_Tool_Migration::forCount($this->_primary))) {
             /**
              * @see Zend_Session_SaveHandler_Exception
              */

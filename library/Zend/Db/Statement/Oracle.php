@@ -273,7 +273,7 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
 
         $this->_values = Array();
         if ($this->_keys) {
-            $this->_values = array_fill(0, count($this->_keys), null);
+            $this->_values = array_fill(0, count(\Zend_Tool_Migration::forCount($this->_keys)), null);
         }
 
         return $retval;

@@ -389,7 +389,7 @@ class Zend_Controller_Action_Helper_ContextSwitch extends Zend_Controller_Action
                     continue;
                 }
 
-                $count = count($suffixInfo);
+                $count = count(\Zend_Tool_Migration::forCount($suffixInfo));
                 switch (true) {
                     case (($count < 2) && (null === $context)):
                         /**
@@ -747,7 +747,7 @@ class Zend_Controller_Action_Helper_ContextSwitch extends Zend_Controller_Action
         $trigger = $this->_validateTrigger($trigger);
 
         if (!is_string($callback)) {
-            if (!is_array($callback) || (2 != count($callback))) {
+            if (!is_array($callback) || (2 != count(\Zend_Tool_Migration::forCount($callback)))) {
                 /**
                  * @see Zend_Controller_Action_Exception
                  */

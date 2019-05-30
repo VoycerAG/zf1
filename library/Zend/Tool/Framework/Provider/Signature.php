@@ -238,7 +238,7 @@ class Zend_Tool_Framework_Provider_Signature implements Zend_Tool_Framework_Regi
         }
 
         if ($this->_name == null) {
-            $className = get_class($this->_provider);
+            $className = $this->_provider !== null ? get_class($this->_provider) : get_class();
             $name = $className;
             if (strpos($name, '_')) {
                 $name = substr($name, strrpos($name, '_')+1);
@@ -261,7 +261,7 @@ class Zend_Tool_Framework_Provider_Signature implements Zend_Tool_Framework_Regi
             if (!is_array($specialties)) {
                 require_once 'Zend/Tool/Framework/Provider/Exception.php';
                 throw new Zend_Tool_Framework_Provider_Exception(
-                    'Provider ' . get_class($this->_provider) . ' must return an array for method getSpecialties().'
+                    'Provider ' . ($this->_provider !== null ? get_class($this->_provider) : get_class()) . ' must return an array for method getSpecialties().'
                     );
             }
         } else {
@@ -270,7 +270,7 @@ class Zend_Tool_Framework_Provider_Signature implements Zend_Tool_Framework_Regi
             if (!is_array($specialties)) {
                 require_once 'Zend/Tool/Framework/Provider/Exception.php';
                 throw new Zend_Tool_Framework_Provider_Exception(
-                    'Provider ' . get_class($this->_provider) . '\'s property $_specialties must be an array.'
+                    'Provider ' . ($this->_provider !== null ? get_class($this->_provider) : get_class()) . '\'s property $_specialties must be an array.'
                     );
             }
         }
@@ -365,7 +365,7 @@ class Zend_Tool_Framework_Provider_Signature implements Zend_Tool_Framework_Regi
             if (($docComment = $method->getDocComment()) != '' &&
                 (preg_match_all('/@param\s+(\w+)+\s+(\$\S+)\s+(.*?)(?=(?:\*\s*@)|(?:\*\/))/s', $docComment, $matches)))
             {
-                for ($i=0; $i <= count($matches[0])-1; $i++) {
+                for ($i=0; $i <= count(\Zend_Tool_Migration::forCount($matches[0]))-1; $i++) {
                     $currentParam = ltrim($matches[2][$i], '$');
 
                     if ($currentParam != '' && isset($parameterInfo[$currentParam])) {

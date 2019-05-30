@@ -365,7 +365,7 @@ class Zend_Pdf_Element_Object_Stream extends Zend_Pdf_Element_Object
             $this->_decodeStream();
         }
 
-        switch (count($args)) {
+        switch (count(\Zend_Tool_Migration::forCount($args))) {
             case 0:
                 return $this->_value->$method();
             case 1:

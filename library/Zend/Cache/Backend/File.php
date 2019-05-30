@@ -519,7 +519,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      */
     protected function _setMetadatas($id, $metadatas, $save = true)
     {
-        if (count($this->_metadatasArray) >= $this->_options['metadatas_array_max_size']) {
+        if (count(\Zend_Tool_Migration::forCount($this->_metadatasArray)) >= $this->_options['metadatas_array_max_size']) {
             $n = (int) ($this->_options['metadatas_array_max_size'] / 10);
             $this->_metadatasArray = array_slice($this->_metadatasArray, $n);
         }

@@ -217,11 +217,11 @@ class Zend_Locale_Math
         }
 
         $split = explode('e', $value);
-        if (count($split) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($split)) == 1) {
             $split = explode('E', $value);
         }
 
-        if (count($split) > 1) {
+        if (count(\Zend_Tool_Migration::forCount($split)) > 1) {
             $value = bcmul($split[0], bcpow(10, $split[1], $scale), $scale);
         }
 

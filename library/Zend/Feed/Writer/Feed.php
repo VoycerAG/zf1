@@ -202,7 +202,7 @@ implements Iterator, Countable
      */
     public function count()
     {
-        return count($this->_entries);
+        return count(\Zend_Tool_Migration::forCount($this->_entries));
     }
 
     /**

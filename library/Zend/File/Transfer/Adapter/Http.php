@@ -128,7 +128,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
         // Workaround for a PHP error returning empty $_FILES when form data exceeds php settings
         if (empty($this->_files) && ($content > 0)) {
             if (is_array($files)) {
-                if (0 === count($files)) {
+                if (0 === count(\Zend_Tool_Migration::forCount($files))) {
                     return false;
                 }
 

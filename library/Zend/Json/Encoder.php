@@ -119,13 +119,13 @@ class Zend_Json_Encoder
                 if (isset($this->_options['silenceCyclicalExceptions'])
                     && $this->_options['silenceCyclicalExceptions']===true) {
 
-                    return '"* RECURSION (' . get_class($value) . ') *"';
+                    return '"* RECURSION (' . ($value !== null ? get_class($value) : get_class()) . ') *"';
 
                 } else {
                     require_once 'Zend/Json/Exception.php';
                     throw new Zend_Json_Exception(
                         'Cycles not supported in JSON encoding, cycle introduced by '
-                        . 'class "' . get_class($value) . '"'
+                        . 'class "' . ($value !== null ? get_class($value) : get_class()) . '"'
                     );
                 }
             }
@@ -154,7 +154,7 @@ class Zend_Json_Encoder
                 }
             }
         }
-        $className = get_class($value);
+        $className = $value !== null ? get_class($value) : get_class();
         return '{"__className":' . $this->_encodeString($className)
                 . $props . '}';
     }
@@ -194,7 +194,7 @@ class Zend_Json_Encoder
         $tmpArray = array();
 
         // Check for associative array
-        if (!empty($array) && (array_keys($array) !== range(0, count($array) - 1))) {
+        if (!empty($array) && (array_keys($array) !== range(0, count(\Zend_Tool_Migration::forCount($array)) - 1))) {
             // Associative array
             $result = '{';
             foreach ($array as $key => $value) {
@@ -208,7 +208,7 @@ class Zend_Json_Encoder
         } else {
             // Indexed array
             $result = '[';
-            $length = count($array);
+            $length = count(\Zend_Tool_Migration::forCount($array));
             for ($i = 0; $i < $length; $i++) {
                 $tmpArray[] = $this->_encodeValue($array[$i]);
             }
@@ -323,7 +323,7 @@ class Zend_Json_Encoder
 
             if ('__construct' != $method->getName()) {
                 $parameters  = $method->getParameters();
-                $paramCount  = count($parameters);
+                $paramCount  = count(\Zend_Tool_Migration::forCount($parameters));
                 $argsStarted = false;
 
                 $argNames = "var argNames=[";

@@ -539,7 +539,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
          * Execute cascading updates against dependent tables.
          * Do this only if primary key value(s) were changed.
          */
-        if (count($pkDiffData) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($pkDiffData)) > 0) {
             $depTables = $this->_getTable()->getDependentTables();
             if (!empty($depTables)) {
                 $pkNew = $this->_getPrimaryKey(true);
@@ -557,7 +557,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
          * Use the $diffData variable, so the UPDATE statement
          * includes SET terms only for data values that changed.
          */
-        if (count($diffData) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($diffData)) > 0) {
             $this->_getTable()->update($diffData, $where);
         }
 
@@ -580,7 +580,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
          * is a scalar.
          */
         $primaryKey = $this->_getPrimaryKey(true);
-        if (count($primaryKey) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($primaryKey)) == 1) {
             return current($primaryKey);
         }
 
@@ -636,7 +636,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
          */
         $this->_data = array_combine(
             array_keys($this->_data),
-            array_fill(0, count($this->_data), null)
+            array_fill(0, count(\Zend_Tool_Migration::forCount($this->_data)), null)
         );
 
         return $result;
@@ -717,7 +717,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
         } else {
             $array = array_intersect_key($this->_cleanData, $primary);
         }
-        if (count($primary) != count($array)) {
+        if (count(\Zend_Tool_Migration::forCount($primary)) != count(\Zend_Tool_Migration::forCount($array))) {
             require_once 'Zend/Db/Table/Row/Exception.php';
             throw new Zend_Db_Table_Row_Exception("The specified Table '$this->_tableClass' does not have the same primary key as the Row");
         }
@@ -907,7 +907,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
 
         $map = $this->_prepareReference($dependentTable, $this->_getTable(), $ruleKey);
 
-        for ($i = 0; $i < count($map[Zend_Db_Table_Abstract::COLUMNS]); ++$i) {
+        for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($map[Zend_Db_Table_Abstract::COLUMNS])); ++$i) {
             $parentColumnName = $db->foldCase($map[Zend_Db_Table_Abstract::REF_COLUMNS][$i]);
             $value = $this->_data[$parentColumnName];
             // Use adapter from dependent table to ensure correct query construction
@@ -964,7 +964,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
         $map = $this->_prepareReference($this->_getTable(), $parentTable, $ruleKey);
 
         // iterate the map, creating the proper wheres
-        for ($i = 0; $i < count($map[Zend_Db_Table_Abstract::COLUMNS]); ++$i) {
+        for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($map[Zend_Db_Table_Abstract::COLUMNS])); ++$i) {
             $dependentColumnName = $db->foldCase($map[Zend_Db_Table_Abstract::COLUMNS][$i]);
             $value = $this->_data[$dependentColumnName];
             // Use adapter from parent table to ensure correct query construction
@@ -1060,7 +1060,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
 
         $matchMap = $this->_prepareReference($intersectionTable, $matchTable, $matchRefRule);
 
-        for ($i = 0; $i < count($matchMap[Zend_Db_Table_Abstract::COLUMNS]); ++$i) {
+        for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($matchMap[Zend_Db_Table_Abstract::COLUMNS])); ++$i) {
             $interCol = $interDb->quoteIdentifier('i' . '.' . $matchMap[Zend_Db_Table_Abstract::COLUMNS][$i], true);
             $matchCol = $interDb->quoteIdentifier('m' . '.' . $matchMap[Zend_Db_Table_Abstract::REF_COLUMNS][$i], true);
             $joinCond[] = "$interCol = $matchCol";
@@ -1073,7 +1073,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
 
         $callerMap = $this->_prepareReference($intersectionTable, $this->_getTable(), $callerRefRule);
 
-        for ($i = 0; $i < count($callerMap[Zend_Db_Table_Abstract::COLUMNS]); ++$i) {
+        for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($callerMap[Zend_Db_Table_Abstract::COLUMNS])); ++$i) {
             $callerColumnName = $db->foldCase($callerMap[Zend_Db_Table_Abstract::REF_COLUMNS][$i]);
             $value = $this->_data[$callerColumnName];
             $interColumnName = $interDb->foldCase($callerMap[Zend_Db_Table_Abstract::COLUMNS][$i]);
@@ -1120,7 +1120,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
     {
         $matches = array();
 
-        if (count($args) && $args[0] instanceof Zend_Db_Table_Select) {
+        if (count(\Zend_Tool_Migration::forCount($args)) && $args[0] instanceof Zend_Db_Table_Select) {
             $select = $args[0];
         } else {
             $select = null;

@@ -67,7 +67,7 @@ abstract class Zend_Pdf_Destination_Explicit extends Zend_Pdf_Destination
 
         $this->_destinationArray = $destinationArray;
 
-        switch (count($this->_destinationArray->items)) {
+        switch (count(\Zend_Tool_Migration::forCount($this->_destinationArray->items))) {
             case 0:
                 require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception('Destination array must contain a page reference.');

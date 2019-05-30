@@ -256,7 +256,7 @@ class Zend_Filter_File_Rename implements Zend_Filter_Interface
         }
 
         if (!$found) {
-            $count                = count($this->_files);
+            $count                = count(\Zend_Tool_Migration::forCount($this->_files));
             $this->_files[$count] = $files;
         }
 

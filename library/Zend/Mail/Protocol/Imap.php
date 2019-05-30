@@ -594,12 +594,12 @@ class Zend_Mail_Protocol_Imap
                 continue;
             }
             // if we only want one item we return that one directly
-            if (count($items) == 1) {
+            if (count(\Zend_Tool_Migration::forCount($items)) == 1) {
                 if ($tokens[2][0] == $items[0]) {
                     $data = $tokens[2][1];
                 } else {
                     // maybe the server send an other field we didn't wanted
-                    $count = count($tokens[2]);
+                    $count = count(\Zend_Tool_Migration::forCount($tokens[2]));
                     // we start with 2, because 0 was already checked
                     for ($i = 2; $i < $count; $i += 2) {
                         if ($tokens[2][$i] != $items[0]) {
@@ -655,7 +655,7 @@ class Zend_Mail_Protocol_Imap
         }
 
         foreach ($list as $item) {
-            if (count($item) != 4 || $item[0] != 'LIST') {
+            if (count(\Zend_Tool_Migration::forCount($item)) != 4 || $item[0] != 'LIST') {
                 continue;
             }
             $result[$item[3]] = array('delim' => $item[2], 'flags' => $item[1]);

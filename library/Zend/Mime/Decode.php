@@ -93,7 +93,7 @@ class Zend_Mime_Decode
     )
     {
         $parts = self::splitMime($message, $boundary);
-        if (count($parts) <= 0) {
+        if (count(\Zend_Tool_Migration::forCount($parts)) <= 0) {
             return null;
         }
         $result = array();

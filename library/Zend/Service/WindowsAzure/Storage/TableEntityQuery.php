@@ -133,7 +133,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	        $condition = $this->_quoteInto($condition, $value);
 	    }
 	    
-		if (count($this->_where) == 0) {
+		if (count(\Zend_Tool_Migration::forCount($this->_where)) == 0) {
 			$cond = '';
 		} else if ($cond !== '') {
 			$cond = ' ' . strtolower(trim($cond)) . ' ';
@@ -201,12 +201,12 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	public function assembleQueryString($urlEncode = false)
 	{
 		$query = array();
-		if (count($this->_where) != 0) {
+		if (count(\Zend_Tool_Migration::forCount($this->_where)) != 0) {
 		    $filter = implode('', $this->_where);
 			$query[] = '$filter=' . ($urlEncode ? self::encodeQuery($filter) : $filter);
 		}
 		
-		if (count($this->_orderBy) != 0) {
+		if (count(\Zend_Tool_Migration::forCount($this->_orderBy)) != 0) {
 		    $orderBy = implode(',', $this->_orderBy);
 			$query[] = '$orderby=' . ($urlEncode ? self::encodeQuery($orderBy) : $orderBy);
 		}
@@ -215,7 +215,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 			$query[] = '$top=' . $this->_top;
 		}
 		
-		if (count($query) != 0) {
+		if (count(\Zend_Tool_Migration::forCount($query)) != 0) {
 			return '?' . implode('&', $query);
 		}
 		

@@ -832,7 +832,7 @@ class Zend_Currency
      */
     protected function _checkOptions(array $options = array())
     {
-        if (count($options) === 0) {
+        if (count(\Zend_Tool_Migration::forCount($options)) === 0) {
             return $this->_options;
         }
 

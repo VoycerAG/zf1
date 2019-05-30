@@ -85,7 +85,7 @@ class Zend_Validate_Barcode_Code93 extends Zend_Validate_Barcode_AdapterAbstract
         $checksum = substr($value, -2, 2);
         $value    = str_split(substr($value, 0, -2));
         $count    = 0;
-        $length   = count($value) % 20;
+        $length   = count(\Zend_Tool_Migration::forCount($value)) % 20;
         foreach($value as $char) {
             if ($length == 0) {
                 $length = 20;
@@ -98,7 +98,7 @@ class Zend_Validate_Barcode_Code93 extends Zend_Validate_Barcode_AdapterAbstract
         $check   = array_search(($count % 47), $this->_check);
         $value[] = $check;
         $count   = 0;
-        $length  = count($value) % 15;
+        $length  = count(\Zend_Tool_Migration::forCount($value)) % 15;
         foreach($value as $char) {
             if ($length == 0) {
                 $length = 15;

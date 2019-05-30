@@ -138,7 +138,7 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
      */
     public function count()
     {
-        return count($this->_entries);
+        return count(\Zend_Tool_Migration::forCount($this->_entries));
     }
 
     /**

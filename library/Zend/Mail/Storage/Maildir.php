@@ -83,7 +83,7 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
     public function countMessages($flags = null)
     {
         if ($flags === null) {
-            return count($this->_files);
+            return count(\Zend_Tool_Migration::forCount($this->_files));
         }
 
         $count = 0;
