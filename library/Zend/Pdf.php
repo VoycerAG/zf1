@@ -742,7 +742,7 @@ class Zend_Pdf
         $this->_refreshPagesHash();
 
         $pagesContainer->Count->touch();
-        $pagesContainer->Count->value = count($this->pages);
+        $pagesContainer->Count->value = count(\Zend_Tool_Migration::forCount($this->pages));
 
 
         // Refresh named destinations list
@@ -760,7 +760,7 @@ class Zend_Pdf
                 }
             } else {
                 require_once 'Zend/Pdf/Exception.php';
-                throw new Zend_Pdf_Exception('Wrong type of named targed (\'' . get_class($namedTarget) . '\').');
+                throw new Zend_Pdf_Exception('Wrong type of named targed (\'' . ($namedTarget !== null ? get_class($namedTarget) : get_class()) . '\').');
             }
         }
 
@@ -853,7 +853,7 @@ class Zend_Pdf
         $root = $this->_trailer->Root;
 
         if ($root->Outlines === null) {
-            if (count($this->outlines) == 0) {
+            if (count(\Zend_Tool_Migration::forCount($this->outlines)) == 0) {
                 return;
             } else {
                 $root->Outlines = $this->_objFactory->newObject(new Zend_Pdf_Element_Dictionary());
@@ -862,7 +862,7 @@ class Zend_Pdf
             }
         } else {
             $updateOutlinesNavigation = false;
-            if (count($this->_originalOutlines) != count($this->outlines)) {
+            if (count(\Zend_Tool_Migration::forCount($this->_originalOutlines)) != count(\Zend_Tool_Migration::forCount($this->outlines))) {
                 // If original and current outlines arrays have different size then outlines list was updated
                 $updateOutlinesNavigation = true;
             } else if ( !(array_keys($this->_originalOutlines) === array_keys($this->outlines)) ) {
@@ -1498,7 +1498,7 @@ class Zend_Pdf
 
         $xrefTableStr = "xref\n";
         foreach ($xrefTable as $sectId => $xrefSection) {
-            $xrefTableStr .= sprintf("%d %d \n", $xrefSectionStartNums[$sectId], count($xrefSection));
+            $xrefTableStr .= sprintf("%d %d \n", $xrefSectionStartNums[$sectId], count(\Zend_Tool_Migration::forCount($xrefSection)));
             foreach ($xrefSection as $xrefTableEntry) {
                 $xrefTableStr .= $xrefTableEntry;
             }

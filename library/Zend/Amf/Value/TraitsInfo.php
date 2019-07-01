@@ -94,7 +94,7 @@ class Zend_Amf_Value_TraitsInfo
      */
     public function length()
     {
-        return count($this->_properties);
+        return count(\Zend_Tool_Migration::forCount($this->_properties));
     }
 
     /**

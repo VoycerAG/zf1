@@ -732,7 +732,7 @@ class Zend_Http_UserAgent implements Serializable
             require_once 'Zend/Http/UserAgent/Exception.php';
             throw new Zend_Http_UserAgent_Exception(sprintf(
                 'Expected an object extending Zend_Loader_PluginLoader; received %s',
-                get_class($loader)
+                $loader !== null ? get_class($loader) : get_class()
             ));
         }
 

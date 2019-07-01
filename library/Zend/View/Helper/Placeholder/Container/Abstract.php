@@ -134,7 +134,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      */
     public function getValue()
     {
-        if (1 == count($this)) {
+        if (1 == count(\Zend_Tool_Migration::forCount($this))) {
             $keys = $this->getKeys();
             $key  = array_shift($keys);
             return $this[$key];
@@ -340,7 +340,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     public function nextIndex()
     {
         $keys = $this->getKeys();
-        if (0 == count($keys)) {
+        if (0 == count(\Zend_Tool_Migration::forCount($keys))) {
             return 0;
         }
 

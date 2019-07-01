@@ -187,7 +187,7 @@ class Zend_Text_Table
      */
     public function setColumnWidths(array $columnWidths)
     {
-        if (count($columnWidths) === 0) {
+        if (count(\Zend_Tool_Migration::forCount($columnWidths)) === 0) {
             require_once 'Zend/Text/Table/Exception.php';
             throw new Zend_Text_Table_Exception('You must supply at least one column');
         }
@@ -335,7 +335,7 @@ class Zend_Text_Table
         }
 
         if (is_array($row)) {
-            if (count($row) > count($this->_columnWidths)) {
+            if (count(\Zend_Tool_Migration::forCount($row)) > count(\Zend_Tool_Migration::forCount($this->_columnWidths))) {
                 require_once 'Zend/Text/Table/Exception.php';
                 throw new Zend_Text_Table_Exception('Row contains too many columns');
             }
@@ -372,7 +372,7 @@ class Zend_Text_Table
     public function render()
     {
         // There should be at least one row
-        if (count($this->_rows) === 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_rows)) === 0) {
             require_once 'Zend/Text/Table/Exception.php';
             throw new Zend_Text_Table_Exception('No rows were added to the table yet');
         }
@@ -381,10 +381,10 @@ class Zend_Text_Table
         $result = '';
 
         // Count total columns
-        $totalNumColumns = count($this->_columnWidths);
+        $totalNumColumns = count(\Zend_Tool_Migration::forCount($this->_columnWidths));
 
         // Now render all rows, starting from the first one
-        $numRows = count($this->_rows);
+        $numRows = count(\Zend_Tool_Migration::forCount($this->_rows));
         foreach ($this->_rows as $rowNum => $row) {
             // Get all column widths
             if (isset($columnWidths) === true) {
@@ -393,7 +393,7 @@ class Zend_Text_Table
 
             $renderedRow  = $row->render($this->_columnWidths, $this->_decorator, $this->_padding);
             $columnWidths = $row->getColumnWidths();
-            $numColumns   = count($columnWidths);
+            $numColumns   = count(\Zend_Tool_Migration::forCount($columnWidths));
 
             // Check what we have to draw
             if ($rowNum === 0) {

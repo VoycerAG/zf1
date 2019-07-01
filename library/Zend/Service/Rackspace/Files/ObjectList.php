@@ -113,7 +113,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      */
     public function count()
     {
-        return count($this->objects);
+        return count(\Zend_Tool_Migration::forCount($this->objects));
     }
     /**
      * Return the current element

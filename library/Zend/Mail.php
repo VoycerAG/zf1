@@ -487,7 +487,7 @@ class Zend_Mail extends Zend_Mime_Message
      */
     public function getPartCount()
     {
-        return count($this->_parts);
+        return count(\Zend_Tool_Migration::forCount($this->_parts));
     }
 
     /**

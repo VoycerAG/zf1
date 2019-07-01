@@ -236,7 +236,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
     {
         $queryId = $this->getProfiler()->queryStart($sql);
 
-        if(count($this->_statementStack)) {
+        if(count(\Zend_Tool_Migration::forCount($this->_statementStack))) {
             $stmt = array_pop($this->_statementStack);
         } else {
             $stmt = new Zend_Test_DbStatement();
@@ -266,7 +266,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
     {
-        if(count($this->_lastInsertIdStack)) {
+        if(count(\Zend_Tool_Migration::forCount($this->_lastInsertIdStack))) {
             return array_pop($this->_lastInsertIdStack);
         } else {
             return false;

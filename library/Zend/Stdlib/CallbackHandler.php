@@ -192,7 +192,7 @@ class Zend_Stdlib_CallbackHandler
 
         // Minor performance tweak; use call_user_func() until > 3 arguments 
         // reached
-        switch (count($args)) {
+        switch (count(\Zend_Tool_Migration::forCount($args))) {
             case 0:
                 if ($isPhp54) {
                     return $callback();

@@ -310,7 +310,7 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb
     {
         try {
             $attributes = $this->_simpleDb->getAttributes($collectionName, $documentId);
-            if ($attributes == false || count($attributes) == 0) {
+            if ($attributes == false || count(\Zend_Tool_Migration::forCount($attributes)) == 0) {
                 return false;
             }
             return $this->_resolveAttributes($attributes, true);
@@ -407,9 +407,9 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb
         $result = array();
         foreach ($attributes as $attr) {
             $value = $attr->getValues();
-            if (count($value) == 0) {
+            if (count(\Zend_Tool_Migration::forCount($value)) == 0) {
                 $value = null;
-            } elseif (count($value) == 1) {
+            } elseif (count(\Zend_Tool_Migration::forCount($value)) == 1) {
                 $value = $value[0];
             }
             $result[$attr->getName()] = $value;

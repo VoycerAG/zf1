@@ -150,7 +150,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
 
             // Determine Controller
             $controllerName = $this->_defaults[$this->_controllerKey];
-            if (count($path) && !empty($path[0])) {
+            if (count(\Zend_Tool_Migration::forCount($path)) && !empty($path[0])) {
                 if ($this->_checkRestfulController($moduleName, $path[0])) {
                     $controllerName = $path[0];
                     $values[$this->_controllerKey] = array_shift($path);
@@ -168,7 +168,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
             }
 
             //Store path count for method mapping
-            $pathElementCount = count($path);
+            $pathElementCount = count(\Zend_Tool_Migration::forCount($path));
 
             // Check for "special get" URI's
             $specialGetTarget = false;
@@ -184,7 +184,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
             }
 
             // Digest URI params
-            if ($numSegs = count($path)) {
+            if ($numSegs = count(\Zend_Tool_Migration::forCount($path))) {
                 for ($i = 0; $i < $numSegs; $i = $i + 2) {
                     $key = urldecode($path[$i]);
                     $val = isset($path[$i + 1]) ? $path[$i + 1] : null;

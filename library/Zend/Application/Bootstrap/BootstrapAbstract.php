@@ -453,7 +453,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
             }
             $this->_application = $application;
         } else {
-            throw new Zend_Application_Bootstrap_Exception('Invalid application provided to bootstrap constructor (received "' . get_class($application) . '" instance)');
+            throw new Zend_Application_Bootstrap_Exception('Invalid application provided to bootstrap constructor (received "' . ($application !== null ? get_class($application) : get_class()) . '" instance)');
         }
         return $this;
     }
@@ -767,7 +767,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
         if (isset($resource->_explicitType)) {
             $pluginName = $resource->_explicitType;
         } else  {
-            $className  = get_class($resource);
+            $className  = $resource !== null ? get_class($resource) : get_class();
             $pluginName = $className;
             $loader     = $this->getPluginLoader();
             foreach ($loader->getPaths() as $prefix => $paths) {

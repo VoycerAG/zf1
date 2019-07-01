@@ -401,7 +401,7 @@ abstract class Zend_Db_Adapter_Abstract
         if (!$profilerInstance instanceof Zend_Db_Profiler) {
             /** @see Zend_Db_Profiler_Exception */
             require_once 'Zend/Db/Profiler/Exception.php';
-            throw new Zend_Db_Profiler_Exception('Class ' . get_class($profilerInstance) . ' does not extend '
+            throw new Zend_Db_Profiler_Exception('Class ' . ($profilerInstance !== null ? get_class($profilerInstance) : get_class()) . ' does not extend '
                 . 'Zend_Db_Profiler');
         }
 

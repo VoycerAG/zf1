@@ -997,7 +997,7 @@ class Zend_Form_Element implements Zend_Validate_Interface
             if (false !== ($decorator = $this->getDecorator($decoratorName))) {
                 $decorator->setElement($this);
                 $seed = '';
-                if (0 < count($args)) {
+                if (0 < count(\Zend_Tool_Migration::forCount($args))) {
                     $seed = array_shift($args);
                 }
                 return $decorator->render($seed);
@@ -1210,7 +1210,7 @@ class Zend_Form_Element implements Zend_Validate_Interface
             } elseif ($validatorInfo instanceof Zend_Validate_Interface) {
                 $this->addValidator($validatorInfo);
             } elseif (is_array($validatorInfo)) {
-                $argc                = count($validatorInfo);
+                $argc                = count(\Zend_Tool_Migration::forCount($validatorInfo));
                 $breakChainOnFailure = false;
                 $options             = array();
                 if (isset($validatorInfo['validator'])) {
@@ -1683,7 +1683,7 @@ class Zend_Form_Element implements Zend_Validate_Interface
             } elseif ($filterInfo instanceof Zend_Filter_Interface) {
                 $this->addFilter($filterInfo);
             } elseif (is_array($filterInfo)) {
-                $argc                = count($filterInfo);
+                $argc                = count(\Zend_Tool_Migration::forCount($filterInfo));
                 $options             = array();
                 if (isset($filterInfo['filter'])) {
                     $filter = $filterInfo['filter'];
@@ -1923,7 +1923,7 @@ class Zend_Form_Element implements Zend_Validate_Interface
                     $this->addDecorator($decoratorInfo);
                 }
             } elseif (is_array($decoratorInfo)) {
-                $argc    = count($decoratorInfo);
+                $argc    = count(\Zend_Tool_Migration::forCount($decoratorInfo));
                 $options = array();
                 if (isset($decoratorInfo['decorator'])) {
                     $decorator = $decoratorInfo['decorator'];
@@ -2276,7 +2276,7 @@ class Zend_Form_Element implements Zend_Validate_Interface
                 foreach ($value as $val) {
                     $aggregateMessages[] = str_replace('%value%', $val, $message);
                 }
-                if (count($aggregateMessages)) {
+                if (count(\Zend_Tool_Migration::forCount($aggregateMessages))) {
                     if ($this->_concatJustValuesInErrorMessage) {
                         $values = implode($this->getErrorMessageSeparator(), $value);
                         $messages[$key] = str_replace('%value%', $values, $message);

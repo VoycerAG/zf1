@@ -190,7 +190,7 @@ class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
             return $this;
         }
 
-        if (!count($this->_validFacilities)) {
+        if (!count(\Zend_Tool_Migration::forCount($this->_validFacilities))) {
             $this->_initializeValidFacilities();
         }
 

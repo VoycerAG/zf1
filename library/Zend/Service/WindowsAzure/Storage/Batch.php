@@ -128,7 +128,7 @@ class Zend_Service_WindowsAzure_Storage_Batch
 	    
 	    // Set _isSingleSelect
 	    if ($httpVerb == Zend_Http_Client::GET) {
-	        if (count($this->_operations) > 0) {
+	        if (count(\Zend_Tool_Migration::forCount($this->_operations)) > 0) {
                     require_once 'Zend/Service/WindowsAzure/Exception.php';
 	            throw new Zend_Service_WindowsAzure_Exception("Select operations can only be performed in an empty batch transaction.");
 	        }
@@ -159,7 +159,7 @@ class Zend_Service_WindowsAzure_Storage_Batch
 		    
 		// Add headers
 		if ($httpVerb != Zend_Http_Client::GET) {
-    		$headers['Content-ID'] = count($this->_operations) + 1;
+    		$headers['Content-ID'] = count(\Zend_Tool_Migration::forCount($this->_operations)) + 1;
     		if ($httpVerb != Zend_Http_Client::DELETE) {
     		    $headers['Content-Type'] = 'application/atom+xml;type=entry';
     		}
@@ -201,7 +201,7 @@ class Zend_Service_WindowsAzure_Storage_Batch
         preg_match_all('/<message (.*)>(.*)<\/message>/', $response->getBody(), $errors);
         
         // Error?
-        if (count($errors[2]) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($errors[2])) > 0) {
             require_once 'Zend/Service/WindowsAzure/Exception.php';
             throw new Zend_Service_WindowsAzure_Exception('An error has occured while committing a batch: ' . $errors[2][0]);
         }
@@ -226,7 +226,7 @@ class Zend_Service_WindowsAzure_Storage_Batch
      */
     public function getOperationCount()
     {
-        return count($this->_operations);
+        return count(\Zend_Tool_Migration::forCount($this->_operations));
     }
     
     /**

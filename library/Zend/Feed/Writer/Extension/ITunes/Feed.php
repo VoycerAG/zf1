@@ -227,7 +227,7 @@ class Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function setItunesKeywords(array $value)
     {
-        if (count($value) > 12) {
+        if (count(\Zend_Tool_Migration::forCount($value)) > 12) {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('invalid parameter: "keywords" may only'
             . ' contain a maximum of 12 terms');

@@ -193,9 +193,9 @@ class Zend_Test_PHPUnit_Constraint_DomQuery34 extends PHPUnit_Framework_Constrai
             case self::ASSERT_QUERY:
             default:
                 if ($this->_negate) {
-                    return (0 == count($result));
+                    return (0 == count(\Zend_Tool_Migration::forCount($result)));
                 } else {
-                    return (0 != count($result));
+                    return (0 != count(\Zend_Tool_Migration::forCount($result)));
                 }
         }
     }
@@ -292,7 +292,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery34 extends PHPUnit_Framework_Constrai
     {
         $match = (string) $match;
 
-        if (0 == count($result)) {
+        if (0 == count(\Zend_Tool_Migration::forCount($result))) {
             return false;
         }
 
@@ -315,7 +315,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery34 extends PHPUnit_Framework_Constrai
      */
     protected function _notMatchContent($result, $match)
     {
-        if (0 == count($result)) {
+        if (0 == count(\Zend_Tool_Migration::forCount($result))) {
             return true;
         }
 
@@ -338,7 +338,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery34 extends PHPUnit_Framework_Constrai
      */
     protected function _regexContent($result, $pattern)
     {
-        if (0 == count($result)) {
+        if (0 == count(\Zend_Tool_Migration::forCount($result))) {
             return false;
         }
 
@@ -361,7 +361,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery34 extends PHPUnit_Framework_Constrai
      */
     protected function _notRegexContent($result, $pattern)
     {
-        if (0 == count($result)) {
+        if (0 == count(\Zend_Tool_Migration::forCount($result))) {
             return true;
         }
 
@@ -385,7 +385,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery34 extends PHPUnit_Framework_Constrai
      */
     protected function _countContent($result, $test, $type)
     {
-        $count = count($result);
+        $count = count(\Zend_Tool_Migration::forCount($result));
 
         switch ($type) {
             case self::ASSERT_CONTENT_COUNT:

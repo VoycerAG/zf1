@@ -39,7 +39,7 @@ class Zend_Pdf_RecursivelyIteratableObjectsContainer implements RecursiveIterato
     public function rewind()       { return reset($this->_objects);              }
     public function valid()        { return current($this->_objects) !== false;  }
     public function getChildren()  { return current($this->_objects);            }
-    public function hasChildren()  { return count($this->_objects) > 0;          }
+    public function hasChildren()  { return count(\Zend_Tool_Migration::forCount($this->_objects)) > 0;          }
 
-    public function count() { return count($this->_objects); }
+    public function count() { return count(\Zend_Tool_Migration::forCount($this->_objects)); }
 }

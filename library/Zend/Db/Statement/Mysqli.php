@@ -193,7 +193,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
         }
         // send $params as input parameters to the statement
         if ($params) {
-            array_unshift($params, str_repeat('s', count($params)));
+            array_unshift($params, str_repeat('s', count(\Zend_Tool_Migration::forCount($params))));
             $stmtParams = array();
             foreach ($params as $k => &$value) {
                 $stmtParams[$k] = &$value;
@@ -237,7 +237,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
             }
 
             // set up a binding space for result variables
-            $this->_values = array_fill(0, count($this->_keys), null);
+            $this->_values = array_fill(0, count(\Zend_Tool_Migration::forCount($this->_keys)), null);
 
             // set up references to the result binding space.
             // just passing $this->_values in the call_user_func_array()

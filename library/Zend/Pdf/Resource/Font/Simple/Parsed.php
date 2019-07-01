@@ -87,7 +87,7 @@ abstract class Zend_Pdf_Resource_Font_Simple_Parsed extends Zend_Pdf_Resource_Fo
         $this->_resource->BaseFont = new Zend_Pdf_Element_Name($baseFont);
 
         $this->_resource->FirstChar = new Zend_Pdf_Element_Numeric(0);
-        $this->_resource->LastChar  = new Zend_Pdf_Element_Numeric(count($this->_glyphWidths) - 1);
+        $this->_resource->LastChar  = new Zend_Pdf_Element_Numeric(count(\Zend_Tool_Migration::forCount($this->_glyphWidths)) - 1);
 
         /* Now convert the scalar glyph widths to Zend_Pdf_Element_Numeric objects.
          */

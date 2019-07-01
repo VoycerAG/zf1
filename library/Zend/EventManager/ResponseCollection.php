@@ -401,7 +401,7 @@ class Zend_EventManager_ResponseCollection extends SplStack
      */
     public function last()
     {
-        if (count($this) === 0) {
+        if (count(\Zend_Tool_Migration::forCount($this)) === 0) {
             return null;
         }
         return parent::top();

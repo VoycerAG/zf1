@@ -123,7 +123,7 @@ class Zend_View_Helper_PaginationControl
         }
 
         if (is_array($partial)) {
-            if (count($partial) != 2) {
+            if (count(\Zend_Tool_Migration::forCount($partial)) != 2) {
                 /**
                  * @see Zend_View_Exception
                  */

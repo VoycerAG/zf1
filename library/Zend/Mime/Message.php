@@ -92,7 +92,7 @@ class Zend_Mime_Message
      */
     public function isMultiPart()
     {
-        return (count($this->_parts) > 1);
+        return (count(\Zend_Tool_Migration::forCount($this->_parts)) > 1);
     }
 
     /**

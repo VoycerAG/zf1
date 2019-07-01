@@ -140,7 +140,7 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
                 break;
             }
         }
-        $this->_countParts = count($this->_partPos);
+        $this->_countParts = count(\Zend_Tool_Migration::forCount($this->_partPos));
 
     }
 

@@ -158,8 +158,8 @@ class Zend_Json
         }
 
         //only do post-proccessing to revert back the Zend_Json_Expr if any.
-        if (count($javascriptExpressions) > 0) {
-            $count = count($javascriptExpressions);
+        if (count(\Zend_Tool_Migration::forCount($javascriptExpressions)) > 0) {
+            $count = count(\Zend_Tool_Migration::forCount($javascriptExpressions));
             for($i = 0; $i < $count; $i++) {
                 $magicKey = $javascriptExpressions[$i]['magicKey'];
                 $value    = $javascriptExpressions[$i]['value'];
@@ -198,7 +198,7 @@ class Zend_Json
     {
          if ($value instanceof Zend_Json_Expr) {
             // TODO: Optimize with ascii keys, if performance is bad
-            $magicKey = "____" . $currentKey . "_" . (count($javascriptExpressions));
+            $magicKey = "____" . $currentKey . "_" . (count(\Zend_Tool_Migration::forCount($javascriptExpressions)));
             $javascriptExpressions[] = array(
 
                 //if currentKey is integer, encodeUnicodeString call is not required.
@@ -276,7 +276,7 @@ class Zend_Json
         $value = self::_getXmlValue($simpleXmlElementObject);
         $attributes = (array) $simpleXmlElementObject->attributes();
 
-        if (count($children) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($children)) == 0) {
             if (!empty($attributes) && !$ignoreXmlAttributes) {
                 foreach ($attributes['@attributes'] as $k => $v) {
                     $attributes['@attributes'][$k]= self::_getXmlValue($v);

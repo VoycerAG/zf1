@@ -454,7 +454,7 @@ class Zend_Cache_Backend_Static
                 $urls = array_keys($this->_tagged);
                 foreach ($urls as $url) {
                     $difference = array_diff($tags, $this->_tagged[$url]['tags']);
-                    if (count($tags) == count($difference)) {
+                    if (count(\Zend_Tool_Migration::forCount($tags)) == count(\Zend_Tool_Migration::forCount($difference))) {
                         $this->remove($url);
                         unset($this->_tagged[$url]);
                     }

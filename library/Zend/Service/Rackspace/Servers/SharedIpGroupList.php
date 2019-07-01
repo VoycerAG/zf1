@@ -110,7 +110,7 @@ class Zend_Service_Rackspace_Servers_SharedIpGroupList implements Countable, Ite
      */
     public function count()
     {
-        return count($this->shared);
+        return count(\Zend_Tool_Migration::forCount($this->shared));
     }
     /**
      * Return the current element

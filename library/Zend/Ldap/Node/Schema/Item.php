@@ -158,6 +158,6 @@ abstract class Zend_Ldap_Node_Schema_Item implements ArrayAccess, Countable
      */
     public function count()
     {
-        return count($this->_data);
+        return count(\Zend_Tool_Migration::forCount($this->_data));
     }
 }

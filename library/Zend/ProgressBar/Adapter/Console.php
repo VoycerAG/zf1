@@ -268,7 +268,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
                                  self::ELEMENT_ETA,
                                  self::ELEMENT_TEXT);
 
-        if (count(array_diff($elements, $allowedElements)) > 0) {
+        if (count(\Zend_Tool_Migration::forCount(array_diff($elements, $allowedElements))) > 0) {
             require_once 'Zend/ProgressBar/Adapter/Exception.php';
             throw new Zend_ProgressBar_Adapter_Exception('Invalid element found in $elements array');
         }
@@ -515,7 +515,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
                 $barWidth -= $this->_textWidth;
             }
 
-            $this->_barWidth = $barWidth - (count($this->_elements) - 1);
+            $this->_barWidth = $barWidth - (count(\Zend_Tool_Migration::forCount($this->_elements)) - 1);
         }
     }
 

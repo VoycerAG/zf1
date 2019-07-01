@@ -146,7 +146,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
     public function __call($method, $args)
     {
         if (preg_match('/^(?P<action>set|(ap|pre)pend|offsetSet)(?P<type>Stylesheet|Alternate)$/', $method, $matches)) {
-            $argc   = count($args);
+            $argc   = count(\Zend_Tool_Migration::forCount($args));
             $action = $matches['action'];
             $type   = $matches['type'];
             $index  = null;
@@ -379,7 +379,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
             return false;
         }
 
-        if (0 < count($args)) {
+        if (0 < count(\Zend_Tool_Migration::forCount($args))) {
             $media = array_shift($args);
             if(is_array($media)) {
                 $media = implode(',', $media);
@@ -387,7 +387,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
                 $media = (string) $media;
             }
         }
-        if (0 < count($args)) {
+        if (0 < count(\Zend_Tool_Migration::forCount($args))) {
             $conditionalStylesheet = array_shift($args);
             if(!empty($conditionalStylesheet) && is_string($conditionalStylesheet)) {
                 $conditionalStylesheet = (string) $conditionalStylesheet;
@@ -396,7 +396,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
             }
         }
 
-        if(0 < count($args) && is_array($args[0])) {
+        if(0 < count(\Zend_Tool_Migration::forCount($args)) && is_array($args[0])) {
             $extras = array_shift($args);
             $extras = (array) $extras;
         }
@@ -429,9 +429,9 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
      */
     public function createDataAlternate(array $args)
     {
-        if (3 > count($args)) {
+        if (3 > count(\Zend_Tool_Migration::forCount($args))) {
             require_once 'Zend/View/Exception.php';
-            $e = new Zend_View_Exception(sprintf('Alternate tags require 3 arguments; %s provided', count($args)));
+            $e = new Zend_View_Exception(sprintf('Alternate tags require 3 arguments; %s provided', count(\Zend_Tool_Migration::forCount($args))));
             $e->setView($this->view);
             throw $e;
         }
@@ -441,7 +441,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
         $type  = array_shift($args);
         $title = array_shift($args);
 
-        if(0 < count($args) && is_array($args[0])) {
+        if(0 < count(\Zend_Tool_Migration::forCount($args)) && is_array($args[0])) {
             $extras = array_shift($args);
             $extras = (array) $extras;
 

@@ -243,7 +243,7 @@ class Zend_Controller_Plugin_ErrorHandler extends Zend_Controller_Plugin_Abstrac
 
         if ($this->_isInsideErrorHandlerLoop) {
             $exceptions = $response->getException();
-            if (count($exceptions) > $this->_exceptionCountAtFirstEncounter) {
+            if (count(\Zend_Tool_Migration::forCount($exceptions)) > $this->_exceptionCountAtFirstEncounter) {
                 // Exception thrown by error handler; tell the front controller to throw it
                 $frontController->throwExceptions(true);
                 throw array_pop($exceptions);
@@ -258,7 +258,7 @@ class Zend_Controller_Plugin_ErrorHandler extends Zend_Controller_Plugin_Abstrac
             $error            = new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
             $exceptions       = $response->getException();
             $exception        = $exceptions[0];
-            $exceptionType    = get_class($exception);
+            $exceptionType    = $exception !== null ? get_class($exception) : get_class();
             $error->exception = $exception;
             switch ($exceptionType) {
                 case 'Zend_Controller_Router_Exception':
@@ -287,7 +287,7 @@ class Zend_Controller_Plugin_ErrorHandler extends Zend_Controller_Plugin_Abstrac
             $error->request = clone $request;
 
             // get a count of the number of exceptions encountered
-            $this->_exceptionCountAtFirstEncounter = count($exceptions);
+            $this->_exceptionCountAtFirstEncounter = count(\Zend_Tool_Migration::forCount($exceptions));
 
             // Forward to the error handler
             $request->setParam('error_handler', $error)

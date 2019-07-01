@@ -138,7 +138,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
         }
 
         // ensure there are arguments left
-        if (count($this->_argumentsWorking) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_argumentsWorking)) == 0) {
             $this->_request->setDispatchable(false); // at this point request is not dispatchable
 
             // check to see if this was a help request
@@ -169,7 +169,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
         /* @TODO Action Parameter Requirements */
 
         // make sure there are more "words" on the command line
-        if (count($this->_argumentsWorking) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_argumentsWorking)) == 0) {
             $this->_request->setDispatchable(false); // at this point request is not dispatchable
 
             // check to see if this is a help request
@@ -206,12 +206,12 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
         }
 
         // if there are arguments on the command line, lets process them as provider options
-        if (count($this->_argumentsWorking) != 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_argumentsWorking)) != 0) {
             $this->_parseProviderOptionsPart();
         }
 
         // if there is still arguments lingering around, we can assume something is wrong
-        if (count($this->_argumentsWorking) != 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_argumentsWorking)) != 0) {
             $this->_request->setDispatchable(false); // at this point request is not dispatchable
             if ($this->_help) {
                 $this->_createHelpResponse($helpResponseOptions);
@@ -478,7 +478,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
                 break;
             }
 
-            if (count($wordStack) == count($wordArguments)) {
+            if (count(\Zend_Tool_Migration::forCount($wordStack)) == count(\Zend_Tool_Migration::forCount($wordArguments))) {
                 // when we get at most the number of arguments we are expecting
                 // then break out.
                 break;
@@ -487,7 +487,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
         }
 
         if ($wordStack && $wordArguments) {
-            for ($wordIndex = 1; $wordIndex <= count($wordArguments); $wordIndex++) {
+            for ($wordIndex = 1; $wordIndex <= count(\Zend_Tool_Migration::forCount($wordArguments)); $wordIndex++) {
                 if (!array_key_exists($wordIndex-1, $wordStack) || !array_key_exists($wordIndex, $wordArguments)) {
                     break;
                 }

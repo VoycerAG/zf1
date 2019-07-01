@@ -392,7 +392,7 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
      */
     public function count()
     {
-        return count($this->_rawCookies);
+        return count(\Zend_Tool_Migration::forCount($this->_rawCookies));
     }
 
     /**
@@ -412,7 +412,7 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
      */
     public function isEmpty()
     {
-        return count($this) == 0;
+        return count(\Zend_Tool_Migration::forCount($this)) == 0;
     }
 
     /**

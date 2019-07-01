@@ -240,7 +240,7 @@ class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
              ? $this->_referenceStrings[$string] 
              : false;
         if ($ref === false){
-            $this->_referenceStrings[$string] = count($this->_referenceStrings);
+            $this->_referenceStrings[$string] = count(\Zend_Tool_Migration::forCount($this->_referenceStrings));
             $this->writeBinaryString($string);
         } else {
             $ref <<= 1;
@@ -354,7 +354,7 @@ class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
         }
 
         // write the preamble id of the array
-        $length = count($numeric);
+        $length = count(\Zend_Tool_Migration::forCount($numeric));
         $id     = ($length << 1) | 0x01;
         $this->writeInteger($id);
 
@@ -399,7 +399,7 @@ class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
             $this->writeInteger($ref);
             return true;
         }
-        $this->_referenceObjects[$hash] = count($this->_referenceObjects);
+        $this->_referenceObjects[$hash] = count(\Zend_Tool_Migration::forCount($this->_referenceObjects));
         return false;
     }
 
@@ -420,7 +420,7 @@ class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
         //Check to see if the object is a typed object and we need to change
         switch (true) {
              // the return class mapped name back to actionscript class name.
-            case ($className = Zend_Amf_Parse_TypeLoader::getMappedClassName(get_class($object))):
+            case ($className = Zend_Amf_Parse_TypeLoader::getMappedClassName($object !== null ? get_class($object) : get_class())):
                 break;
 
             // Check to see if the user has defined an explicit Action Script type.
@@ -472,14 +472,14 @@ class Zend_Amf_Parse_Amf3_Serializer extends Zend_Amf_Parse_Serializer
             }
 
             $this->_referenceDefinitions[$className] = array(
-                        'id'            => count($this->_referenceDefinitions),
+                        'id'            => count(\Zend_Tool_Migration::forCount($this->_referenceDefinitions)),
                         'encoding'      => $encoding,
                         'propertyNames' => $propertyNames,
                     );
 
             $traitsInfo = Zend_Amf_Constants::AMF3_OBJECT_ENCODING;
             $traitsInfo |= $encoding << 2;
-            $traitsInfo |= (count($propertyNames) << 4);
+            $traitsInfo |= (count(\Zend_Tool_Migration::forCount($propertyNames)) << 4);
         }
 
         $this->writeInteger($traitsInfo);

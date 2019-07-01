@@ -107,7 +107,7 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
     {
         if (is_array($terms)) {
             require_once 'Zend/Search/Lucene.php';
-            if (count($terms) > Zend_Search_Lucene::getTermsPerQueryLimit()) {
+            if (count(\Zend_Tool_Migration::forCount($terms)) > Zend_Search_Lucene::getTermsPerQueryLimit()) {
                 throw new Zend_Search_Lucene_Exception('Terms per query limit is reached.');
             }
 
@@ -162,7 +162,7 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
      */
     public function rewrite(Zend_Search_Lucene_Interface $index)
     {
-        if (count($this->_terms) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_terms)) == 0) {
             require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
             return new Zend_Search_Lucene_Search_Query_Empty();
         }
@@ -244,7 +244,7 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
          * (they may have different signs)
          */
 
-        if (count($terms) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($terms)) == 1) {
             // It's already checked, that it's not a prohibited term
 
             // It's one term query with one required or optional element
@@ -255,7 +255,7 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
             return $optimizedQuery;
         }
 
-        if (count($terms) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($terms)) == 0) {
             require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
             return new Zend_Search_Lucene_Search_Query_Empty();
         }
@@ -324,7 +324,7 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
     {
         $this->_resVector = null;
 
-        if (count($this->_terms) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_terms)) == 0) {
             $this->_resVector = array();
         }
 
@@ -378,7 +378,7 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
             if ($this->_signs[$termId] === true) {
                 // required
                 $requiredVectors[]      = $termDocs;
-                $requiredVectorsSizes[] = count($termDocs);
+                $requiredVectorsSizes[] = count(\Zend_Tool_Migration::forCount($termDocs));
                 $requiredVectorsIds[]   = $termId;
             } elseif ($this->_signs[$termId] === false) {
                 // prohibited
@@ -417,7 +417,7 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
                 $required = $updatedVector;
             }
 
-            if (count($required) == 0) {
+            if (count(\Zend_Tool_Migration::forCount($required)) == 0) {
                 // Empty result set, we don't need to check other terms
                 break;
             }
@@ -429,13 +429,13 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
             $this->_resVector = $optional;
         }
 
-        if (count($prohibited) != 0) {
+        if (count(\Zend_Tool_Migration::forCount($prohibited)) != 0) {
             // $this->_resVector = array_diff_key($this->_resVector, $prohibited);
 
             /**
              * This code is used as workaround for array_diff_key() slowness problem.
              */
-            if (count($this->_resVector) < count($prohibited)) {
+            if (count(\Zend_Tool_Migration::forCount($this->_resVector)) < count(\Zend_Tool_Migration::forCount($prohibited))) {
                 $updatedVector = $this->_resVector;
                 foreach ($this->_resVector as $id => $value) {
                     if (isset($prohibited[$id])) {
@@ -466,8 +466,8 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
     public function _conjunctionScore($docId, Zend_Search_Lucene_Interface $reader)
     {
         if ($this->_coord === null) {
-            $this->_coord = $reader->getSimilarity()->coord(count($this->_terms),
-                                                            count($this->_terms) );
+            $this->_coord = $reader->getSimilarity()->coord(count(\Zend_Tool_Migration::forCount($this->_terms)),
+                                                            count(\Zend_Tool_Migration::forCount($this->_terms)) );
         }
 
         $score = 0.0;

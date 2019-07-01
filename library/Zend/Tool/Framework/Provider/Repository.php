@@ -240,7 +240,7 @@ class Zend_Tool_Framework_Provider_Repository
      */
     public function count()
     {
-        return count($this->_providers);
+        return count(\Zend_Tool_Migration::forCount($this->_providers));
     }
 
     /**

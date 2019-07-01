@@ -151,7 +151,7 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
     public function assemble($data = array(), $reset = false, $encode = false)
     {
         $value     = '';
-        $numRoutes = count($this->_routes);
+        $numRoutes = count(\Zend_Tool_Migration::forCount($this->_routes));
 
         foreach ($this->_routes as $key => $route) {
             if ($key > 0) {

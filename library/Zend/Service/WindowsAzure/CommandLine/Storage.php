@@ -71,7 +71,7 @@ class Zend_Service_WindowsAzure_CommandLine_Storage
 		$client = new Zend_Service_WindowsAzure_Management_Client($subscriptionId, $certificate, $certificatePassphrase);
 		$result = $client->listStorageAccounts();
 
-		if (count($result) == 0) {
+		if (count(\Zend_Tool_Migration::forCount($result)) == 0) {
 			echo 'No data to display.';
 		}
 		foreach ($result as $object) {

@@ -538,7 +538,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
      */
     protected function _validateCompositeKey(array $key)
     {
-        if (2 != count($key)) {
+        if (2 != count(\Zend_Tool_Migration::forCount($key))) {
             throw new Zend_Cloud_DocumentService_Exception('Invalid document key provided; must contain exactly two elements: a PartitionKey and a RowKey');
         }
         foreach ($key as $k) {

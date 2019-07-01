@@ -120,7 +120,7 @@ class Zend_Service_WindowsAzure_CommandLine_Package
 			isset($_SERVER['ProgramFiles']) ? glob($_SERVER['ProgramFiles(x86)'] . '\Windows Azure SDK\*\bin', GLOB_NOSORT) : array(),
 			isset($_SERVER['ProgramFiles']) ? glob($_SERVER['ProgramW6432'] . '\Windows Azure SDK\*\bin', GLOB_NOSORT) : array()
 		);
-		if (count($windowsAzureSdkFolderCandidates) == 0) {
+		if (count(\Zend_Tool_Migration::forCount($windowsAzureSdkFolderCandidates)) == 0) {
 			throw new Zend_Service_Console_Exception('Could not locate Windows Azure SDK for PHP.');
 		}
 		$cspack = '"' . $windowsAzureSdkFolderCandidates[0] . '\cspack.exe' . '"';
@@ -135,14 +135,14 @@ class Zend_Service_WindowsAzure_CommandLine_Package
 		$serviceDefinition = Zend_Xml_Security::scanFile($serviceDefinitionFile);
 		$xmlRoles = array();
 		if ($serviceDefinition->WebRole) {
-			if (count($serviceDefinition->WebRole) > 1) {
+			if (count(\Zend_Tool_Migration::forCount($serviceDefinition->WebRole)) > 1) {
 	    		$xmlRoles = array_merge($xmlRoles, $serviceDefinition->WebRole);
 			} else {
 	    		$xmlRoles = array_merge($xmlRoles, array($serviceDefinition->WebRole));
 	    	}
 		}
 		if ($serviceDefinition->WorkerRole) {
-			if (count($serviceDefinition->WorkerRole) > 1) {
+			if (count(\Zend_Tool_Migration::forCount($serviceDefinition->WorkerRole)) > 1) {
 	    		$xmlRoles = array_merge($xmlRoles, $serviceDefinition->WorkerRole);
 			} else {
 	    		$xmlRoles = array_merge($xmlRoles, array($serviceDefinition->WorkerRole));

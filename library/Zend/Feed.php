@@ -311,7 +311,7 @@ class Zend_Feed
 
         // Try to fetch a feed for each link tag that appears to refer to a feed
         $feeds = array();
-        if (isset($matches[1]) && count($matches[1]) > 0) {
+        if (isset($matches[1]) && count(\Zend_Tool_Migration::forCount($matches[1])) > 0) {
             foreach ($matches[1] as $link) {
                 // force string to be an utf-8 one
                 if (!mb_check_encoding($link, 'UTF-8')) {

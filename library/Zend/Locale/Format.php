@@ -78,7 +78,7 @@ class Zend_Locale_Format
      */
     private static function _checkOptions(array $options = array())
     {
-        if (count($options) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($options)) == 0) {
             return self::$_options;
         }
         foreach ($options as $name => $value) {
@@ -547,7 +547,7 @@ class Zend_Locale_Format
         $decimal  = preg_replace('/[^#0,;\.\-Ee]/u', '',$decimal);
         $patterns = explode(';', $decimal);
 
-        if (count($patterns) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($patterns)) == 1) {
             $patterns[1] = '-' . $patterns[0];
         }
 
@@ -564,7 +564,7 @@ class Zend_Locale_Format
 
             if (strpos($pattern, ',') !== false) {
                 $parts = explode(',', $pattern);
-                $count = count($parts);
+                $count = count(\Zend_Tool_Migration::forCount($parts));
                 foreach($parts as $key => $part) {
                     switch ($part) {
                         case '#':
@@ -907,12 +907,12 @@ class Zend_Locale_Format
         $split = false;
         preg_match_all('/\d+/u', $number, $splitted);
 
-        if (count($splitted[0]) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($splitted[0])) == 0) {
             self::_setEncoding($oenc);
             require_once 'Zend/Locale/Exception.php';
             throw new Zend_Locale_Exception("No date part in '$date' found.");
         }
-        if (count($splitted[0]) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($splitted[0])) == 1) {
             $split = 0;
         }
         $cnt = 0;
@@ -921,7 +921,7 @@ class Zend_Locale_Format
             switch($value) {
                 case 'd':
                     if ($split === false) {
-                        if (count($splitted[0]) > $cnt) {
+                        if (count(\Zend_Tool_Migration::forCount($splitted[0])) > $cnt) {
                             $result['day']    = $splitted[0][$cnt];
                         }
                     } else {
@@ -932,7 +932,7 @@ class Zend_Locale_Format
                     break;
                 case 'M':
                     if ($split === false) {
-                        if (count($splitted[0]) > $cnt) {
+                        if (count(\Zend_Tool_Migration::forCount($splitted[0])) > $cnt) {
                             $result['month']  = $splitted[0][$cnt];
                         }
                     } else {
@@ -949,7 +949,7 @@ class Zend_Locale_Format
                     }
 
                     if ($split === false) {
-                        if (count($splitted[0]) > $cnt) {
+                        if (count(\Zend_Tool_Migration::forCount($splitted[0])) > $cnt) {
                             $result['year']   = $splitted[0][$cnt];
                         }
                     } else {
@@ -961,7 +961,7 @@ class Zend_Locale_Format
                     break;
                 case 'H':
                     if ($split === false) {
-                        if (count($splitted[0]) > $cnt) {
+                        if (count(\Zend_Tool_Migration::forCount($splitted[0])) > $cnt) {
                             $result['hour']   = $splitted[0][$cnt];
                         }
                     } else {
@@ -972,7 +972,7 @@ class Zend_Locale_Format
                     break;
                 case 'm':
                     if ($split === false) {
-                        if (count($splitted[0]) > $cnt) {
+                        if (count(\Zend_Tool_Migration::forCount($splitted[0])) > $cnt) {
                             $result['minute'] = $splitted[0][$cnt];
                         }
                     } else {
@@ -983,7 +983,7 @@ class Zend_Locale_Format
                     break;
                 case 's':
                     if ($split === false) {
-                        if (count($splitted[0]) > $cnt) {
+                        if (count(\Zend_Tool_Migration::forCount($splitted[0])) > $cnt) {
                             $result['second'] = $splitted[0][$cnt];
                         }
                     } else {

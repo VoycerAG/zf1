@@ -279,7 +279,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
                 $this->removeObject("$bucket/$object");
             }
             $params= array (
-                'marker' => $objects[count($objects)-1]
+                'marker' => $objects[count(\Zend_Tool_Migration::forCount($objects))-1]
             );
             $objects = $this->getObjectsByBucket($bucket,$params);
         }
@@ -380,7 +380,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
         $this->_validBucketName($nameparts[0]);
 
         $firstpart = array_shift($nameparts);
-        if (count($nameparts) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($nameparts)) == 0) {
             return $firstpart;
         }
 

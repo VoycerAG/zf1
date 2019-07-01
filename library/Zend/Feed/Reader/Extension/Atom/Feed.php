@@ -89,7 +89,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
             }
         }
 
-        if (count($authors) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($authors)) == 0) {
             $authors = null;
         } else {
             $authors = new Zend_Feed_Reader_Collection_Author(

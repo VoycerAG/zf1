@@ -84,7 +84,7 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationInstance
 		if ($configurationXml->DataSources->PerformanceCounters->Subscriptions
 			&& $configurationXml->DataSources->PerformanceCounters->Subscriptions->PerformanceCounterConfiguration) {
 			$subscriptions = $configurationXml->DataSources->PerformanceCounters->Subscriptions;
-			if (count($subscriptions->PerformanceCounterConfiguration) > 1) {
+			if (count(\Zend_Tool_Migration::forCount($subscriptions->PerformanceCounterConfiguration)) > 1) {
 				$subscriptions = $subscriptions->PerformanceCounterConfiguration;
 			} else {
 				$subscriptions = array($subscriptions->PerformanceCounterConfiguration);
@@ -101,7 +101,7 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationInstance
 		if ($configurationXml->DataSources->WindowsEventLog->Subscriptions
 			&& $configurationXml->DataSources->WindowsEventLog->Subscriptions->string) {
 			$subscriptions = $configurationXml->DataSources->WindowsEventLog->Subscriptions;
-			if (count($subscriptions->string) > 1) {
+			if (count(\Zend_Tool_Migration::forCount($subscriptions->string)) > 1) {
 				$subscriptions = $subscriptions->string;
 			} else {
 				$subscriptions = array($subscriptions->string);
@@ -118,7 +118,7 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationInstance
 		if ($configurationXml->DataSources->Directories->Subscriptions
 			&& $configurationXml->DataSources->Directories->Subscriptions->DirectoryConfiguration) {
 			$subscriptions = $configurationXml->DataSources->Directories->Subscriptions;
-			if (count($subscriptions->DirectoryConfiguration) > 1) {
+			if (count(\Zend_Tool_Migration::forCount($subscriptions->DirectoryConfiguration)) > 1) {
 				$subscriptions = $subscriptions->DirectoryConfiguration;
 			} else {
 				$subscriptions = array($subscriptions->DirectoryConfiguration);
@@ -163,7 +163,7 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationInstance
 		$returnValue[] = '    <PerformanceCounters>';
 		$returnValue[] = '      <BufferQuotaInMB>' . $this->DataSources->PerformanceCounters->BufferQuotaInMB . '</BufferQuotaInMB>';
 		$returnValue[] = '      <ScheduledTransferPeriodInMinutes>' . $this->DataSources->PerformanceCounters->ScheduledTransferPeriodInMinutes . '</ScheduledTransferPeriodInMinutes>';
-		if (count($this->DataSources->PerformanceCounters->Subscriptions) == 0) {
+		if (count(\Zend_Tool_Migration::forCount($this->DataSources->PerformanceCounters->Subscriptions)) == 0) {
 			$returnValue[] = '      <Subscriptions />';
 		} else {
 			$returnValue[] = '      <Subscriptions>';
@@ -180,7 +180,7 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationInstance
 		$returnValue[] = '    <WindowsEventLog>';
 		$returnValue[] = '      <BufferQuotaInMB>' . $this->DataSources->WindowsEventLog->BufferQuotaInMB . '</BufferQuotaInMB>';
 		$returnValue[] = '      <ScheduledTransferPeriodInMinutes>' . $this->DataSources->WindowsEventLog->ScheduledTransferPeriodInMinutes . '</ScheduledTransferPeriodInMinutes>';
-			if (count($this->DataSources->WindowsEventLog->Subscriptions) == 0) {
+			if (count(\Zend_Tool_Migration::forCount($this->DataSources->WindowsEventLog->Subscriptions)) == 0) {
 			$returnValue[] = '      <Subscriptions />';
 		} else {
 			$returnValue[] = '      <Subscriptions>';
@@ -195,7 +195,7 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationInstance
 		$returnValue[] = '    <Directories>';
 		$returnValue[] = '      <BufferQuotaInMB>' . $this->DataSources->Directories->BufferQuotaInMB . '</BufferQuotaInMB>';
 		$returnValue[] = '      <ScheduledTransferPeriodInMinutes>' . $this->DataSources->Directories->ScheduledTransferPeriodInMinutes . '</ScheduledTransferPeriodInMinutes>';
-		if (count($this->DataSources->Directories->Subscriptions) == 0) {
+		if (count(\Zend_Tool_Migration::forCount($this->DataSources->Directories->Subscriptions)) == 0) {
 			$returnValue[] = '      <Subscriptions />';
 		} else {
 			$returnValue[] = '      <Subscriptions>';

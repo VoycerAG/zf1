@@ -529,7 +529,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
      */
     protected function _momorize($value)
     {
-        $id = count($this->_memo);
+        $id = count(\Zend_Tool_Migration::forCount($this->_memo));
         $this->_memo[$id] = $value;
         $this->_writePut($id);
     }
@@ -604,7 +604,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
             $this->_load($op);
         }
 
-        if (!count($this->_stack)) {
+        if (!count(\Zend_Tool_Migration::forCount($this->_stack))) {
             require_once 'Zend/Serializer/Exception.php';
             throw new Zend_Serializer_Exception('No data found');
         }
@@ -764,7 +764,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
     {
         $id = (int)$this->_readline();
 
-        $lastStack = count($this->_stack)-1;
+        $lastStack = count(\Zend_Tool_Migration::forCount($this->_stack))-1;
         if (!isset($this->_stack[$lastStack])) {
             require_once 'Zend/Serializer/Exception.php';
             throw new Zend_Serializer_Exception('No stack exist');
@@ -782,7 +782,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
     {
         $id = ord($this->_read(1));
 
-        $lastStack = count($this->_stack)-1;
+        $lastStack = count(\Zend_Tool_Migration::forCount($this->_stack))-1;
         if (!isset($this->_stack[$lastStack])) {
             require_once 'Zend/Serializer/Exception.php';
             throw new Zend_Serializer_Exception('No stack exist');
@@ -804,7 +804,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
         }
         list(, $id) = unpack('l', $bin);
 
-        $lastStack = count($this->_stack)-1;
+        $lastStack = count(\Zend_Tool_Migration::forCount($this->_stack))-1;
         if (!isset($this->_stack[$lastStack])) {
             require_once 'Zend/Serializer/Exception.php';
             throw new Zend_Serializer_Exception('No stack exist');
@@ -1184,7 +1184,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
         $this->_stack[$k] = array();
 
         // remove all elements after marker
-        $max = count($this->_stack);
+        $max = count(\Zend_Tool_Migration::forCount($this->_stack));
         for ($i = $k+1, $max; $i < $max; $i++) {
             unset($this->_stack[$i]);
         }
@@ -1198,7 +1198,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
     protected function _loadAppend()
     {
         $value  =  array_pop($this->_stack);
-        $list   =& $this->_stack[count($this->_stack)-1];
+        $list   =& $this->_stack[count(\Zend_Tool_Migration::forCount($this->_stack))-1];
         $list[] =  $value;
     }
 
@@ -1221,7 +1221,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
     {
         $k    =  $this->_lastMarker();
         $list =& $this->_stack[$k - 1];
-        $max  =  count($this->_stack);
+        $max  =  count(\Zend_Tool_Migration::forCount($this->_stack));
         for ($i = $k + 1; $i < $max; $i++) {
             $list[] = $this->_stack[$i];
             unset($this->_stack[$i]);
@@ -1240,7 +1240,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
         $this->_stack[$k] = array();
 
         // remove all elements after marker
-        $max = count($this->_stack);
+        $max = count(\Zend_Tool_Migration::forCount($this->_stack));
         for($i = $k + 1; $i < $max; $i++) {
             unset($this->_stack[$i]);
         }
@@ -1255,7 +1255,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
     {
         $value =  array_pop($this->_stack);
         $key   =  array_pop($this->_stack);
-        $dict  =& $this->_stack[count($this->_stack) - 1];
+        $dict  =& $this->_stack[count(\Zend_Tool_Migration::forCount($this->_stack)) - 1];
         $dict[$key] = $value;
     }
 
@@ -1278,7 +1278,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
     {
         $k    =  $this->_lastMarker();
         $dict =& $this->_stack[$k - 1];
-        $max  =  count($this->_stack);
+        $max  =  count(\Zend_Tool_Migration::forCount($this->_stack));
         for ($i = $k + 1; $i < $max; $i += 2) {
             $key        = $this->_stack[$i];
             $value      = $this->_stack[$i + 1];
@@ -1298,7 +1298,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
         $k                =  $this->_lastMarker();
         $this->_stack[$k] =  array();
         $tuple            =& $this->_stack[$k];
-        $max              =  count($this->_stack);
+        $max              =  count(\Zend_Tool_Migration::forCount($this->_stack));
         for($i = $k + 1; $i < $max; $i++) {
             $tuple[] = $this->_stack[$i];
             unset($this->_stack[$i]);
@@ -1427,7 +1427,7 @@ class Zend_Serializer_Adapter_PythonPickle extends Zend_Serializer_Adapter_Adapt
      */
     protected function _lastMarker()
     {
-        for ($k = count($this->_stack)-1; $k >= 0; $k -= 1) {
+        for ($k = count(\Zend_Tool_Migration::forCount($this->_stack))-1; $k >= 0; $k -= 1) {
             if ($this->_stack[$k] === $this->_marker) {
                 break;
             }

@@ -318,7 +318,7 @@ class Zend_Service_SqlAzure_Management_Client
      */
     public static function createQueryStringFromArray($queryString)
     {
-    	return count($queryString) > 0 ? '?' . implode('&', $queryString) : '';
+    	return count(\Zend_Tool_Migration::forCount($queryString)) > 0 ? '?' . implode('&', $queryString) : '';
     }
     
 	/**
@@ -398,7 +398,7 @@ class Zend_Service_SqlAzure_Management_Client
                 if (!$xml->Server) {
                     return array();
 		}
-		if (count($xml->Server) > 1) {
+		if (count(\Zend_Tool_Migration::forCount($xml->Server)) > 1) {
     		    $xmlServices = $xml->Server;
     		} else {
     		    $xmlServices = array($xml->Server);
@@ -407,7 +407,7 @@ class Zend_Service_SqlAzure_Management_Client
 		$services = array();
 		if (!is_null($xmlServices)) {				
 				
-                    for ($i = 0; $i < count($xmlServices); $i++) {
+                    for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlServices)); $i++) {
                         $services[] = new Zend_Service_SqlAzure_Management_ServerInstance(
                                 	    (string)$xmlServices[$i]->Name,
 					    (string)$xmlServices[$i]->AdministratorLogin,
@@ -542,7 +542,7 @@ class Zend_Service_SqlAzure_Management_Client
     		if (!$xml->FirewallRule) {
                     return array();
 		}
-		if (count($xml->FirewallRule) > 1) {
+		if (count(\Zend_Tool_Migration::forCount($xml->FirewallRule)) > 1) {
     		    $xmlServices = $xml->FirewallRule;
     		} else {
     		    $xmlServices = array($xml->FirewallRule);
@@ -551,7 +551,7 @@ class Zend_Service_SqlAzure_Management_Client
 		$services = array();
 		if (!is_null($xmlServices)) {				
                     
-                    for ($i = 0; $i < count($xmlServices); $i++) {
+                    for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlServices)); $i++) {
                         $services[] = new Zend_Service_SqlAzure_Management_FirewallRuleInstance(
 					    (string)$xmlServices[$i]->Name,
 					    (string)$xmlServices[$i]->StartIpAddress,

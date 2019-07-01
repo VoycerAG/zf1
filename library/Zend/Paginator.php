@@ -531,13 +531,13 @@ class Zend_Paginator implements Countable, IteratorAggregate
     public function getTotalItemCount()
     {
         if (!$this->_cacheEnabled()) {
-            return count($this->getAdapter());
+            return count(\Zend_Tool_Migration::forCount($this->getAdapter()));
         } else {
             $cacheId   = md5($this->_getCacheInternalId(). '_itemCount');            
             $itemCount = self::$_cache->load($cacheId);
 
             if ($itemCount === false) {
-                $itemCount = count($this->getAdapter());
+                $itemCount = count(\Zend_Tool_Migration::forCount($this->getAdapter()));
 
                 self::$_cache->save($itemCount, $cacheId, array($this->_getCacheInternalId()));
             }
@@ -768,7 +768,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
         $itemCount = 0;
 
         if (is_array($items) || $items instanceof Countable) {
-            $itemCount = count($items);
+            $itemCount = count(\Zend_Tool_Migration::forCount($items));
         } else { // $items is something like LimitIterator
             $itemCount = iterator_count($items);
         }

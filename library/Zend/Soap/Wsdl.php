@@ -625,7 +625,7 @@ class Zend_Soap_Wsdl
             if (in_array($key, array('sequence', 'all', 'choice'))) {
                 if (is_array($value)) {
                     $complexType = $this->_dom->createElement('xsd:complexType');
-                    if (count($value) > 0) {
+                    if (count(\Zend_Tool_Migration::forCount($value)) > 0) {
                         $container = $this->_dom->createElement('xsd:' . $key);
                         foreach ($value as $subelement) {
                             $subelementXml = $this->_parseElement($subelement);

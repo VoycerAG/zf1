@@ -312,7 +312,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
             }
         }
 
-        if (count($this->_messages) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_messages)) > 0) {
             return false;
         }
 

@@ -166,7 +166,7 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
                     if (preg_match($matchExpression, $index->currentTerm()->text) === 1) {
                         $this->_matches[] = $index->currentTerm();
 
-                        if ($maxTerms != 0  &&  count($this->_matches) > $maxTerms) {
+                        if ($maxTerms != 0  &&  count(\Zend_Tool_Migration::forCount($this->_matches)) > $maxTerms) {
                             require_once 'Zend/Search/Lucene/Exception.php';
                             throw new Zend_Search_Lucene_Exception('Terms per query limit is reached.');
                         }
@@ -181,7 +181,7 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
                     if (preg_match($matchExpression, $index->currentTerm()->text) === 1) {
                         $this->_matches[] = $index->currentTerm();
 
-                        if ($maxTerms != 0  &&  count($this->_matches) > $maxTerms) {
+                        if ($maxTerms != 0  &&  count(\Zend_Tool_Migration::forCount($this->_matches)) > $maxTerms) {
                             require_once 'Zend/Search/Lucene/Exception.php';
                             throw new Zend_Search_Lucene_Exception('Terms per query limit is reached.');
                         }
@@ -194,10 +194,10 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
             $index->closeTermsStream();
         }
 
-        if (count($this->_matches) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_matches)) == 0) {
             require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
             return new Zend_Search_Lucene_Search_Query_Empty();
-        } else if (count($this->_matches) == 1) {
+        } else if (count(\Zend_Tool_Migration::forCount($this->_matches)) == 1) {
             require_once 'Zend/Search/Lucene/Search/Query/Term.php';
             return new Zend_Search_Lucene_Search_Query_Term(reset($this->_matches));
         } else {

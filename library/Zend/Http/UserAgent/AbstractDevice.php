@@ -430,7 +430,7 @@ abstract class Zend_Http_UserAgent_AbstractDevice
             $result['product_version'] = trim($match[4]);
             $result['browser_version'] = trim($match[4]);
         }
-        if (count($comment) && !empty($comment[0])) {
+        if (count(\Zend_Tool_Migration::forCount($comment)) && !empty($comment[0])) {
             $result['comment']['full']     = trim($match[7]);
             $result['comment']['detail']   = $comment;
             $result['compatibility_flag']  = trim($comment[0]);
@@ -447,7 +447,7 @@ abstract class Zend_Http_UserAgent_AbstractDevice
         }
         if ($match2) {
             $i = 0;
-            $max = count($match2[0]);
+            $max = count(\Zend_Tool_Migration::forCount($match2[0]));
             for ($i = 0; $i < $max; $i ++) {
                 if (!empty($match2[0][$i])) {
                     $result['others']['detail'][] = array(
@@ -563,7 +563,7 @@ abstract class Zend_Http_UserAgent_AbstractDevice
                 }
                 if (isset($result['others']['detail'][1])) {
                     $result['browser_version']  = $result['others']['detail'][1][2];
-                } elseif (isset($result['others']['detail']) && count($result['others']['detail'])) {
+                } elseif (isset($result['others']['detail']) && count(\Zend_Tool_Migration::forCount($result['others']['detail']))) {
                     $result['browser_version']  = $result['others']['detail'][0][2];
                 }
                 if (!empty($result['others']['detail'][2])) {
@@ -583,13 +583,13 @@ abstract class Zend_Http_UserAgent_AbstractDevice
                 if (isset($result['others']['detail'][1]) && $result['others']['detail'][1][1] == 'Version') {
                     $result['browser_version'] = $result['others']['detail'][1][2];
                 } else {
-                    $result['browser_version'] = $result['others']['detail'][count($result['others']['detail']) - 1][2];
+                    $result['browser_version'] = $result['others']['detail'][count(\Zend_Tool_Migration::forCount($result['others']['detail'])) - 1][2];
                 }
                 if (isset($comment[3])) {
                      $result['browser_language'] = trim($comment[3]);
                 }
 
-                $last = $result['others']['detail'][count($result['others']['detail']) - 1][1];
+                $last = $result['others']['detail'][count(\Zend_Tool_Migration::forCount($result['others']['detail'])) - 1][1];
 
                 if (empty($result['others']['detail'][2][1]) || $result['others']['detail'][2][1] == 'Safari') {
                     if (isset($result['others']['detail'][1])) {
@@ -636,13 +636,13 @@ abstract class Zend_Http_UserAgent_AbstractDevice
             // Gecko (Firefox or compatible)
             if ($result['others']['detail'][0][1] == 'Gecko') {
                 $searchRV = true;
-                if (!empty($result['others']['detail'][1][1]) && !empty($result['others']['detail'][count($result['others']['detail']) - 1][2]) || strpos(strtolower($result['others']['full']), 'opera') !== false) {
+                if (!empty($result['others']['detail'][1][1]) && !empty($result['others']['detail'][count(\Zend_Tool_Migration::forCount($result['others']['detail'])) - 1][2]) || strpos(strtolower($result['others']['full']), 'opera') !== false) {
                     $searchRV = false;
                     $result['browser_engine'] = $result['others']['detail'][0][1];
 
                     // the name of the application is at the end indepenently
                     // of quantity of information in $result['others']['detail']
-                    $last = count($result['others']['detail']) - 1;
+                    $last = count(\Zend_Tool_Migration::forCount($result['others']['detail'])) - 1;
 
                     // exception : if the version of the last information is
                     // empty we take the previous one
@@ -728,7 +728,7 @@ abstract class Zend_Http_UserAgent_AbstractDevice
         // UA ends with 'Opera X.XX'
         if (isset($result['browser_name']) && isset($result['browser_engine'])) {
             if ($result['browser_name'] == 'Opera' && $result['browser_engine'] == 'Gecko' && empty($result['browser_version'])) {
-                $result['browser_version'] = $result['others']['detail'][count($result['others']['detail']) - 1][1];
+                $result['browser_version'] = $result['others']['detail'][count(\Zend_Tool_Migration::forCount($result['others']['detail'])) - 1][1];
             }
         }
 

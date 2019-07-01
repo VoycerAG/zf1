@@ -264,7 +264,7 @@ class Zend_Queue_Message_Iterator implements Iterator, Countable
      */
     public function valid()
     {
-        return $this->_pointer < count($this);
+        return $this->_pointer < count(\Zend_Tool_Migration::forCount($this));
     }
 
     /*
@@ -280,6 +280,6 @@ class Zend_Queue_Message_Iterator implements Iterator, Countable
      */
     public function count()
     {
-        return count($this->_data);
+        return count(\Zend_Tool_Migration::forCount($this->_data));
     }
 }

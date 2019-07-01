@@ -86,7 +86,7 @@ class Zend_View_Helper_PartialLoop extends Zend_View_Helper_Partial
         $content = '';
         // reset the counter if it's call again
         $this->partialCounter    = 0;
-        $this->partialTotalCount = count($model);
+        $this->partialTotalCount = count(\Zend_Tool_Migration::forCount($model));
 
         foreach ($model as $item) {
             // increment the counter variable

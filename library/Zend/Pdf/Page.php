@@ -270,7 +270,7 @@ class Zend_Pdf_Page extends Zend_Pdf_Canvas_Abstract
             }
 
             $pageDim = explode(':', $param1);
-            if(count($pageDim) == 2  ||  count($pageDim) == 3) {
+            if(count(\Zend_Tool_Migration::forCount($pageDim)) == 2  ||  count(\Zend_Tool_Migration::forCount($pageDim)) == 3) {
                 $pageWidth  = $pageDim[0];
                 $pageHeight = $pageDim[1];
             } else {
@@ -568,7 +568,7 @@ class Zend_Pdf_Page extends Zend_Pdf_Canvas_Abstract
             $this->_dictionary->Contents->touch();
         }
 
-        if ((!$this->_safeGS)  &&  (count($this->_dictionary->Contents->items) != 0)) {
+        if ((!$this->_safeGS)  &&  (count(\Zend_Tool_Migration::forCount($this->_dictionary->Contents->items)) != 0)) {
             /**
              * Page already has some content which is not treated as safe.
              *

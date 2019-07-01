@@ -87,7 +87,7 @@ class Zend_Amf_Response
         $stream->writeByte($objectEncoding);
 
         // Loop through the AMF Headers that need to be returned.
-        $headerCount = count($this->_headers);
+        $headerCount = count(\Zend_Tool_Migration::forCount($this->_headers));
         $stream->writeInt($headerCount);
         foreach ($this->getAmfHeaders() as $header) {
             $serializer = new Zend_Amf_Parse_Amf0_Serializer($stream);
@@ -105,7 +105,7 @@ class Zend_Amf_Response
         }
 
         // loop through the AMF bodies that need to be returned.
-        $bodyCount = count($this->_bodies);
+        $bodyCount = count(\Zend_Tool_Migration::forCount($this->_bodies));
         $stream->writeInt($bodyCount);
         foreach ($this->_bodies as $body) {
             $serializer = new Zend_Amf_Parse_Amf0_Serializer($stream);

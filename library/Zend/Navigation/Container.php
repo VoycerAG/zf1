@@ -280,7 +280,7 @@ abstract class Zend_Navigation_Container implements RecursiveIterator, Countable
      */
     public function hasPages()
     {
-        return count($this->_index) > 0;
+        return count(\Zend_Tool_Migration::forCount($this->_index)) > 0;
     }
 
     /**
@@ -618,6 +618,6 @@ abstract class Zend_Navigation_Container implements RecursiveIterator, Countable
      */
     public function count()
     {
-        return count($this->_index);
+        return count(\Zend_Tool_Migration::forCount($this->_index));
     }
 }

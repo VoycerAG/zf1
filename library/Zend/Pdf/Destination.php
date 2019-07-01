@@ -58,7 +58,7 @@ abstract class Zend_Pdf_Destination extends Zend_Pdf_Target
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('An explicit destination must be a direct or an indirect array object.');
         }
-        if (count($resource->items) < 2) {
+        if (count(\Zend_Tool_Migration::forCount($resource->items)) < 2) {
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('An explicit destination array must contain at least two elements.');
         }

@@ -209,7 +209,7 @@ class Zend_Cache_Backend_Libmemcached extends Zend_Cache_Backend implements Zend
             $this->_log("Memcached::set() failed: [{$rsCode}] {$rsMsg}");
         }
 
-        if (count($tags) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($tags)) > 0) {
             $this->_log(self::TAGS_UNSUPPORTED_BY_SAVE_OF_LIBMEMCACHED_BACKEND);
         }
 

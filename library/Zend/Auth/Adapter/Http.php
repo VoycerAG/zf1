@@ -532,7 +532,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         }
         // Fix for ZF-1515: Now re-challenges on empty username or password
         $creds = array_filter(explode(':', $auth));
-        if (count($creds) != 2) {
+        if (count(\Zend_Tool_Migration::forCount($creds)) != 2) {
             return $this->_challengeClient();
         }
 

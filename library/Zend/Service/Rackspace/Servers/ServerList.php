@@ -111,7 +111,7 @@ class Zend_Service_Rackspace_Servers_ServerList implements Countable, Iterator, 
      */
     public function count()
     {
-        return count($this->servers);
+        return count(\Zend_Tool_Migration::forCount($this->servers));
     }
     /**
      * Return the current element

@@ -243,7 +243,7 @@ class Zend_Pdf_Parser
                     require_once 'Zend/Pdf/Exception.php';
                     throw new Zend_Pdf_Exception(sprintf('PDF file syntax error. Offset - 0x%X. Cross reference stream dictionary Index entry must be an array.', $offset));
                 }
-                $sections = count($trailerDict->Index->items)/2;
+                $sections = count(\Zend_Tool_Migration::forCount($trailerDict->Index->items))/2;
             } else {
                 $sections = 1;
             }

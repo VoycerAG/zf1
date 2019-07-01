@@ -340,7 +340,7 @@ class Zend_Mail_Part implements RecursiveIterator, Zend_Mail_Part_Interface
             return $this->_countParts;
         }
 
-        $this->_countParts = count($this->_parts);
+        $this->_countParts = count(\Zend_Tool_Migration::forCount($this->_parts));
         if ($this->_countParts) {
             return $this->_countParts;
         }
@@ -352,7 +352,7 @@ class Zend_Mail_Part implements RecursiveIterator, Zend_Mail_Part_Interface
 
         $this->_cacheContent();
 
-        $this->_countParts = count($this->_parts);
+        $this->_countParts = count(\Zend_Tool_Migration::forCount($this->_parts));
         return $this->_countParts;
     }
 

@@ -329,7 +329,7 @@ abstract class Zend_Translate_Adapter {
             $this->_addTranslationData($options);
         }
 
-        if ((isset($this->_translate[$originate]) === true) and (count($this->_translate[$originate]) > 0)) {
+        if ((isset($this->_translate[$originate]) === true) and (count(\Zend_Tool_Migration::forCount($this->_translate[$originate])) > 0)) {
             $this->setLocale($originate);
         }
 
@@ -706,7 +706,7 @@ abstract class Zend_Translate_Adapter {
 
         $plural = null;
         if (is_array($messageId)) {
-            if (count($messageId) > 2) {
+            if (count(\Zend_Tool_Migration::forCount($messageId)) > 2) {
                 $number = array_pop($messageId);
                 if (!is_numeric($number)) {
                     $plocale = $number;

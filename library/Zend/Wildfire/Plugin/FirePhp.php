@@ -523,12 +523,12 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
 
         $trace = array_splice($trace, $options['traceOffset']);
 
-        if (!count($trace)) {
+        if (!count(\Zend_Tool_Migration::forCount($trace))) {
             return $trace;
         }
 
         if (isset($options['fixZendLogOffsetIfApplicable']) && $options['fixZendLogOffsetIfApplicable']) {
-            if (count($trace) >=3 &&
+            if (count(\Zend_Tool_Migration::forCount($trace)) >=3 &&
                 isset($trace[0]['file']) && substr($trace[0]['file'], -7, 7)=='Log.php' &&
                 isset($trace[1]['function']) && $trace[1]['function']=='__call') {
 
@@ -622,9 +622,9 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
       if (!$table) {
           return $table;
       }
-      for ($i=0 ; $i<count($table) ; $i++) {
+      for ($i=0 ; $i<count(\Zend_Tool_Migration::forCount($table)) ; $i++) {
           if (is_array($table[$i])) {
-              for ($j=0 ; $j<count($table[$i]) ; $j++) {
+              for ($j=0 ; $j<count(\Zend_Tool_Migration::forCount($table[$i])) ; $j++) {
                   $table[$i][$j] = $this->_encodeObject($table[$i][$j]);
               }
           }

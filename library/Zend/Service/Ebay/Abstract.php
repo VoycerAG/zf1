@@ -198,8 +198,8 @@ abstract class Zend_Service_Ebay_Abstract
             if (is_array($value)) {
                 // parse an array value, check if it is associative
                 $keyRaw    = array_keys($value);
-                $keyNumber = range(0, count($value) - 1);
-                $isAssoc   = count(array_diff($keyRaw, $keyNumber)) > 0;
+                $keyNumber = range(0, count(\Zend_Tool_Migration::forCount($value)) - 1);
+                $isAssoc   = count(\Zend_Tool_Migration::forCount(array_diff($keyRaw, $keyNumber))) > 0;
                 // check for tag representation, like <name att="sometinhg"></value>
                 // empty key refers to text value
                 // when there is a root tag, attributes receive flags

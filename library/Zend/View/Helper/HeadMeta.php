@@ -147,7 +147,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
         if (preg_match('/^(?P<action>set|(pre|ap)pend|offsetSet)(?P<type>Name|HttpEquiv|Property)$/', $method, $matches)) {
             $action = $matches['action'];
             $type   = $this->_normalizeType($matches['type']);
-            $argc   = count($args);
+            $argc   = count(\Zend_Tool_Migration::forCount($args));
             $index  = null;
 
             if ('offsetSet' == $action) {

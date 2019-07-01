@@ -337,7 +337,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
         $info = $this->_table[$qualifiedName];
         $argv = $info->getInvokeArguments();
 
-        if (0 < count($argv)) {
+        if (0 < count(\Zend_Tool_Migration::forCount($argv))) {
             $params = array_merge($params, $argv);
         }
 
@@ -369,7 +369,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
             }
         } else {
             require_once 'Zend/Amf/Server/Exception.php';
-            throw new Zend_Amf_Server_Exception('Method missing implementation ' . get_class($info));
+            throw new Zend_Amf_Server_Exception('Method missing implementation ' . ($info !== null ? get_class($info) : get_class()));
         }
 
         return $return;

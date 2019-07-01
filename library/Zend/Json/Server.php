@@ -88,7 +88,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
      */
     public function addFunction($function, $namespace = '')
     {
-        if (!is_string($function) && (!is_array($function) || (2 > count($function)))) {
+        if (!is_string($function) && (!is_array($function) || (2 > count(\Zend_Tool_Migration::forCount($function))))) {
             require_once 'Zend/Json/Server/Exception.php';
             throw new Zend_Json_Server_Exception('Unable to attach function; invalid');
         }
@@ -379,7 +379,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
      */
     protected function _getDefaultParams(array $args, array $params)
     {
-        $defaultParams = array_slice($params, count($args));
+        $defaultParams = array_slice($params, count(\Zend_Tool_Migration::forCount($args)));
         foreach ($defaultParams as $param) {
             $value = null;
             if (array_key_exists('default', $param)) {
@@ -464,7 +464,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
         foreach ($method->getPrototypes() as $prototype) {
             $return[] = $prototype->getReturnType();
         }
-        if (1 == count($return)) {
+        if (1 == count(\Zend_Tool_Migration::forCount($return))) {
             return $return[0];
         }
         return $return;
@@ -522,7 +522,7 @@ class Zend_Json_Server extends Zend_Server_Abstract
         $service       = $serviceMap->getService($method);
         $serviceParams = $service->getParams();
 
-        if (count($params) < count($serviceParams)) {
+        if (count(\Zend_Tool_Migration::forCount($params)) < count(\Zend_Tool_Migration::forCount($serviceParams))) {
             $params = $this->_getDefaultParams($params, $serviceParams);
         }
 

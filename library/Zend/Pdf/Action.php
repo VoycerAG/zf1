@@ -264,7 +264,7 @@ abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveItera
         $processedActions->attach($this);
 
         $childListUpdated = false;
-        if (count($this->_originalNextList) != count($this->next)) {
+        if (count(\Zend_Tool_Migration::forCount($this->_originalNextList)) != count(\Zend_Tool_Migration::forCount($this->next))) {
             // If original and current children arrays have different size then children list was updated
             $childListUpdated = true;
         } else if ( !(array_keys($this->_originalNextList) === array_keys($this->next)) ) {
@@ -281,7 +281,7 @@ abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveItera
 
         if ($childListUpdated) {
             $this->_actionDictionary->touch();
-            switch (count($this->next)) {
+            switch (count(\Zend_Tool_Migration::forCount($this->next))) {
                 case 0:
                     $this->_actionDictionary->Next = null;
                     break;
@@ -384,7 +384,7 @@ abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveItera
      */
     public function hasChildren()
     {
-        return count($this->next) > 0;
+        return count(\Zend_Tool_Migration::forCount($this->next)) > 0;
     }
 
 
@@ -399,6 +399,6 @@ abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveItera
      */
     public function count()
     {
-        return count($this->childOutlines);
+        return count(\Zend_Tool_Migration::forCount($this->childOutlines));
     }
 }

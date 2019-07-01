@@ -159,7 +159,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
 
         }
         foreach ($this->_attributeTypes as $val) {
-            if (count($val->sup) > 0) {
+            if (count(\Zend_Tool_Migration::forCount($val->sup)) > 0) {
                 $this->_resolveInheritance($val, $this->_attributeTypes);
             }
             foreach ($val->aliases as $alias) {
@@ -226,7 +226,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
             $this->_objectClasses[$val->getName()] = $val;
         }
         foreach ($this->_objectClasses as $val) {
-            if (count($val->sup) > 0) {
+            if (count(\Zend_Tool_Migration::forCount($val->sup)) > 0) {
                 $this->_resolveInheritance($val, $this->_objectClasses);
             }
             foreach ($val->aliases as $alias) {
@@ -277,7 +277,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
     {
         $data = $node->getData();
         $parents = $data['sup'];
-        if ($parents === null || !is_array($parents) || count($parents) < 1) return;
+        if ($parents === null || !is_array($parents) || count(\Zend_Tool_Migration::forCount($parents)) < 1) return;
         foreach ($parents as $parent) {
             if (!array_key_exists($parent, $repository)) continue;
             if (!array_key_exists('_parents', $data) || !is_array($data['_parents'])) {
@@ -444,7 +444,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
         // tokens that can have multiple values
         $multiValue = array('must', 'may', 'sup');
 
-        while (count($tokens) > 0) {
+        while (count(\Zend_Tool_Migration::forCount($tokens)) > 0) {
             $token = strtolower(array_shift($tokens));
             if (in_array($token, $noValue)) {
                 $data[$token] = true; // single value token
@@ -485,8 +485,8 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
         // this one is taken from PEAR::Net_LDAP2
         $pattern = "/\s* (?:([()]) | ([^'\s()]+) | '((?:[^']+|'[^\s)])*)') \s*/x";
         preg_match_all($pattern, $value, $matches);
-        $cMatches = count($matches[0]);
-        $cPattern = count($matches);
+        $cMatches = count(\Zend_Tool_Migration::forCount($matches[0]));
+        $cPattern = count(\Zend_Tool_Migration::forCount($matches));
         for ($i = 0; $i < $cMatches; $i++) {     // number of tokens (full pattern match)
             for ($j = 1; $j < $cPattern; $j++) { // each subpattern
                 $tok = trim($matches[$j][$i]);
@@ -496,7 +496,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
             }
         }
         if ($tokens[0] == '(') array_shift($tokens);
-        if ($tokens[count($tokens) - 1] == ')') array_pop($tokens);
+        if ($tokens[count(\Zend_Tool_Migration::forCount($tokens)) - 1] == ')') array_pop($tokens);
         return $tokens;
     }
 }

@@ -122,7 +122,7 @@ class Zend_Tool_Framework_Action_Repository
      */
     public function count()
     {
-        return count($this->_actions);
+        return count(\Zend_Tool_Migration::forCount($this->_actions));
     }
 
     /**

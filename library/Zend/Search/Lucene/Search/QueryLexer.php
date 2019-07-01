@@ -349,7 +349,7 @@ class Zend_Search_Lucene_Search_QueryLexer extends Zend_Search_Lucene_FSM
         }
 
         for ($this->_queryStringPosition = 0;
-             $this->_queryStringPosition < count($this->_queryString);
+             $this->_queryStringPosition < count(\Zend_Tool_Migration::forCount($this->_queryString));
              $this->_queryStringPosition++) {
             $this->process($this->_translateInput($this->_queryString[$this->_queryStringPosition]));
         }
@@ -389,7 +389,7 @@ class Zend_Search_Lucene_Search_QueryLexer extends Zend_Search_Lucene_FSM
             $this->_queryStringPosition++;
 
             // check,
-            if ($this->_queryStringPosition == count($this->_queryString)  ||
+            if ($this->_queryStringPosition == count(\Zend_Tool_Migration::forCount($this->_queryString))  ||
                 $this->_queryString[$this->_queryStringPosition] != $lexeme) {
                     require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
                     throw new Zend_Search_Lucene_Search_QueryParserException('Two chars lexeme expected. ' . $this->_positionMsg());

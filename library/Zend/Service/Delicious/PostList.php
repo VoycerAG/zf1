@@ -116,7 +116,7 @@ class Zend_Service_Delicious_PostList implements Countable, Iterator, ArrayAcces
         $postList = new self($this->_service);
 
         foreach ($this->_posts as $post) {
-            if (count(array_diff($tags, $post->getTags())) == 0) {
+            if (count(\Zend_Tool_Migration::forCount(array_diff($tags, $post->getTags()))) == 0) {
                 $postList->_addPost($post);
             }
         }
@@ -163,7 +163,7 @@ class Zend_Service_Delicious_PostList implements Countable, Iterator, ArrayAcces
      */
     public function count()
     {
-        return count($this->_posts);
+        return count(\Zend_Tool_Migration::forCount($this->_posts));
     }
 
     /**

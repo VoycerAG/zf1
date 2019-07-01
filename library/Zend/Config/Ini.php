@@ -205,7 +205,7 @@ class Zend_Config_Ini extends Zend_Config
         {
             $pieces = explode($this->_sectionSeparator, $key);
             $thisSection = trim($pieces[0]);
-            switch (count($pieces)) {
+            switch (count(\Zend_Tool_Migration::forCount($pieces))) {
                 case 1:
                     $iniArray[$thisSection] = $data;
                     break;

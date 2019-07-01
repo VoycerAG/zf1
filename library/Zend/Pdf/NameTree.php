@@ -63,7 +63,7 @@ class Zend_Pdf_NameTree implements ArrayAccess, Iterator, Countable
             $leafNodes[] = $rootDictionary;
         }
 
-        while (count($intermediateNodes) != 0) {
+        while (count(\Zend_Tool_Migration::forCount($intermediateNodes)) != 0) {
             $newIntermediateNodes = array();
             foreach ($intermediateNodes as $node) {
                 foreach ($node->Kids->items as $childNode) {
@@ -78,7 +78,7 @@ class Zend_Pdf_NameTree implements ArrayAccess, Iterator, Countable
         }
 
         foreach ($leafNodes as $leafNode) {
-            $destinationsCount = count($leafNode->Names->items)/2;
+            $destinationsCount = count(\Zend_Tool_Migration::forCount($leafNode->Names->items))/2;
             for ($count = 0; $count < $destinationsCount; $count++) {
                 $this->_items[$leafNode->Names->items[$count*2]->value] = $leafNode->Names->items[$count*2 + 1];
             }
@@ -149,6 +149,6 @@ class Zend_Pdf_NameTree implements ArrayAccess, Iterator, Countable
 
     public function count()
     {
-        return count($this->_items);
+        return count(\Zend_Tool_Migration::forCount($this->_items));
     }
 }

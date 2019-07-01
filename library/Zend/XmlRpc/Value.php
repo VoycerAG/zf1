@@ -269,7 +269,7 @@ abstract class Zend_XmlRpc_Value
             }
             return self::getXmlRpcTypeByValue(get_object_vars($value));
         } elseif (is_array($value)) {
-            if (!empty($value) && is_array($value) && (array_keys($value) !== range(0, count($value) - 1))) {
+            if (!empty($value) && is_array($value) && (array_keys($value) !== range(0, count(\Zend_Tool_Migration::forCount($value)) - 1))) {
                 return self::XMLRPC_TYPE_STRUCT;
             }
             return self::XMLRPC_TYPE_ARRAY;
@@ -486,13 +486,15 @@ abstract class Zend_XmlRpc_Value
      */
     protected static function _extractTypeAndValue(SimpleXMLElement $xml, &$type, &$value)
     {
-        list($type, $value) = each($xml);
+        $type = key($xml);
+        $value = current($xml);
 
         if (!$type and $value === null) {
             $namespaces = array('ex' => 'http://ws.apache.org/xmlrpc/namespaces/extensions');
             foreach ($namespaces as $namespaceName => $namespaceUri) {
                 $namespaceXml = $xml->children($namespaceUri);
-                list($type, $value) = each($namespaceXml);
+                $type = key($namespaceXml);
+                $value = current($namespaceXml);
                 if ($type !== null) {
                     $type = $namespaceName . ':' . $type;
                     break;

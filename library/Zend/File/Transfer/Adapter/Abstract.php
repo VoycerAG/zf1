@@ -388,7 +388,7 @@ abstract class Zend_File_Transfer_Adapter_Abstract
                     $this->addValidator($validatorInfo, null, null, $files);
                 }
             } else if (is_array($validatorInfo)) {
-                $argc                = count($validatorInfo);
+                $argc                = count(\Zend_Tool_Migration::forCount($validatorInfo));
                 $breakChainOnFailure = false;
                 $options             = array();
                 if (isset($validatorInfo['validator'])) {
@@ -679,18 +679,18 @@ abstract class Zend_File_Transfer_Adapter_Abstract
                         break;
                     }
 
-                    if (($class === 'Zend_Validate_File_Upload') and (count($fileerrors) > 0)) {
+                    if (($class === 'Zend_Validate_File_Upload') and (count(\Zend_Tool_Migration::forCount($fileerrors)) > 0)) {
                         break;
                     }
 
-                    if (($this->_break[$class]) and (count($fileerrors) > 0)) {
+                    if (($this->_break[$class]) and (count(\Zend_Tool_Migration::forCount($fileerrors)) > 0)) {
                         $break = true;
                         break;
                     }
                 }
             }
 
-            if (count($fileerrors) > 0) {
+            if (count(\Zend_Tool_Migration::forCount($fileerrors)) > 0) {
                 $this->_files[$key]['validated'] = false;
             } else {
                 $this->_files[$key]['validated'] = true;
@@ -702,7 +702,7 @@ abstract class Zend_File_Transfer_Adapter_Abstract
             }
         }
 
-        if (count($this->_messages) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_messages)) > 0) {
             return false;
         }
 
@@ -958,7 +958,7 @@ abstract class Zend_File_Transfer_Adapter_Abstract
             $result[$file] = $directory . $this->_files[$file]['name'];
         }
 
-        if (count($result) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($result)) == 1) {
             return current($result);
         }
 
@@ -1096,7 +1096,7 @@ abstract class Zend_File_Transfer_Adapter_Abstract
 
         if (empty($destinations)) {
             $destinations = $this->_getTmpDir();
-        } else if (count($destinations) == 1) {
+        } else if (count(\Zend_Tool_Migration::forCount($destinations)) == 1) {
             $destinations = current($destinations);
         }
 
@@ -1190,7 +1190,7 @@ abstract class Zend_File_Transfer_Adapter_Abstract
             }
         }
 
-        if (count($result) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($result)) == 1) {
             return current($result);
         }
 
@@ -1223,7 +1223,7 @@ abstract class Zend_File_Transfer_Adapter_Abstract
             }
         }
 
-        if (count($result) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($result)) == 1) {
             return current($result);
         }
 
@@ -1272,7 +1272,7 @@ abstract class Zend_File_Transfer_Adapter_Abstract
             }
         }
 
-        if (count($result) == 1) {
+        if (count(\Zend_Tool_Migration::forCount($result)) == 1) {
             return current($result);
         }
 
@@ -1365,7 +1365,7 @@ abstract class Zend_File_Transfer_Adapter_Abstract
             }
         }
 
-        if (count($this->_messages) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_messages)) > 0) {
             return false;
         }
 

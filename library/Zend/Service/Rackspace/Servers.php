@@ -152,7 +152,7 @@ class Zend_Service_Rackspace_Servers extends Zend_Service_Rackspace_Abstract
             require_once 'Zend/Service/Rackspace/Exception.php';
             throw new Zend_Service_Rackspace_Exception(self::ERROR_PARAM_NO_IMAGEID);
         }
-        if (count($files)>self::LIMIT_NUM_FILE) {
+        if (count(\Zend_Tool_Migration::forCount($files))>self::LIMIT_NUM_FILE) {
             require_once 'Zend/Service/Rackspace/Exception.php';
             throw new Zend_Service_Rackspace_Exception('You can attach '.self::LIMIT_NUM_FILE.' files maximum');
         }

@@ -242,7 +242,7 @@ abstract class Zend_Mail_Protocol_Abstract
      */
     protected function _addLog($value)
     {
-        if ($this->_maximumLog >= 0 && count($this->_log) >= $this->_maximumLog) {
+        if ($this->_maximumLog >= 0 && count(\Zend_Tool_Migration::forCount($this->_log)) >= $this->_maximumLog) {
             array_shift($this->_log);
         }
 

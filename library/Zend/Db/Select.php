@@ -263,7 +263,7 @@ class Zend_Db_Select
      */
     public function columns($cols = '*', $correlationName = null)
     {
-        if ($correlationName === null && count($this->_parts[self::FROM])) {
+        if ($correlationName === null && count(\Zend_Tool_Migration::forCount($this->_parts[self::FROM]))) {
             $correlationNameKeys = array_keys($this->_parts[self::FROM]);
             $correlationName = current($correlationNameKeys);
         }
@@ -786,7 +786,7 @@ class Zend_Db_Select
             throw new Zend_Db_Select_Exception("Invalid join type '$type'");
         }
 
-        if (count($this->_parts[self::UNION])) {
+        if (count(\Zend_Tool_Migration::forCount($this->_parts[self::UNION]))) {
             require_once 'Zend/Db/Select/Exception.php';
             throw new Zend_Db_Select_Exception("Invalid use of table with " . self::SQL_UNION);
         }
@@ -1022,7 +1022,7 @@ class Zend_Db_Select
      */
     protected function _where($condition, $value = null, $type = null, $bool = true)
     {
-        if (count($this->_parts[self::UNION])) {
+        if (count(\Zend_Tool_Migration::forCount($this->_parts[self::UNION]))) {
             require_once 'Zend/Db/Select/Exception.php';
             throw new Zend_Db_Select_Exception("Invalid use of where clause with " . self::SQL_UNION);
         }
@@ -1100,7 +1100,7 @@ class Zend_Db_Select
      */
     protected function _renderColumns($sql)
     {
-        if (!count($this->_parts[self::COLUMNS])) {
+        if (!count(\Zend_Tool_Migration::forCount($this->_parts[self::COLUMNS]))) {
             return null;
         }
 
@@ -1182,7 +1182,7 @@ class Zend_Db_Select
     protected function _renderUnion($sql)
     {
         if ($this->_parts[self::UNION]) {
-            $parts = count($this->_parts[self::UNION]);
+            $parts = count(\Zend_Tool_Migration::forCount($this->_parts[self::UNION]));
             foreach ($this->_parts[self::UNION] as $cnt => $union) {
                 list($target, $type) = $union;
                 if ($target instanceof Zend_Db_Select) {

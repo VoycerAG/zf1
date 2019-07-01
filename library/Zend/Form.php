@@ -638,7 +638,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             }
 
             if (is_array($value)) {
-                $count = count($value);
+                $count = count(\Zend_Tool_Migration::forCount($value));
                 if (array_keys($value) === range(0, $count - 1)) {
                     if ($count < 2) {
                         continue;
@@ -1049,7 +1049,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             }
 
             if (is_array($this->_elementDecorators)
-                && 0 == count($element->getDecorators())
+                && 0 == count(\Zend_Tool_Migration::forCount($element->getDecorators()))
             ) {
                 $element->setDecorators($this->_elementDecorators);
             }
@@ -1156,7 +1156,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             }
 
             if (is_array($spec)) {
-                $argc = count($spec);
+                $argc = count(\Zend_Tool_Migration::forCount($spec));
                 $options = array();
                 if (isset($spec['type'])) {
                     $type = $spec['type'];
@@ -1683,7 +1683,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             }
 
             if (is_array($spec)) {
-                $argc  = count($spec);
+                $argc  = count(\Zend_Tool_Migration::forCount($spec));
                 $order = null;
                 switch ($argc) {
                     case 0:
@@ -1937,7 +1937,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 continue;
             }
 
-            $argc    = count($spec);
+            $argc    = count(\Zend_Tool_Migration::forCount($spec));
             $options = array();
 
             if (isset($spec['elements'])) {
@@ -2212,7 +2212,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     {
         $ordered = array();
         foreach ($this->_order as $name => $order) {
-            $order = isset($order) ? $order : count($ordered);
+            $order = isset($order) ? $order : count(\Zend_Tool_Migration::forCount($ordered));
             if ($this->$name instanceof Zend_Form_Element ||
                 $this->$name instanceof Zend_Form) {
                 array_splice($ordered, $order, 0, array($this->$name));
@@ -2221,7 +2221,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 /** @var Zend_Form_Element $element */
                 foreach ($this->$name->getElements() as $element) {
                     $suborder = $element->getOrder();
-                    $suborder = (null !== $suborder) ? $suborder : count($subordered);
+                    $suborder = (null !== $suborder) ? $suborder : count(\Zend_Tool_Migration::forCount($subordered));
                     array_splice($subordered, $suborder, 0, array($element));
                 }
                 if (!empty($subordered)) {
@@ -2778,7 +2778,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                     $this->addDecorator($decoratorInfo);
                 }
             } elseif (is_array($decoratorInfo)) {
-                $argc    = count($decoratorInfo);
+                $argc    = count(\Zend_Tool_Migration::forCount($decoratorInfo));
                 $options = array();
                 if (isset($decoratorInfo['decorator'])) {
                     $decorator = $decoratorInfo['decorator'];
@@ -3246,7 +3246,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             if (false !== ($decorator = $this->getDecorator($decoratorName))) {
                 $decorator->setElement($this);
                 $seed = '';
-                if (0 < count($args)) {
+                if (0 < count(\Zend_Tool_Migration::forCount($args))) {
                     $seed = array_shift($args);
                 }
                 if ($decoratorName === 'FormElements' ||
@@ -3341,7 +3341,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      */
     public function count()
     {
-        return count($this->_order);
+        return count(\Zend_Tool_Migration::forCount($this->_order));
     }
 
     /**

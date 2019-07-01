@@ -397,7 +397,7 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
             throw new Zend_Service_Amazon_Sqs_Exception($result->Error->Code);
         }
 
-        if(count($result->GetQueueAttributesResult->Attribute) > 1) {
+        if(count(\Zend_Tool_Migration::forCount($result->GetQueueAttributesResult->Attribute)) > 1) {
             $attr_result = array();
             foreach($result->GetQueueAttributesResult->Attribute as $attribute) {
                 $attr_result[(string)$attribute->Name] = (string)$attribute->Value;

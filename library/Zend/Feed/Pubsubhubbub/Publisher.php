@@ -371,7 +371,7 @@ class Zend_Feed_Pubsubhubbub_Publisher
      */
     public function isSuccess()
     {
-        if (count($this->_errors) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_errors)) > 0) {
             return false;
         }
         return true;

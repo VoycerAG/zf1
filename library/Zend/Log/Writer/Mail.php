@@ -207,7 +207,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
         }
 
         $headerAddresses = array_intersect_key($config, self::$_methodMapHeaders);
-        if (count($headerAddresses)) {
+        if (count(\Zend_Tool_Migration::forCount($headerAddresses))) {
             foreach ($headerAddresses as $header => $address) {
                 $method = self::$_methodMapHeaders[$header];
                 if (is_array($address) && isset($address['name'])

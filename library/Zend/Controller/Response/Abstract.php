@@ -192,7 +192,7 @@ abstract class Zend_Controller_Response_Abstract
      */
     public function clearHeader($name)
     {
-        if (! count($this->_headers)) {
+        if (! count(\Zend_Tool_Migration::forCount($this->_headers))) {
             return $this;
         }
 
@@ -252,7 +252,7 @@ abstract class Zend_Controller_Response_Abstract
      */
     public function clearRawHeader($headerRaw)
     {
-        if (! count($this->_headersRaw)) {
+        if (! count(\Zend_Tool_Migration::forCount($this->_headersRaw))) {
             return $this;
         }
 
@@ -337,7 +337,7 @@ abstract class Zend_Controller_Response_Abstract
     public function sendHeaders()
     {
         // Only check if we can send headers if we have headers to send
-        if (count($this->_headersRaw) || count($this->_headers) || (200 != $this->_httpResponseCode)) {
+        if (count(\Zend_Tool_Migration::forCount($this->_headersRaw)) || count(\Zend_Tool_Migration::forCount($this->_headers)) || (200 != $this->_httpResponseCode)) {
             $this->canSendHeaders(true);
         } elseif (200 == $this->_httpResponseCode) {
             // Haven't changed the response code, and we have no headers
@@ -564,7 +564,7 @@ abstract class Zend_Controller_Response_Abstract
         if (0 === $loc) {
             // If location of key is 0, we're prepending
             $this->_body = $ins + $this->_body;
-        } elseif ($loc >= (count($this->_body))) {
+        } elseif ($loc >= (count(\Zend_Tool_Migration::forCount($this->_body)))) {
             // If location of key is maximal, we're appending
             $this->_body = $this->_body + $ins;
         } else {

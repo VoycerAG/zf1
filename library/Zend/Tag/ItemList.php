@@ -47,7 +47,7 @@ class Zend_Tag_ItemList implements Countable, SeekableIterator, ArrayAccess
      */
     public function count()
     {
-        return count($this->_items);
+        return count(\Zend_Tool_Migration::forCount($this->_items));
     }
 
     /**
@@ -60,7 +60,7 @@ class Zend_Tag_ItemList implements Countable, SeekableIterator, ArrayAccess
     public function spreadWeightValues(array $values)
     {
         // Don't allow an empty value list
-        if (count($values) === 0) {
+        if (count(\Zend_Tool_Migration::forCount($values)) === 0) {
             require_once 'Zend/Tag/Exception.php';
             throw new Zend_Tag_Exception('Value list may not be empty');
         }
@@ -69,7 +69,7 @@ class Zend_Tag_ItemList implements Countable, SeekableIterator, ArrayAccess
         $values = array_values($values);
 
         // If just a single value is supplied simply assign it to to all tags
-        if (count($values) === 1) {
+        if (count(\Zend_Tool_Migration::forCount($values)) === 1) {
             foreach ($this->_items as $item) {
                 $item->setParam('weightValue', $values[0]);
             }
@@ -89,7 +89,7 @@ class Zend_Tag_ItemList implements Countable, SeekableIterator, ArrayAccess
             }
 
             // Calculate the thresholds
-            $steps      = count($values);
+            $steps      = count(\Zend_Tool_Migration::forCount($values));
             $delta      = ($maxWeight - $minWeight) / ($steps - 1);
             $thresholds = array();
 

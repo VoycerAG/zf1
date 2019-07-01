@@ -129,7 +129,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
         $fields   = $this->getPart(Zend_Db_Table_Select::COLUMNS);
         $cols     = $this->_info[Zend_Db_Table_Abstract::COLS];
 
-        if (!count($fields)) {
+        if (!count(\Zend_Tool_Migration::forCount($fields))) {
             return $readOnly;
         }
 
@@ -194,10 +194,10 @@ class Zend_Db_Table_Select extends Zend_Db_Select
         $schema  = $this->_info[Zend_Db_Table_Abstract::SCHEMA];
 
 
-        if (count($this->_parts[self::UNION]) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_parts[self::UNION])) == 0) {
 
             // If no fields are specified we assume all fields from primary table
-            if (!count($fields)) {
+            if (!count(\Zend_Tool_Migration::forCount($fields))) {
                 $this->from($primary, self::SQL_WILDCARD, $schema);
                 $fields = $this->getPart(Zend_Db_Table_Select::COLUMNS);
             }

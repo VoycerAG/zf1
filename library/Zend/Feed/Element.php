@@ -188,12 +188,12 @@ class Zend_Feed_Element implements ArrayAccess
     public function __get($var)
     {
         $nodes = $this->_children($var);
-        $length = count($nodes);
+        $length = count(\Zend_Tool_Migration::forCount($nodes));
 
         if ($length == 1) {
             return new Zend_Feed_Element($nodes[0]);
         } elseif ($length > 1) {
-            return array_map(create_function('$e', 'return new Zend_Feed_Element($e);'), $nodes);
+            return array_map(function($e) {return new Zend_Feed_Element($e);}, $nodes);
         } else {
             // When creating anonymous nodes for __set chaining, don't
             // call appendChild() on them. Instead we pass the current
@@ -238,7 +238,7 @@ class Zend_Feed_Element implements ArrayAccess
                     htmlspecialchars($val, ENT_NOQUOTES, $this->getEncoding()));
                 $this->_element->appendChild($node);
             }
-        } elseif (count($nodes) > 1) {
+        } elseif (count(\Zend_Tool_Migration::forCount($nodes)) > 1) {
             /**
              * @see Zend_Feed_Exception
              */
@@ -295,7 +295,7 @@ class Zend_Feed_Element implements ArrayAccess
 
         if (!$nodes) {
             return null;
-        } elseif (count($nodes) > 1) {
+        } elseif (count(\Zend_Tool_Migration::forCount($nodes)) > 1) {
             return $nodes;
         } else {
             return $nodes[0]->nodeValue;

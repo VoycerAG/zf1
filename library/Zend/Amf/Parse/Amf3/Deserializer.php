@@ -184,7 +184,7 @@ class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
         if (($stringReference & 0x01) == 0) {
             // reference string
             $stringReference = $stringReference >> 1;
-            if ($stringReference >= count($this->_referenceStrings)) {
+            if ($stringReference >= count(\Zend_Tool_Migration::forCount($this->_referenceStrings))) {
                 require_once 'Zend/Amf/Exception.php';
                 throw new Zend_Amf_Exception('Undefined string reference: ' . $stringReference);
             }
@@ -218,7 +218,7 @@ class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
         $dateReference = $this->readInteger();
         if (($dateReference & 0x01) == 0) {
             $dateReference = $dateReference >> 1;
-            if ($dateReference>=count($this->_referenceObjects)) {
+            if ($dateReference>=count(\Zend_Tool_Migration::forCount($this->_referenceObjects))) {
                 require_once 'Zend/Amf/Exception.php';
                 throw new Zend_Amf_Exception('Undefined date reference: ' . $dateReference);
             }
@@ -245,7 +245,7 @@ class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
         $arrayReference = $this->readInteger();
         if (($arrayReference & 0x01)==0){
             $arrayReference = $arrayReference >> 1;
-            if ($arrayReference>=count($this->_referenceObjects)) {
+            if ($arrayReference>=count(\Zend_Tool_Migration::forCount($this->_referenceObjects))) {
                 require_once 'Zend/Amf/Exception.php';
                 throw new Zend_Amf_Exception('Unknow array reference: ' . $arrayReference);
             }

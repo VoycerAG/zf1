@@ -212,7 +212,7 @@ class Zend_Ldap
         } else {
             $message = '';
         }
-        if (count($errorMessages) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($errorMessages)) > 0) {
             $message .= '(' . implode('; ', $errorMessages) . ')';
         } else {
             $message .= '(no error message from LDAP)';
@@ -309,7 +309,7 @@ class Zend_Ldap
                 }
             }
         }
-        if (count($options) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($options)) > 0) {
             $key = key($options);
             /**
              * @see Zend_Ldap_Exception
@@ -1216,7 +1216,7 @@ class Zend_Ldap
         }
         self::prepareLdapEntryArray($entry);
         foreach ($entry as $key => $value) {
-            if (is_array($value) && count($value) === 0) {
+            if (is_array($value) && count(\Zend_Tool_Migration::forCount($value)) === 0) {
                 unset($entry[$key]);
             }
         }
@@ -1280,7 +1280,7 @@ class Zend_Ldap
             }
         }
 
-        if (count($entry) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($entry)) > 0) {
             $isModified = @ldap_modify($this->getResource(), $dn->toString(), $entry);
             if($isModified === false) {
                 /**

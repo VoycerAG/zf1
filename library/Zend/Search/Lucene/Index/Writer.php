@@ -565,7 +565,7 @@ class Zend_Search_Lucene_Index_Writer
             }
             $segmentsFile->close();
 
-            $segmentsCount = count($segments) + count($this->_newSegments);
+            $segmentsCount = count(\Zend_Tool_Migration::forCount($segments)) + count(\Zend_Tool_Migration::forCount($this->_newSegments));
 
             foreach ($this->_newSegments as $segName => $segmentInfo) {
                 $newSegmentFile->writeString($segName);

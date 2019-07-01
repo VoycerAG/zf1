@@ -332,7 +332,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     {
         $this->logIn();
 
-        if (count($this->_fieldValues) > 0) {
+        if (count(\Zend_Tool_Migration::forCount($this->_fieldValues)) > 0) {
             $this->setFieldValues($this->_fieldValues);
         }
 

@@ -1928,7 +1928,7 @@ class Zend_Locale
 
         $parts = explode('_', $locale);
         if (!isset(self::$_localeData[$parts[0]])) {
-            if ((count($parts) == 1) && array_key_exists($parts[0], self::$_territoryData)) {
+            if ((count(\Zend_Tool_Migration::forCount($parts)) == 1) && array_key_exists($parts[0], self::$_territoryData)) {
                 return self::$_territoryData[$parts[0]];
             }
 

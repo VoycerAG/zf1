@@ -382,7 +382,7 @@ class Zend_Log
     {
         $priority = strtoupper($method);
         if (($priority = array_search($priority, $this->_priorities)) !== false) {
-            switch (count($params)) {
+            switch (count(\Zend_Tool_Migration::forCount($params))) {
                 case 0:
                     /** @see Zend_Log_Exception */
                     require_once 'Zend/Log/Exception.php';

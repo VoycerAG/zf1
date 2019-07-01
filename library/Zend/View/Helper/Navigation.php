@@ -190,7 +190,7 @@ class Zend_View_Helper_Navigation
                 $e = new Zend_View_Exception(sprintf(
                         'Proxy helper "%s" is not an instance of ' .
                         'Zend_View_Helper_Navigation_Helper',
-                        get_class($helper)));
+                    $helper !== null ? get_class($helper) : get_class()));
                 $e->setView($this->view);
                 throw $e;
             }

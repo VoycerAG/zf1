@@ -442,7 +442,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
         // ZF-7698
         $stmt->closeCursor();
 
-        if (count($result) == 0) {
+        if (count(\Zend_Tool_Migration::forCount($result)) == 0) {
             return array();
         }
 

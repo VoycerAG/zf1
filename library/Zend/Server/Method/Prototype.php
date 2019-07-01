@@ -92,7 +92,7 @@ class Zend_Server_Method_Prototype
         if ($parameter instanceof Zend_Server_Method_Parameter) {
             $this->_parameters[] = $parameter;
             if (null !== ($name = $parameter->getName())) {
-                $this->_parameterNameMap[$name] = count($this->_parameters) - 1;
+                $this->_parameterNameMap[$name] = count(\Zend_Tool_Migration::forCount($this->_parameters)) - 1;
             }
         } else {
             require_once 'Zend/Server/Method/Parameter.php';

@@ -305,7 +305,7 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 
 				$entries = null;
 				if ($result->SignedIdentifier) {
-					if (count($result->SignedIdentifier) > 1) {
+					if (count(\Zend_Tool_Migration::forCount($result->SignedIdentifier)) > 1) {
 						$entries = $result->SignedIdentifier;
 					} else {
 						$entries = array($result->SignedIdentifier);
@@ -362,7 +362,7 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 
 		// Policies
 		$policies = null;
-		if (is_array($signedIdentifiers) && count($signedIdentifiers) > 0) {
+		if (is_array($signedIdentifiers) && count(\Zend_Tool_Migration::forCount($signedIdentifiers)) > 0) {
 			$policies  = '';
 			$policies .= '<?xml version="1.0" encoding="utf-8"?>' . "\r\n";
 			$policies .= '<SignedIdentifiers>' . "\r\n";
@@ -472,7 +472,7 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 			require_once 'Zend/Service/WindowsAzure/Exception.php';
 			throw new Zend_Service_WindowsAzure_Exception('Meta data should be an array of key and value pairs.');
 		}
-		if (count($metadata) == 0) {
+		if (count(\Zend_Tool_Migration::forCount($metadata)) == 0) {
 			return;
 		}
 
@@ -562,7 +562,7 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 
 			$containers = array();
 			if (!is_null($xmlContainers)) {
-				for ($i = 0; $i < count($xmlContainers); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlContainers)); $i++) {
 					
 					$containers[] = new Zend_Service_WindowsAzure_Storage_BlobContainer(
 					(string)$xmlContainers[$i]->Name,
@@ -572,13 +572,13 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 					);
 				}
 			}
-			$currentResultCount = $currentResultCount + count($containers);
+			$currentResultCount = $currentResultCount + count(\Zend_Tool_Migration::forCount($containers));
 			if (!is_null($maxResults) && $currentResultCount < $maxResults) {
 				if (!is_null($xmlMarker) && $xmlMarker != '') {
 					$containers = array_merge($containers, $this->listContainers($prefix, $maxResults, $xmlMarker, $include, $currentResultCount));
 				}
 			}
-			if (!is_null($maxResults) && count($containers) > $maxResults) {
+			if (!is_null($maxResults) && count(\Zend_Tool_Migration::forCount($containers)) > $maxResults) {
 				$containers = array_slice($containers, 0, $maxResults);
 			}
 			 
@@ -871,7 +871,7 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 			require_once 'Zend/Service/WindowsAzure/Exception.php';
 			throw new Zend_Service_WindowsAzure_Exception('Blob name is not specified.');
 		}
-		if (count($blockList) == 0) {
+		if (count(\Zend_Tool_Migration::forCount($blockList)) == 0) {
 			require_once 'Zend/Service/WindowsAzure/Exception.php';
 			throw new Zend_Service_WindowsAzure_Exception('Block list does not contain any elements.');
 		}
@@ -1215,7 +1215,7 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 		if ($response->isSuccessful()) {
 			$result = $this->_parseResponse($response);
 			$xmlRanges = null;
-			if (count($result->PageRange) > 1) {
+			if (count(\Zend_Tool_Migration::forCount($result->PageRange)) > 1) {
 				$xmlRanges = $result->PageRange;
 			} else {
 				$xmlRanges = array($result->PageRange);
@@ -1224,7 +1224,7 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 			
 			$ranges = array();
 			
-			for ($i = 0; $i < count($xmlRanges); $i++) {
+			for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlRanges)); $i++) {
 				$ranges[] = new Zend_Service_WindowsAzure_Storage_PageRegionInstance(
 				(int)$xmlRanges[$i]->Start,
 				(int)$xmlRanges[$i]->End
@@ -1563,7 +1563,7 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 			require_once 'Zend/Service/WindowsAzure/Exception.php';
 			throw new Zend_Service_WindowsAzure_Exception('Blobs stored in the root container can not have a name containing a forward slash (/).');
 		}
-		if (count($metadata) == 0) {
+		if (count(\Zend_Tool_Migration::forCount($metadata)) == 0) {
 			return;
 		}
 
@@ -1616,7 +1616,7 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 			require_once 'Zend/Service/WindowsAzure/Exception.php';
 			throw new Zend_Service_WindowsAzure_Exception('Blobs stored in the root container can not have a name containing a forward slash (/).');
 		}
-		if (count($additionalHeaders) == 0) {
+		if (count(\Zend_Tool_Migration::forCount($additionalHeaders)) == 0) {
 			require_once 'Zend/Service/WindowsAzure/Exception.php';
 			throw new Zend_Service_WindowsAzure_Exception('No additional headers are specified.');
 		}
@@ -1887,7 +1887,7 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 			$xmlBlobs = $this->_parseResponse($response)->Blobs->Blob;
 			if (!is_null($xmlBlobs)) {
 				
-				for ($i = 0; $i < count($xmlBlobs); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlBlobs)); $i++) {
 					$properties = (array)$xmlBlobs[$i]->Properties;
 						
 					$blobs[] = new Zend_Service_WindowsAzure_Storage_BlobInstance(
@@ -1915,7 +1915,7 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 				
 			if (!is_null($xmlBlobs)) {
 				
-				for ($i = 0; $i < count($xmlBlobs); $i++) {
+				for ($i = 0; $i < count(\Zend_Tool_Migration::forCount($xmlBlobs)); $i++) {
 					$blobs[] = new Zend_Service_WindowsAzure_Storage_BlobInstance(
 					$containerName,
 					(string)$xmlBlobs[$i]->Name,
@@ -1938,13 +1938,13 @@ class Zend_Service_WindowsAzure_Storage_Blob extends Zend_Service_WindowsAzure_S
 				
 			// More blobs?
 			$xmlMarker = (string)$this->_parseResponse($response)->NextMarker;
-			$currentResultCount = $currentResultCount + count($blobs);
+			$currentResultCount = $currentResultCount + count(\Zend_Tool_Migration::forCount($blobs));
 			if (!is_null($maxResults) && $currentResultCount < $maxResults) {
 				if (!is_null($xmlMarker) && $xmlMarker != '') {
 					$blobs = array_merge($blobs, $this->listBlobs($containerName, $prefix, $delimiter, $maxResults, $marker, $include, $currentResultCount));
 				}
 			}
-			if (!is_null($maxResults) && count($blobs) > $maxResults) {
+			if (!is_null($maxResults) && count(\Zend_Tool_Migration::forCount($blobs)) > $maxResults) {
 				$blobs = array_slice($blobs, 0, $maxResults);
 			}
 				

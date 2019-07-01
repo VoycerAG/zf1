@@ -150,7 +150,7 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
             throw new Zend_Queue_Exception('Queue does not exist');
         }
 
-        return count($this->_data[$queue->getName()]);
+        return count(\Zend_Tool_Migration::forCount($this->_data[$queue->getName()]));
     }
 
     /********************************************************************

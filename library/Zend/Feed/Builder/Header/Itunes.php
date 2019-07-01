@@ -61,7 +61,7 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
      */
     public function setCategories(array $categories)
     {
-        $nb = count($categories);
+        $nb = count(\Zend_Tool_Migration::forCount($categories));
         if (0 === $nb) {
             /**
              * @see Zend_Feed_Builder_Exception

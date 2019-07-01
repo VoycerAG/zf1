@@ -69,7 +69,7 @@ class Zend_Paginator_Adapter_Iterator implements Zend_Paginator_Adapter_Interfac
         }
 
         $this->_iterator = $iterator;
-        $this->_count = count($iterator);
+        $this->_count = count(\Zend_Tool_Migration::forCount($iterator));
     }
 
     /**
